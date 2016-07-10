@@ -8,6 +8,14 @@
 
 #import "WWLiveTableViewController.h"
 #import "WWLiveTableViewCell.h"
+#import "WWRecordedDetailsViewController.h"
+#import "WWUtils.h"
+#import "NSUserDefaults+Signin.h"
+
+typedef enum : NSUInteger {
+    kPlayTypesLive = 0,
+    kPlayTypesRecorded,
+} kPlayTypes;
 
 
 @interface WWLiveTableViewController ()
@@ -18,12 +26,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,6 +46,19 @@ static NSString *kIdentifier = @"Live Cell";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    WWRecordedDetailsViewController *recordedDetailsVC = (WWRecordedDetailsViewController *)[WWUtils getVCWithStoryboard:@"Recorded" viewControllerId:@"RecordedDetailsVC"];
+    WWVideoModel *video = self.liveList[indexPath.row];
+    recordedDetailsVC.video = video;
+    if (video.streamType == kPlayTypesLive) {
+        if ([NSUserDefaults standardUserDefaults].userToken.length == 0) {
+            [WWUtils showTipAlertWithMessage:@"直播需要登录后才能观看"];
+            [WWUtils showLoginVCWithTargetVC:self];
+            return;
+        }
+    }
+    [self.navigationController pushViewController:recordedDetailsVC animated:YES];
+}
 
 /*
 // Override to support conditional editing of the table view.

@@ -70,11 +70,17 @@ typedef enum : NSUInteger {
 
 #pragma mark - Private Method
 - (void)loginIM {
+
     EMError *error = [[EMClient sharedClient] registerWithUsername:[NSUserDefaults standardUserDefaults].uid password:@"123456"];
     if (error == nil) {
         NSLog(@"注册成功");
     } else {
-        NSLog(@"环信:%@",error);
+        EMError *error = [[EMClient sharedClient] loginWithUsername:[NSUserDefaults standardUserDefaults].uid password:@"123456"];
+        if (error == nil) {
+            NSLog(@"IM登录成功");
+        } else {
+            NSLog(@"IM登录失败");
+        }
     }
 }
 
@@ -220,12 +226,13 @@ typedef enum : NSUInteger {
     [[NSUserDefaults standardUserDefaults] setUserInfo:userToken.user];
     WWUserInfoModel *user = userToken.user;
     
-    if (userToken.showInvited.integerValue == 1) {
+    if (userToken.showInvited.integerValue == 0) {
         WWInviteCodeViewController *inviteCodeVC = (WWInviteCodeViewController *)[WWUtils getVCWithStoryboard:@"Account" viewControllerId:@"InviteCodeVC"];
         inviteCodeVC.uib = user.uid;
         [self.navigationController pushViewController:inviteCodeVC animated:YES];
+    } else {
+        
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*

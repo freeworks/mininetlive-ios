@@ -38,7 +38,7 @@ typedef enum : NSUInteger {
     [super viewDidLoad];
     self.generalList = [NSMutableArray array];
     self.videos = [NSMutableArray array];
-        
+
     [self addMJRefresh];
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];

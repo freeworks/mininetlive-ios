@@ -75,7 +75,15 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     UIImage *newPhoto = [info objectForKey:@"UIImagePickerControllerEditedImage"];
     self.image = newPhoto;
-    self.block(newPhoto);
+    
+    NSData *data;
+    if (UIImagePNGRepresentation(newPhoto) == nil) {
+        data = UIImageJPEGRepresentation(newPhoto, 1);
+    } else {
+        data = UIImagePNGRepresentation(newPhoto);
+    }
+    
+    self.block(newPhoto, data);
     [self.currentVC dismissViewControllerAnimated:YES completion:nil];
 }
 

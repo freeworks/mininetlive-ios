@@ -20,7 +20,7 @@ typedef enum : NSUInteger {
 
 @protocol PayViewDelegate <NSObject>
 
-- (void)choicePaymentClick:(kPayment)payment andMoney:(NSString *)money;
+- (void)choicePaymentClick:(kPayment)payment andMoney:(NSString *)money andMethod:(kMethod)method;
 
 @end
 

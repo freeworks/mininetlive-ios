@@ -10,12 +10,16 @@
 #import "WWUtils.h"
 #import "WWLoginViewController.h"
 #import "NSUserDefaults+Signin.h"
+#import "WWRecordedViewController.h"
+#import "WWLiveTableViewController.h"
+#import "WWUserCenterViewController.h"
 
 
 #define TABBARITEMS @[@"首页",@"直播",@"我的"]
 
 @interface WWTabBarViewController ()
-
+@property (strong, nonatomic) UINavigationController *recordedNav;
+@property (strong, nonatomic) UINavigationController *liveNav;
 @end
 
 @implementation WWTabBarViewController
@@ -25,19 +29,21 @@
     // Do any additional setup after loading the view.
     
     
-    UINavigationController *recordedNav = (UINavigationController *)[WWUtils getVCWithStoryboard:@"Recorded" viewControllerId:@"RecordedNav"];
-    recordedNav.title = TABBARITEMS[0];
-    recordedNav.tabBarItem = [self createTabbarItemWithIndex:0 imgaeName:@"ic_home" selectedImageName:@"ic_home_selected"];
+    self.recordedNav = (UINavigationController *)[WWUtils getVCWithStoryboard:@"Recorded" viewControllerId:@"RecordedNav"];
+    self.recordedNav.title = TABBARITEMS[0];
+    self.recordedNav.tabBarItem = [self createTabbarItemWithIndex:0 imgaeName:@"ic_home" selectedImageName:@"ic_home_selected"];
     
-    UINavigationController *liveNav = (UINavigationController *)[WWUtils getVCWithStoryboard:@"Live" viewControllerId:@"LiveNav"];
-    liveNav.title = TABBARITEMS[1];
-    liveNav.tabBarItem = [self createTabbarItemWithIndex:1 imgaeName:@"ic_live" selectedImageName:@"ic_live_selected"];
+    self.liveNav = (UINavigationController *)[WWUtils getVCWithStoryboard:@"Live" viewControllerId:@"LiveNav"];
+    self.liveNav.title = TABBARITEMS[1];
+    self.liveNav.tabBarItem = [self createTabbarItemWithIndex:1 imgaeName:@"ic_live" selectedImageName:@"ic_live_selected"];
     
     UINavigationController *userNav = (UINavigationController *)[WWUtils getVCWithStoryboard:@"User" viewControllerId:@"UserNav"];
     userNav.title = TABBARITEMS[2];
     userNav.tabBarItem = [self createTabbarItemWithIndex:2 imgaeName:@"ic_me" selectedImageName:@"ic_me_selected"];
-
-    self.viewControllers = @[recordedNav, liveNav, userNav];
+    WWUserCenterViewController *userVC = (WWUserCenterViewController *)userNav.topViewController;
+    userVC.tabBar = self;
+    
+    self.viewControllers = @[self.recordedNav, self.liveNav, userNav];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:19],
                                                            NSForegroundColorAttributeName:RGBA(74, 144, 226, 1)}];
 }
@@ -55,17 +61,21 @@
 }
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-//    NSInteger index = [TABBARITEMS indexOfObject:item.title];
-//    if (index == 2 && [NSUserDefaults standardUserDefaults].userToken.length == 0) {
-//        UINavigationController *loginNav = (UINavigationController *)[WWUtils getVCWithStoryboard:@"Account" viewControllerId:@"RegisterNavVC"];
-//        for (UIViewController *vc in loginNav.viewControllers) {
-//            if ([vc isKindOfClass:[WWLoginViewController class]]) {
-//                WWLoginViewController *loginVC = (WWLoginViewController *)vc;
-//                loginVC.tabBar = self;
-//            }
-//        }
-//        [self presentViewController:loginNav animated:YES completion:nil];
-//    }
+    NSInteger index = [TABBARITEMS indexOfObject:item.title];
+    if (index == 2 && [NSUserDefaults standardUserDefaults].userToken.length == 0) {
+        UINavigationController *loginNav = (UINavigationController *)[WWUtils getVCWithStoryboard:@"Account" viewControllerId:@"RegisterNavVC"];
+        for (UIViewController *vc in loginNav.viewControllers) {
+            if ([vc isKindOfClass:[WWLoginViewController class]]) {
+                WWLoginViewController *loginVC = (WWLoginViewController *)vc;
+                loginVC.tabBar = self;
+            }
+        }
+        [self presentViewController:loginNav animated:YES completion:nil];
+    } else if (index == 1) {
+        WWRecordedViewController *recordedVC = (WWRecordedViewController *)self.recordedNav.topViewController;
+        WWLiveTableViewController *liveVC = (WWLiveTableViewController *)self.liveNav.topViewController;
+        liveVC.liveList = recordedVC.recommendList;
+    }
 }
 
 

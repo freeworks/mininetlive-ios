@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface WWUserCenterViewController : UITableViewController
-
+@property (strong, nonatomic) UITabBarController *tabBar;
 @end

@@ -23,6 +23,7 @@
 #import "WWLiveDetailsFootView.h"
 #import "WWRecordedVideoImageView.h"
 #import "WWPlayerView.h"
+#import "WWPromptView.h"
 
 
 
@@ -115,24 +116,30 @@ typedef enum : NSUInteger {
 
 #pragma mark - PayView Delegate
 //支付方式和金额
-- (void)choicePaymentClick:(kPayment)payment andMoney:(NSString *)money {
+- (void)choicePaymentClick:(kPayment)payment andMoney:(NSString *)money andMethod:(kMethod)method {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@(self.video.activityType) forKey:@"amount"];
-    [dic setObject:money forKey:@"payType"];
+    [dic setObject:@(self.video.activityType) forKey:@"payType"];
+    [dic setObject:money forKey:@"amount"];
 
     if (payment == kPaymentAliPay) {
         [dic setObject:@"alipay" forKey:@"channel"];
     } else {
         [dic setObject:@"wx" forKey:@"channel"];
     }
-    
+    __weak __block typeof(self) weakSelf = self;
     [WWRecordedDetailsServices requestPay:dic resultBlock:^(WWbaseModel *baseModel, NSError *error) {
         [Pingpp createPayment:baseModel.data
                viewController:self
                  appURLScheme:@"test"
                withCompletion:^(NSString *result, PingppError *error) {
                    if ([result isEqualToString:@"success"]) {
-                       // 支付成功
+                       WWPromptView *promptView = [WWPromptView loadFromNib];
+                       if (method == kMethodATip) {
+                           [promptView showPromptType:MyPromptATip];
+                       } else {
+                           [promptView showPromptType:MyPromptSuccess];
+                       }
+                       [weakSelf.view addSubview:promptView];
                    } else {
                        // 支付失败或取消
                        NSLog(@"Error: code=%lu msg=%@", error.code, [error getMsg]);
@@ -387,15 +394,23 @@ typedef enum : NSUInteger {
 
 - (void)appointmentClick {
     [SVProgressHUD show];
+    
+    if ([NSUserDefaults standardUserDefaults].userToken.length == 0) {
+        [WWUtils showTipAlertWithMessage:@"请先登录"];
+        [WWUtils showLoginVCWithTargetVC:self];
+        return;
+    }
 
     __weak __block typeof(self) weakSelf = self;
     [WWRecordedDetailsServices requestAppointment:self.video.aid resultBlock:^(WWbaseModel *baseModel, NSError *error) {
         if (!error) {
             [SVProgressHUD dismiss];
-            [WWUtils showTipAlertWithMessage:baseModel.msg];
             if (baseModel.ret == KERN_SUCCESS) {
                 [weakSelf.tabBarView setRightButtonTitle:@"已预约" andBackgroundImageString:@"btn_done"];
                 weakSelf.tabBarView.rightButton.userInteractionEnabled = NO;
+                WWPromptView *promptView = [WWPromptView loadFromNib];
+                [promptView showPromptType:MyPromptAppointment];
+                [weakSelf.view addSubview:promptView];
             }
         } else {
             [SVProgressHUD showErrorWithStatus:@"连接服务器失败"];

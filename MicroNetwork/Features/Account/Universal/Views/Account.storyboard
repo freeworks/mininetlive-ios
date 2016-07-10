@@ -339,7 +339,7 @@
         <scene sceneID="gSQ-s8-PHp">
             <objects>
                 <navigationController storyboardIdentifier="RegisterNavVC" id="SQE-Qn-60Q" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YVF-xk-ic4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="YVF-xk-ic4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

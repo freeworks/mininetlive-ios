@@ -13,13 +13,14 @@
 #import "WWUserServices.h"
 #import "NSUserDefaults+Signin.h"
 #import "SVProgressHUD.h"
+#import "WWMyInviteCodeViewController.h"
+#import "WWUniversalListTableViewController.h"
 
 
 @interface WWUserCenterViewController () <UITableViewDelegate, UIActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *userImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nickName;
 @property (weak, nonatomic) IBOutlet UILabel *phone;
-
 @end
 
 @implementation WWUserCenterViewController
@@ -30,6 +31,7 @@
     self.userImageView.layer.masksToBounds = YES;
     self.userImageView.layer.borderWidth = 1;
     self.userImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    
 }
 
 - (void)initializeTheUserDataShow {
@@ -50,6 +52,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"%zd",indexPath.row);
+    if (indexPath.section == 0) {
+        if (indexPath.row == 1 || indexPath.row == 3) {
+            WWUniversalListTableViewController *universalListVC = (WWUniversalListTableViewController *)[WWUtils getVCWithStoryboard:@"User" viewControllerId:@"UniversalListVC"];
+            universalListVC.listType = indexPath.row;
+            [self.navigationController pushViewController:universalListVC animated:YES];
+        }
+    }
     if (indexPath.section == 2) {
         
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"是否确定要注销登录"
@@ -67,12 +76,13 @@
     if (buttonIndex == 0) {
         __weak __block typeof(self) weakSelf = self;
         [SVProgressHUD show];
-        [WWUserServices requestLogOut:[NSUserDefaults standardUserDefaults].uid resultBlock:^(WWbaseModel *baseModel, NSError *error) {
+        [WWUserServices requestLogOutWithResultBlock:^(WWbaseModel *baseModel, NSError *error) {
             if (!error) {
                 [SVProgressHUD dismiss];
                 if (baseModel.ret == KERN_SUCCESS) {
                     [[NSUserDefaults standardUserDefaults] removeUserInfo];
                     [weakSelf initializeTheUserDataShow];
+                    weakSelf.tabBar.selectedIndex = 0;
                 } else {
                     [WWUtils showTipAlertWithMessage:baseModel.msg];
                 }
@@ -86,9 +96,9 @@
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSLog(@"-------%@",segue.destinationViewController);
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//   
+//}
 
 
 @end

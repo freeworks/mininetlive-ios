@@ -89,6 +89,7 @@
     NSDictionary *parameters = @{@"groupId":groupId};
     [self startDataTaskWithParameters:parameters apiPath:GROUP_MEMBER_LIST_PATH completionBlock:^(id responseObject, NSError *error) {
         if (!error) {
+            NSLog(@"群成员资料:%@",responseObject);
             NSArray *menbers = responseObject[@"data"];
             NSMutableArray *menberList = [NSMutableArray array];
             for (NSDictionary *dic in menbers) {

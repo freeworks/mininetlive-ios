@@ -108,7 +108,7 @@ NSString *const kRet = @"ret";
     if (block) {
         if ([method isEqualToString:kHttpMethodPOST]) {
             [self POSTRequestWithParameters:parameters URLString:URLString sharedManager:sharedManager ResponseBlock:block];
-        } else {
+        } else  {
             [self GETRequestWithParameters:parameters URLString:URLString sharedManager:sharedManager ResponseBlock:block];
         }
     }
@@ -139,6 +139,26 @@ NSString *const kRet = @"ret";
     }];
 }
 
++ (void)uploadImage:(UIImage *)image
+            apiPath:(NSString *)apiPath
+serviceResponseBlock:(ServiceResponseBlock)block {
+    AFHTTPSessionManager *sharedManager = [self.class sharedManager];
+    NSString *URLString = [[NSString alloc] initWithFormat:@"%@%@",[self.class baseURL], apiPath];
+    if (block) {
+        [self uploadImageWith:image URLString:URLString sharedManager:sharedManager ResponseBlock:block];
+    }
+}
+
++ (void)uploadImageWith:(UIImage *)image URLString:(NSString *)URLString sharedManager:(AFHTTPSessionManager *)sharedManager ResponseBlock:(ServiceResponseBlock)block {
+    [sharedManager POST:URLString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+        [formData appendPartWithFileData:imageData name:@"file" fileName:@"file" mimeType:@"file/png"];
+    } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        block(responseObject, nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        block(nil, error);
+    }];
+}
 
 @end
 

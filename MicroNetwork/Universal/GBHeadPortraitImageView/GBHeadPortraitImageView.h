@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^HeadPortraitBlock)(UIImage *newImage);
+typedef void(^HeadPortraitBlock)(UIImage *newImage, NSData *data);
 
 @interface GBHeadPortraitImageView : UIImageView
 

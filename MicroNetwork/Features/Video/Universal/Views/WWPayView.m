@@ -28,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIView *btnView;
 @property (weak, nonatomic) IBOutlet UIView *payView;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldMoney;
+@property (nonatomic) NSInteger method;
 @end
 
 @implementation WWPayView
@@ -43,27 +44,29 @@
 }
 
 - (void)selectMethodOfPayment:(kMethod)method andPayAmount:(NSString *)payAmount {
-    [UIView animateWithDuration:0.5 animations:^{
+    self.method = method;
+    [UIView animateWithDuration:0.3 animations:^{
         self.alpha = 1;
+    } completion:^(BOOL finished) {
+        if (method == kMethodATip) {
+            self.title.text = @"打赏红包";
+            self.btnView.frame = CGRectMake(SCREEN_WIDTH * 0.5 - self.payView.frame.size.width * 0.5, SCREEN_HEIGHT  * 0.5 - self.btnView.frame.size.height * 0.5, self.payView.frame.size.width, 74);
+            [self addSubview:self.btnView];
+            self.textFieldMoney.delegate = self;
+            [self.textFieldMoney setValue:BTN_SELECT_BACKGROUNDCOLOR forKeyPath:@"_placeholderLabel.textColor"];
+            [self.textFieldMoney setValue:[UIFont boldSystemFontOfSize:17] forKeyPath:@"_placeholderLabel.font"];
+        } else {
+            self.title.text = @"支付金额";
+            self.labelPayAmount.text = payAmount;
+        }
     }];
-    if (method == kMethodATip) {
-        self.title.text = @"打赏红包";
-        self.btnView.frame = CGRectMake(SCREEN_WIDTH * 0.5 - self.payView.frame.size.width * 0.5, SCREEN_HEIGHT  * 0.5 - self.btnView.frame.size.height * 0.5, self.payView.frame.size.width, 74);
-        [self addSubview:self.btnView];
-        self.textFieldMoney.delegate = self;
-        [self.textFieldMoney setValue:BTN_SELECT_BACKGROUNDCOLOR forKeyPath:@"_placeholderLabel.textColor"];
-        [self.textFieldMoney setValue:[UIFont boldSystemFontOfSize:17] forKeyPath:@"_placeholderLabel.font"];
-    } else {
-        self.title.text = @"支付金额";
-        self.labelPayAmount.text = payAmount;
-    }
 }
 
 #pragma mark - IBActions
 - (IBAction)btnChoicePayment:(UIButton *)sender {
 
     [self.textFieldMoney resignFirstResponder];
-    if ([self.delegate respondsToSelector:@selector(choicePaymentClick:andMoney:)]) {
+    if ([self.delegate respondsToSelector:@selector(choicePaymentClick:andMoney:andMethod:)]) {
         if (self.textFieldMoney.text.length > 0) {
             self.money = [NSString stringWithFormat:@"%zd",self.textFieldMoney.text.integerValue * 100];
         }
@@ -71,7 +74,7 @@
             [SVProgressHUD showInfoWithStatus:@"请输入金额"];
             return;
         }
-        [self.delegate choicePaymentClick:sender.tag andMoney:self.money];
+        [self.delegate choicePaymentClick:sender.tag andMoney:self.money andMethod:self.method];
         [self removeFromSuperview];
     }
 }

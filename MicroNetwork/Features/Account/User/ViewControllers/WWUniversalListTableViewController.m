@@ -1,58 +1,34 @@
 //
-//  WWUserInfoTableViewController.m
+//  WWUniversalListTableViewController.m
 //  MicroNetwork
 //
-//  Created by Lucas on 16/6/10.
+//  Created by Lucas on 16/7/9.
 //  Copyright © 2016年 Lucas. All rights reserved.
 //
 
-#import "WWUserInfoTableViewController.h"
-#import <AssetsLibrary/AssetsLibrary.h>
-#import <MobileCoreServices/MobileCoreServices.h>
-#import "GBHeadPortraitImageView.h"
-#import "UIImageView+AFNetworking.h"
-#import "NSUserDefaults+Signin.h"
+#import "WWUniversalListTableViewController.h"
 #import "WWUserServices.h"
+#import "WWAppointmentTableViewCell.h"
+#import "WWPlayListTableViewCell.h"
 
 
 typedef enum : NSUInteger {
-    kCellChildControlsImageView = 100,
-    kCellChildControlsName,
-    kCellChildControlsSex,
-    kCellChildControlsPhoneNumber,
-    kCellChildControlsAddress
-} kCellChildControls;
+    MyListTypeAppointment = 1,
+    MyListTypePay,
+    MyListTypePlay,
+} MyListType;
 
-#define ORIGINAL_MAX_WIDTH 640.0f
+@interface WWUniversalListTableViewController ()
 
-@interface WWUserInfoTableViewController () 
-
-@property (weak, nonatomic) IBOutlet UILabel *nickName;
-@property (weak, nonatomic) IBOutlet UILabel *sex;
-@property (weak, nonatomic) IBOutlet UILabel *phoneNumber;
-@property (weak, nonatomic) IBOutlet UILabel *address;
-@property (weak, nonatomic) IBOutlet GBHeadPortraitImageView *headPortrait;
-
-
+@property (strong, nonatomic) NSArray *list;
 @end
 
-@implementation WWUserInfoTableViewController
+@implementation WWUniversalListTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.nickName.text = [NSUserDefaults standardUserDefaults].nickName;
-    self.sex.text = [[NSUserDefaults standardUserDefaults].gender isEqual:@0] ? @"女" : @"男";
-    self.phoneNumber.text = [NSUserDefaults standardUserDefaults].phone;
-    
-    __weak typeof(self)weakSelf = self;
-    [self.headPortrait addTarget:self resultBlock:^(UIImage *newImage, NSData *data) {
-        NSLog(@"%@",newImage);
-        [WWUserServices requestUploadAvatar:newImage resultBlock:^(WWbaseModel *baseModel, NSError *error) {
-            [[NSUserDefaults standardUserDefaults] setAvatar:baseModel.data[@"url"]];
-        }];
-    }];
-    [self.headPortrait setImageWithURL:[NSURL URLWithString:[NSUserDefaults standardUserDefaults].avatar] placeholderImage:[UIImage imageNamed:@"ic_head"]];
+    self.tableView.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0);
+    [self requestListType:self.listType];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,15 +36,47 @@ typedef enum : NSUInteger {
     // Dispose of any resources that can be recreated.
 }
 
+- (void)requestListType:(NSInteger)listType {
+    __weak __block typeof(self) weakSelf = self;
+    [WWUserServices requestListType:listType resultBlock:^(NSArray *list, NSError *error) {
+        weakSelf.list = list;
+        [weakSelf.tableView reloadData];
+    }];
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+
+    return self.list.count;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.listType == MyListTypeAppointment) {
+        WWAppointmentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Appointment Cell" forIndexPath:indexPath];
+        [cell setUniversalListCell:self.list[indexPath.row]];
+        return cell;
+    } else {
+        WWPlayListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Play Cell" forIndexPath:indexPath];
+        [cell setPlayList:self.list[indexPath.row]];
+        return cell;
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
-            [self.headPortrait alterHeadPortrait:nil];
-        }
-    }
-    
 }
+
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if (self.listType == MyListTypePay) {
+//        return 152;
+//    } else {
+//        return 84;
+//    }
+//}
+
 
 /*
 // Override to support conditional editing of the table view.

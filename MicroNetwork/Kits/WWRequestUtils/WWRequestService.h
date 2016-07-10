@@ -43,4 +43,8 @@ typedef void (^ServiceResponseBlock)(id responseObject, NSError *error);
                          HTTPMethod:(NSString *)method
                     completionBlock:(ServiceResponseBlock)block;
 
++ (void)uploadImage:(UIImage *)image
+            apiPath:(NSString *)apiPath
+serviceResponseBlock:(ServiceResponseBlock)block;
+
 @end

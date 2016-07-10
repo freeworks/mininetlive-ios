@@ -12,7 +12,6 @@
 		A011632D1D1C3983002FA172 /* WWUserTokenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A011632C1D1C3983002FA172 /* WWUserTokenModel.m */; };
 		A01672D61D240B22006497AF /* WWRecordedDetailsServices.m in Sources */ = {isa = PBXBuildFile; fileRef = A01672D51D240B22006497AF /* WWRecordedDetailsServices.m */; };
 		A01672DA1D2578B6006497AF /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A01672D81D2578B6006497AF /* libUMessage_Sdk_1.3.0.a */; };
-		A01672E01D29666F006497AF /* WWLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A01672DF1D29666F006497AF /* WWLiveViewController.m */; };
 		A01672E31D297287006497AF /* WWLiveMenberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A01672E21D297287006497AF /* WWLiveMenberTableViewCell.m */; };
 		A01672E61D298315006497AF /* WWLiveDetailsFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = A01672E51D298315006497AF /* WWLiveDetailsFootView.m */; };
 		A01673131D2C0038006497AF /* WWRecordedVideoImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A01673121D2C0038006497AF /* WWRecordedVideoImageView.m */; };
@@ -27,7 +26,6 @@
 		A03587CE1D1E4DB5003CAC6D /* WWInviteCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A03587CD1D1E4DB5003CAC6D /* WWInviteCodeViewController.m */; };
 		A03587DA1D1F1053003CAC6D /* WWWithdrawalsDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A03587D91D1F1053003CAC6D /* WWWithdrawalsDetailTableViewController.m */; };
 		A03587DD1D1F106F003CAC6D /* WWWithdrawalsDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A03587DC1D1F106F003CAC6D /* WWWithdrawalsDetailTableViewCell.m */; };
-		A03587E01D1FA918003CAC6D /* WWMyLiveVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A03587DF1D1FA918003CAC6D /* WWMyLiveVideoTableViewCell.m */; };
 		A03587E31D1FA954003CAC6D /* WWMyLiveVideoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A03587E21D1FA954003CAC6D /* WWMyLiveVideoTableViewController.m */; };
 		A03587E61D1FB820003CAC6D /* WWUserServices.m in Sources */ = {isa = PBXBuildFile; fileRef = A03587E51D1FB820003CAC6D /* WWUserServices.m */; };
 		A03587EF1D203177003CAC6D /* WWMyInviteCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A03587EE1D203177003CAC6D /* WWMyInviteCodeViewController.m */; };
@@ -36,7 +34,7 @@
 		A04CB21B1D09A15600B065CB /* WWRecordedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A04CB21A1D09A15600B065CB /* WWRecordedCollectionViewCell.m */; };
 		A04CB2231D0AAAB300B065CB /* WWUserInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A04CB2221D0AAAB300B065CB /* WWUserInfoTableViewController.m */; };
 		A04CB22E1D0AC61000B065CB /* WWNickNameTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A04CB22D1D0AC61000B065CB /* WWNickNameTableViewController.m */; };
-		A04CB2311D0AC8AE00B065CB /* WWGenderxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A04CB2301D0AC8AE00B065CB /* WWGenderxTableViewController.m */; };
+		A04CB2311D0AC8AE00B065CB /* WWGenderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A04CB2301D0AC8AE00B065CB /* WWGenderTableViewController.m */; };
 		A04CB2331D0B0E9400B065CB /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = A04CB2321D0B0E9400B065CB /* address.plist */; };
 		A04CB2361D0B0F9100B065CB /* WWAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A04CB2351D0B0F9100B065CB /* WWAddressViewController.m */; };
 		A04CB23D1D0B213300B065CB /* WWPositioningTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A04CB23C1D0B213300B065CB /* WWPositioningTableViewCell.m */; };
@@ -98,6 +96,15 @@
 		A0C851841CFB2A0800AA6402 /* WWbaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C851831CFB2A0800AA6402 /* WWbaseModel.m */; };
 		A0CAC3291D30F27D002FC122 /* WWLiveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CAC3281D30F27D002FC122 /* WWLiveTableViewCell.m */; };
 		A0CAC32C1D310698002FC122 /* WWLiveTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CAC32B1D310698002FC122 /* WWLiveTableViewController.m */; };
+		A0CAC3311D3152D1002FC122 /* WWUniversalListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CAC3301D3152D1002FC122 /* WWUniversalListTableViewController.m */; };
+		A0CAC3341D3156E5002FC122 /* WWListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CAC3331D3156E5002FC122 /* WWListModel.m */; };
+		A0CAC3371D316644002FC122 /* WWAppointmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CAC3361D316644002FC122 /* WWAppointmentTableViewCell.m */; };
+		A0CAC33A1D326269002FC122 /* WWMyQrCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CAC3391D326269002FC122 /* WWMyQrCodeViewController.m */; };
+		A0CAC33D1D327D25002FC122 /* WWPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CAC33C1D327D25002FC122 /* WWPromptView.m */; };
+		A0CAC33F1D327D33002FC122 /* WWPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0CAC33E1D327D33002FC122 /* WWPromptView.xib */; };
+		A0CAC3421D32A902002FC122 /* WWPayListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CAC3411D32A902002FC122 /* WWPayListTableViewCell.m */; };
+		A0CAC3451D32B6A7002FC122 /* WWPayListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CAC3441D32B6A7002FC122 /* WWPayListTableViewController.m */; };
+		A0CAC3481D32BBD2002FC122 /* WWPlayListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CAC3471D32BBD2002FC122 /* WWPlayListTableViewCell.m */; };
 		A0D4848B1D143E93005F3CC3 /* GBHeadPortraitImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D4848A1D143E93005F3CC3 /* GBHeadPortraitImageView.m */; };
 		A0D4851C1D1593B1005F3CC3 /* WWVideoListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D4851B1D1593B1005F3CC3 /* WWVideoListModel.m */; };
 		A0D4851F1D1595F7005F3CC3 /* WWVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D4851E1D1595F7005F3CC3 /* WWVideoModel.m */; };
@@ -133,8 +140,6 @@
 		A01672D51D240B22006497AF /* WWRecordedDetailsServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWRecordedDetailsServices.m; sourceTree = "<group>"; };
 		A01672D81D2578B6006497AF /* libUMessage_Sdk_1.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.3.0.a; sourceTree = "<group>"; };
 		A01672D91D2578B6006497AF /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
-		A01672DE1D29666F006497AF /* WWLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWLiveViewController.h; sourceTree = "<group>"; };
-		A01672DF1D29666F006497AF /* WWLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWLiveViewController.m; sourceTree = "<group>"; };
 		A01672E11D297286006497AF /* WWLiveMenberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWLiveMenberTableViewCell.h; sourceTree = "<group>"; };
 		A01672E21D297287006497AF /* WWLiveMenberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWLiveMenberTableViewCell.m; sourceTree = "<group>"; };
 		A01672E41D298315006497AF /* WWLiveDetailsFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWLiveDetailsFootView.h; sourceTree = "<group>"; };
@@ -334,8 +339,6 @@
 		A03587D91D1F1053003CAC6D /* WWWithdrawalsDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWWithdrawalsDetailTableViewController.m; sourceTree = "<group>"; };
 		A03587DB1D1F106F003CAC6D /* WWWithdrawalsDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWWithdrawalsDetailTableViewCell.h; sourceTree = "<group>"; };
 		A03587DC1D1F106F003CAC6D /* WWWithdrawalsDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWWithdrawalsDetailTableViewCell.m; sourceTree = "<group>"; };
-		A03587DE1D1FA918003CAC6D /* WWMyLiveVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWMyLiveVideoTableViewCell.h; sourceTree = "<group>"; };
-		A03587DF1D1FA918003CAC6D /* WWMyLiveVideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWMyLiveVideoTableViewCell.m; sourceTree = "<group>"; };
 		A03587E11D1FA954003CAC6D /* WWMyLiveVideoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWMyLiveVideoTableViewController.h; sourceTree = "<group>"; };
 		A03587E21D1FA954003CAC6D /* WWMyLiveVideoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWMyLiveVideoTableViewController.m; sourceTree = "<group>"; };
 		A03587E41D1FB820003CAC6D /* WWUserServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWUserServices.h; sourceTree = "<group>"; };
@@ -352,7 +355,7 @@
 		A04CB22C1D0AC61000B065CB /* WWNickNameTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWNickNameTableViewController.h; sourceTree = "<group>"; };
 		A04CB22D1D0AC61000B065CB /* WWNickNameTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWNickNameTableViewController.m; sourceTree = "<group>"; };
 		A04CB22F1D0AC8AE00B065CB /* WWGenderTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWGenderTableViewController.h; sourceTree = "<group>"; };
-		A04CB2301D0AC8AE00B065CB /* WWGenderxTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWGenderxTableViewController.m; sourceTree = "<group>"; };
+		A04CB2301D0AC8AE00B065CB /* WWGenderTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWGenderTableViewController.m; sourceTree = "<group>"; };
 		A04CB2321D0B0E9400B065CB /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
 		A04CB2341D0B0F9100B065CB /* WWAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWAddressViewController.h; sourceTree = "<group>"; };
 		A04CB2351D0B0F9100B065CB /* WWAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWAddressViewController.m; sourceTree = "<group>"; };
@@ -466,6 +469,23 @@
 		A0CAC3281D30F27D002FC122 /* WWLiveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWLiveTableViewCell.m; sourceTree = "<group>"; };
 		A0CAC32A1D310698002FC122 /* WWLiveTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWLiveTableViewController.h; sourceTree = "<group>"; };
 		A0CAC32B1D310698002FC122 /* WWLiveTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWLiveTableViewController.m; sourceTree = "<group>"; };
+		A0CAC32F1D3152D1002FC122 /* WWUniversalListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWUniversalListTableViewController.h; sourceTree = "<group>"; };
+		A0CAC3301D3152D1002FC122 /* WWUniversalListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWUniversalListTableViewController.m; sourceTree = "<group>"; };
+		A0CAC3321D3156E5002FC122 /* WWListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWListModel.h; sourceTree = "<group>"; };
+		A0CAC3331D3156E5002FC122 /* WWListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWListModel.m; sourceTree = "<group>"; };
+		A0CAC3351D316644002FC122 /* WWAppointmentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWAppointmentTableViewCell.h; sourceTree = "<group>"; };
+		A0CAC3361D316644002FC122 /* WWAppointmentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWAppointmentTableViewCell.m; sourceTree = "<group>"; };
+		A0CAC3381D326269002FC122 /* WWMyQrCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWMyQrCodeViewController.h; sourceTree = "<group>"; };
+		A0CAC3391D326269002FC122 /* WWMyQrCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWMyQrCodeViewController.m; sourceTree = "<group>"; };
+		A0CAC33B1D327D25002FC122 /* WWPromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWPromptView.h; sourceTree = "<group>"; };
+		A0CAC33C1D327D25002FC122 /* WWPromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWPromptView.m; sourceTree = "<group>"; };
+		A0CAC33E1D327D33002FC122 /* WWPromptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WWPromptView.xib; sourceTree = "<group>"; };
+		A0CAC3401D32A902002FC122 /* WWPayListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWPayListTableViewCell.h; sourceTree = "<group>"; };
+		A0CAC3411D32A902002FC122 /* WWPayListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWPayListTableViewCell.m; sourceTree = "<group>"; };
+		A0CAC3431D32B6A7002FC122 /* WWPayListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWPayListTableViewController.h; sourceTree = "<group>"; };
+		A0CAC3441D32B6A7002FC122 /* WWPayListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWPayListTableViewController.m; sourceTree = "<group>"; };
+		A0CAC3461D32BBD2002FC122 /* WWPlayListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWPlayListTableViewCell.h; sourceTree = "<group>"; };
+		A0CAC3471D32BBD2002FC122 /* WWPlayListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWPlayListTableViewCell.m; sourceTree = "<group>"; };
 		A0D484891D143E93005F3CC3 /* GBHeadPortraitImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBHeadPortraitImageView.h; sourceTree = "<group>"; };
 		A0D4848A1D143E93005F3CC3 /* GBHeadPortraitImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBHeadPortraitImageView.m; sourceTree = "<group>"; };
 		A0D4851A1D1593B1005F3CC3 /* WWVideoListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWVideoListModel.h; sourceTree = "<group>"; };
@@ -837,8 +857,6 @@
 		A06F0F2D1D0353DF0095D7A5 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				A01672DE1D29666F006497AF /* WWLiveViewController.h */,
-				A01672DF1D29666F006497AF /* WWLiveViewController.m */,
 				A0CAC32A1D310698002FC122 /* WWLiveTableViewController.h */,
 				A0CAC32B1D310698002FC122 /* WWLiveTableViewController.m */,
 			);
@@ -945,6 +963,9 @@
 				A04CB2141D092AC200B065CB /* WWPayView.h */,
 				A04CB2151D092AC200B065CB /* WWPayView.m */,
 				A04CB2171D092AD000B065CB /* WWPayView.xib */,
+				A0CAC33B1D327D25002FC122 /* WWPromptView.h */,
+				A0CAC33C1D327D25002FC122 /* WWPromptView.m */,
+				A0CAC33E1D327D33002FC122 /* WWPromptView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -963,6 +984,8 @@
 		A06F0F451D03DE290095D7A5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A0CAC3321D3156E5002FC122 /* WWListModel.h */,
+				A0CAC3331D3156E5002FC122 /* WWListModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -986,7 +1009,7 @@
 				A04CB22C1D0AC61000B065CB /* WWNickNameTableViewController.h */,
 				A04CB22D1D0AC61000B065CB /* WWNickNameTableViewController.m */,
 				A04CB22F1D0AC8AE00B065CB /* WWGenderTableViewController.h */,
-				A04CB2301D0AC8AE00B065CB /* WWGenderxTableViewController.m */,
+				A04CB2301D0AC8AE00B065CB /* WWGenderTableViewController.m */,
 				A04CB2341D0B0F9100B065CB /* WWAddressViewController.h */,
 				A04CB2351D0B0F9100B065CB /* WWAddressViewController.m */,
 				A03587D81D1F1053003CAC6D /* WWWithdrawalsDetailTableViewController.h */,
@@ -995,6 +1018,12 @@
 				A03587E21D1FA954003CAC6D /* WWMyLiveVideoTableViewController.m */,
 				A03587ED1D203177003CAC6D /* WWMyInviteCodeViewController.h */,
 				A03587EE1D203177003CAC6D /* WWMyInviteCodeViewController.m */,
+				A0CAC32F1D3152D1002FC122 /* WWUniversalListTableViewController.h */,
+				A0CAC3301D3152D1002FC122 /* WWUniversalListTableViewController.m */,
+				A0CAC3381D326269002FC122 /* WWMyQrCodeViewController.h */,
+				A0CAC3391D326269002FC122 /* WWMyQrCodeViewController.m */,
+				A0CAC3431D32B6A7002FC122 /* WWPayListTableViewController.h */,
+				A0CAC3441D32B6A7002FC122 /* WWPayListTableViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1009,8 +1038,12 @@
 				A04CB23F1D0B215800B065CB /* WWAddressTableViewCell.m */,
 				A03587DB1D1F106F003CAC6D /* WWWithdrawalsDetailTableViewCell.h */,
 				A03587DC1D1F106F003CAC6D /* WWWithdrawalsDetailTableViewCell.m */,
-				A03587DE1D1FA918003CAC6D /* WWMyLiveVideoTableViewCell.h */,
-				A03587DF1D1FA918003CAC6D /* WWMyLiveVideoTableViewCell.m */,
+				A0CAC3351D316644002FC122 /* WWAppointmentTableViewCell.h */,
+				A0CAC3361D316644002FC122 /* WWAppointmentTableViewCell.m */,
+				A0CAC3401D32A902002FC122 /* WWPayListTableViewCell.h */,
+				A0CAC3411D32A902002FC122 /* WWPayListTableViewCell.m */,
+				A0CAC3461D32BBD2002FC122 /* WWPlayListTableViewCell.h */,
+				A0CAC3471D32BBD2002FC122 /* WWPlayListTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1571,6 +1604,7 @@
 				A0C851591CFB035200AA6402 /* ShareSDK.bundle in Resources */,
 				A04CB2181D092AD000B065CB /* WWPayView.xib in Resources */,
 				A0C851501CFB035200AA6402 /* ShareSDKUI.bundle in Resources */,
+				A0CAC33F1D327D33002FC122 /* WWPromptView.xib in Resources */,
 				A04CB2331D0B0E9400B065CB /* address.plist in Resources */,
 				A06F0F4C1D03DF110095D7A5 /* User.storyboard in Resources */,
 				A0C851551CFB035200AA6402 /* WeiboSDK.bundle in Resources */,
@@ -1647,12 +1681,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0D4852A1D15A994005F3CC3 /* NSArray+Log.m in Sources */,
+				A0CAC3341D3156E5002FC122 /* WWListModel.m in Sources */,
+				A0CAC33A1D326269002FC122 /* WWMyQrCodeViewController.m in Sources */,
 				A06F0F821D06FAFE0095D7A5 /* WWUserCenterViewController.m in Sources */,
 				A01672E31D297287006497AF /* WWLiveMenberTableViewCell.m in Sources */,
 				A0C851711CFB0CD400AA6402 /* WWRegisterStep1ViewController.m in Sources */,
 				A01673E61D2D6B09006497AF /* FilterManager.m in Sources */,
+				A0CAC3311D3152D1002FC122 /* WWUniversalListTableViewController.m in Sources */,
 				A06F0F581D03FBE90095D7A5 /* WWTapRecordedCollectionViewCell.m in Sources */,
 				A0C851791CFB228400AA6402 /* WWLoginServices.m in Sources */,
+				A0CAC3451D32B6A7002FC122 /* WWPayListTableViewController.m in Sources */,
 				A04CB2401D0B215800B065CB /* WWAddressTableViewCell.m in Sources */,
 				A0C851231CFAE9DA00AA6402 /* NSUserDefaults+Signin.m in Sources */,
 				A04CB22E1D0AC61000B065CB /* WWNickNameTableViewController.m in Sources */,
@@ -1661,23 +1699,24 @@
 				A04CB2231D0AAAB300B065CB /* WWUserInfoTableViewController.m in Sources */,
 				A04CB23D1D0B213300B065CB /* WWPositioningTableViewCell.m in Sources */,
 				A04CB2161D092AC200B065CB /* WWPayView.m in Sources */,
+				A0CAC33D1D327D25002FC122 /* WWPromptView.m in Sources */,
 				A0D4851F1D1595F7005F3CC3 /* WWVideoModel.m in Sources */,
-				A01672E01D29666F006497AF /* WWLiveViewController.m in Sources */,
 				A0D485221D159AB4005F3CC3 /* WWOwner.m in Sources */,
 				A06F0F4F1D03F9460095D7A5 /* WWRecordedViewController.m in Sources */,
 				A06F0F701D0492FB0095D7A5 /* WWRecordedIntroducedTableViewCell.m in Sources */,
-				A03587E01D1FA918003CAC6D /* WWMyLiveVideoTableViewCell.m in Sources */,
 				A0C850BC1CFA26F300AA6402 /* main.m in Sources */,
 				A04CB25A1D0C5CF300B065CB /* KRVideoPlayerControlView.m in Sources */,
 				A01673131D2C0038006497AF /* WWRecordedVideoImageView.m in Sources */,
 				A03587E31D1FA954003CAC6D /* WWMyLiveVideoTableViewController.m in Sources */,
 				A016744C1D2EB8C6006497AF /* WWPlayerView.m in Sources */,
-				A04CB2311D0AC8AE00B065CB /* WWGenderxTableViewController.m in Sources */,
+				A04CB2311D0AC8AE00B065CB /* WWGenderTableViewController.m in Sources */,
+				A0CAC3481D32BBD2002FC122 /* WWPlayListTableViewCell.m in Sources */,
 				A01672D61D240B22006497AF /* WWRecordedDetailsServices.m in Sources */,
 				A03587EF1D203177003CAC6D /* WWMyInviteCodeViewController.m in Sources */,
 				A06F0F431D03DCB00095D7A5 /* WWTabBarViewController.m in Sources */,
 				A04CB21B1D09A15600B065CB /* WWRecordedCollectionViewCell.m in Sources */,
 				A0A2E1751CFB456C00614D0A /* WWUserInfoModel.m in Sources */,
+				A0CAC3421D32A902002FC122 /* WWPayListTableViewCell.m in Sources */,
 				A03587DA1D1F1053003CAC6D /* WWWithdrawalsDetailTableViewController.m in Sources */,
 				A04CB2591D0C5CF300B065CB /* KRVideoPlayerController.m in Sources */,
 				A06F0F5C1D044BC00095D7A5 /* WWRecordedDetailsViewController.m in Sources */,
@@ -1694,6 +1733,7 @@
 				A011632D1D1C3983002FA172 /* WWUserTokenModel.m in Sources */,
 				A0C8512A1CFB02C900AA6402 /* WWBaseViewController.m in Sources */,
 				A03587DD1D1F106F003CAC6D /* WWWithdrawalsDetailTableViewCell.m in Sources */,
+				A0CAC3371D316644002FC122 /* WWAppointmentTableViewCell.m in Sources */,
 				A0C8516E1CFB084100AA6402 /* WWLoginViewController.m in Sources */,
 				A0C851271CFB021F00AA6402 /* WWUtils.m in Sources */,
 				A0C851811CFB28A100AA6402 /* WWRegisterStepServices.m in Sources */,

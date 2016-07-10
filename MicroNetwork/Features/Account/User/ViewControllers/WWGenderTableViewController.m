@@ -7,23 +7,26 @@
 //
 
 #import "WWGenderTableViewController.h"
+#import "NSUserDefaults+Signin.h"
+#import "WWUserServices.h"
+
+typedef enum : NSUInteger {
+    MyGenderWoman = 0,
+    MyGenderMan,
+} MyGender;
 
 @interface WWGenderTableViewController ()
 
 @property (strong, nonatomic) UITableViewCell *currentCell;
-
+@property (strong, nonatomic) NSArray *array;
+@property (nonatomic) NSInteger gender;
 @end
 
 @implementation WWGenderTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.array = @[@"女", @"男"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,7 +35,39 @@
 }
 
 - (IBAction)saveGender:(UIBarButtonItem *)sender {
+    [WWUserServices requestUploadGender:self.gender resultBlock:^(WWbaseModel *baseModel, NSError *error) {
+        
+    }];
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    return self.array.count;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    cell.textLabel.text = self.array[indexPath.row];
+    
+    if (indexPath.row == 0) {
+        if ([[NSUserDefaults standardUserDefaults].gender isEqual:@(MyGenderWoman)]) {
+            [self setCell:cell];
+        }
+    } else {
+        if ([[NSUserDefaults standardUserDefaults].gender isEqual:@1]) {
+            [self setCell:cell];
+        }
+    }
+    
+    return cell;
+}
+
+- (void)setCell:(UITableViewCell *)cell {
+    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    self.currentCell = cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -43,6 +78,7 @@
         self.currentCell.accessoryType = UITableViewCellAccessoryNone;
         self.currentCell = cell;
     }
+    self.gender = indexPath.row;
 }
 
 /*

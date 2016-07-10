@@ -7,6 +7,8 @@
 //
 
 #import "WWNickNameTableViewController.h"
+#import "WWUserServices.h"
+#import "NSUserDefaults+Signin.h"
 
 @interface WWNickNameTableViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *textField;
@@ -17,12 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,6 +28,11 @@
 }
 
 - (IBAction)saveNickName:(UIBarButtonItem *)sender {
+    __weak __block typeof(self) weakSelf = self;
+    [WWUserServices requestUploadNickName:self.textField.text resultBlock:^(WWbaseModel *baseModel, NSError *error) {
+        [[NSUserDefaults standardUserDefaults] setNickName:self.textField.text];
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 /*

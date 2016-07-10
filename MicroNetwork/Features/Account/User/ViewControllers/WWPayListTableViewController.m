@@ -1,58 +1,33 @@
 //
-//  WWUserInfoTableViewController.m
+//  WWPayListTableViewController.m
 //  MicroNetwork
 //
-//  Created by Lucas on 16/6/10.
+//  Created by Lucas on 16/7/11.
 //  Copyright © 2016年 Lucas. All rights reserved.
 //
 
-#import "WWUserInfoTableViewController.h"
-#import <AssetsLibrary/AssetsLibrary.h>
-#import <MobileCoreServices/MobileCoreServices.h>
-#import "GBHeadPortraitImageView.h"
-#import "UIImageView+AFNetworking.h"
-#import "NSUserDefaults+Signin.h"
+#import "WWPayListTableViewController.h"
 #import "WWUserServices.h"
+#import "WWPayListTableViewCell.h"
 
 
-typedef enum : NSUInteger {
-    kCellChildControlsImageView = 100,
-    kCellChildControlsName,
-    kCellChildControlsSex,
-    kCellChildControlsPhoneNumber,
-    kCellChildControlsAddress
-} kCellChildControls;
-
-#define ORIGINAL_MAX_WIDTH 640.0f
-
-@interface WWUserInfoTableViewController () 
-
-@property (weak, nonatomic) IBOutlet UILabel *nickName;
-@property (weak, nonatomic) IBOutlet UILabel *sex;
-@property (weak, nonatomic) IBOutlet UILabel *phoneNumber;
-@property (weak, nonatomic) IBOutlet UILabel *address;
-@property (weak, nonatomic) IBOutlet GBHeadPortraitImageView *headPortrait;
-
-
+@interface WWPayListTableViewController ()
+@property (strong, nonatomic) NSArray *list;
 @end
 
-@implementation WWUserInfoTableViewController
+@implementation WWPayListTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.nickName.text = [NSUserDefaults standardUserDefaults].nickName;
-    self.sex.text = [[NSUserDefaults standardUserDefaults].gender isEqual:@0] ? @"女" : @"男";
-    self.phoneNumber.text = [NSUserDefaults standardUserDefaults].phone;
+    self.title = @"购买视频";
+    self.tableView.contentInset = UIEdgeInsetsMake(-27, 0, 0, 0);
     
-    __weak typeof(self)weakSelf = self;
-    [self.headPortrait addTarget:self resultBlock:^(UIImage *newImage, NSData *data) {
-        NSLog(@"%@",newImage);
-        [WWUserServices requestUploadAvatar:newImage resultBlock:^(WWbaseModel *baseModel, NSError *error) {
-            [[NSUserDefaults standardUserDefaults] setAvatar:baseModel.data[@"url"]];
-        }];
+    __weak __block typeof(self) weakSelf = self;
+    [WWUserServices requestListType:2 resultBlock:^(NSArray *list, NSError *error) {
+        weakSelf.list = list;
+        [weakSelf.tableView reloadData];
     }];
-    [self.headPortrait setImageWithURL:[NSURL URLWithString:[NSUserDefaults standardUserDefaults].avatar] placeholderImage:[UIImage imageNamed:@"ic_head"]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,14 +35,28 @@ typedef enum : NSUInteger {
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+
+    return self.list.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+
+    return 1;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WWPayListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Pay List Cell" forIndexPath:indexPath];
+    [cell setPayListDada:self.list[indexPath.row]];
+    return cell;
+    
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
-            [self.headPortrait alterHeadPortrait:nil];
-        }
-    }
-    
 }
 
 /*

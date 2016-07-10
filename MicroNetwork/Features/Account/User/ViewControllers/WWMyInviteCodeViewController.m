@@ -82,12 +82,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.labelInviteCode.text = [NSUserDefaults standardUserDefaults].inviteCode;
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation

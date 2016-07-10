@@ -9,7 +9,7 @@
         <scene sceneID="RR8-Id-LGj">
             <objects>
                 <tabBarController storyboardIdentifier="TabBarVC" id="ukY-nW-tub" customClass="WWTabBarViewController" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="cOr-Oj-xdj">
+                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="cOr-Oj-xdj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
