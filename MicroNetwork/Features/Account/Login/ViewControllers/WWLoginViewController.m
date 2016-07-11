@@ -71,17 +71,21 @@ typedef enum : NSUInteger {
 #pragma mark - Private Method
 - (void)loginIM {
 
-    EMError *error = [[EMClient sharedClient] registerWithUsername:[NSUserDefaults standardUserDefaults].uid password:@"123456"];
-    if (error == nil) {
-        NSLog(@"注册成功");
-    } else {
-        EMError *error = [[EMClient sharedClient] loginWithUsername:[NSUserDefaults standardUserDefaults].uid password:@"123456"];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        EMError *error = [[EMClient sharedClient] registerWithUsername:[NSUserDefaults standardUserDefaults].uid password:@"123456"];
         if (error == nil) {
-            NSLog(@"IM登录成功");
+            NSLog(@"注册成功");
         } else {
-            NSLog(@"IM登录失败");
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                EMError *error = [[EMClient sharedClient] loginWithUsername:[NSUserDefaults standardUserDefaults].uid password:@"123456"];
+                if (error == nil) {
+                    NSLog(@"IM登录成功");
+                } else {
+                    NSLog(@"IM登录失败");
+                }
+            });
         }
-    }
+    });
 }
 
 #pragma mark - IBActions

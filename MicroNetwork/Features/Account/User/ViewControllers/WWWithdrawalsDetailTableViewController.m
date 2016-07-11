@@ -7,6 +7,8 @@
 //
 
 #import "WWWithdrawalsDetailTableViewController.h"
+#import "WWWithdrawalsDetailTableViewCell.h"
+
 
 @interface WWWithdrawalsDetailTableViewController ()
 
@@ -17,11 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,19 +30,21 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+
+    return 5;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    static NSString *rid= @"Withdrawals Cell";
+    WWWithdrawalsDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rid];
+    if(cell == nil) {
+        cell = [[WWWithdrawalsDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:rid];
+    }
     return cell;
+
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.

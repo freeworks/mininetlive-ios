@@ -35,7 +35,8 @@
 - (void)setUniversalListCell:(WWListModel *)listModel {
     self.title.text = listModel.title;
     self.time.text = listModel.date;
-    [self.videoImageView setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"img_default"]];
+    [self.videoImageView setImageWithURL:[NSURL URLWithString:listModel.frontCover] placeholderImage:[UIImage imageNamed:@"img_default"]];
+    self.type.text = listModel.nickname;
 }
 
 @end

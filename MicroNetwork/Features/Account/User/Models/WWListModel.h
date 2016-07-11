@@ -16,12 +16,14 @@
 @interface WWListModel : NSObject
 
 @property (strong, nonatomic) NSString *aid;
-@property (strong, nonatomic) NSString *create_time;
+@property (strong, nonatomic) NSString *createTime;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *nickname;
-@property (assign, nonatomic) NSInteger status;
+@property (assign, nonatomic) NSInteger activityState;
 @property (strong, nonatomic) NSString *date;
 @property (assign, nonatomic) NSInteger amount;
-@property (assign, nonatomic) NSInteger orderType;
+@property (nonatomic,strong) NSString *frontCover;
+@property (nonatomic,strong) NSString *channel;
+@property (nonatomic,assign) NSInteger playCount;
 
 @end

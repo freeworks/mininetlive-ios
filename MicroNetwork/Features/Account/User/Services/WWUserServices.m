@@ -49,10 +49,10 @@ typedef enum : NSUInteger {
             path = APPOINTMENT_LIST_PATH;
             break;
         case MyListTypePlay:
-            path = PLAY_LIST_PATH;
+            path = PAY_LIST_PATH;
             break;
         case MyListTypePay:
-            path = PAY_LIST_PATH;
+            path = PLAY_LIST_PATH;
             break;
             
         default:

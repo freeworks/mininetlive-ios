@@ -32,7 +32,10 @@
 }
 
 - (void)setPlayList:(WWListModel *)listModel {
-    [self.videoImageView setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"img_default"]];
+    [self.videoImageView setImageWithURL:[NSURL URLWithString:listModel.frontCover] placeholderImage:[UIImage imageNamed:@"img_default"]];
+    self.title.text = listModel.title;
+    self.type.text = listModel.nickname;
+    self.playCount.text = [NSString stringWithFormat:@"%zd", listModel.playCount];
 }
 
 @end

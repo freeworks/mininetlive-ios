@@ -41,17 +41,25 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.nickName.text = [NSUserDefaults standardUserDefaults].nickName;
-    self.sex.text = [[NSUserDefaults standardUserDefaults].gender isEqual:@0] ? @"女" : @"男";
-    self.phoneNumber.text = [NSUserDefaults standardUserDefaults].phone;
     
-    __weak typeof(self)weakSelf = self;
     [self.headPortrait addTarget:self resultBlock:^(UIImage *newImage, NSData *data) {
         NSLog(@"%@",newImage);
         [WWUserServices requestUploadAvatar:newImage resultBlock:^(WWbaseModel *baseModel, NSError *error) {
             [[NSUserDefaults standardUserDefaults] setAvatar:baseModel.data[@"url"]];
         }];
     }];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self initializeTheUserDataShow];
+}
+
+- (void)initializeTheUserDataShow {
+    self.nickName.text = [NSUserDefaults standardUserDefaults].nickName;
+    self.sex.text = [[NSUserDefaults standardUserDefaults].gender isEqual:@0] ? @"女" : @"男";
+    self.phoneNumber.text = [NSUserDefaults standardUserDefaults].phone;
     [self.headPortrait setImageWithURL:[NSURL URLWithString:[NSUserDefaults standardUserDefaults].avatar] placeholderImage:[UIImage imageNamed:@"ic_head"]];
 }
 

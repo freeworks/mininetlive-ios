@@ -8,6 +8,8 @@
 
 #import "WWWithdrawalsDetailTableViewCell.h"
 
+//4A90E2
+
 @implementation WWWithdrawalsDetailTableViewCell
 
 - (void)awakeFromNib {

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		38B4AA60FCE999E347260AD3 /* libPods-MicroNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C1E53478D7115997B340A25 /* libPods-MicroNetwork.a */; };
+		A00D4A1D1D33F0E200968C97 /* WWWithdrawalValidation1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A00D4A1C1D33F0E200968C97 /* WWWithdrawalValidation1ViewController.m */; };
+		A00D4A201D33F0EA00968C97 /* WWWithdrawalValidation2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A00D4A1F1D33F0EA00968C97 /* WWWithdrawalValidation2ViewController.m */; };
 		A00DD0461D117E0E00BA1690 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00DD0451D117E0E00BA1690 /* MessageUI.framework */; };
 		A011632D1D1C3983002FA172 /* WWUserTokenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A011632C1D1C3983002FA172 /* WWUserTokenModel.m */; };
 		A01672D61D240B22006497AF /* WWRecordedDetailsServices.m in Sources */ = {isa = PBXBuildFile; fileRef = A01672D51D240B22006497AF /* WWRecordedDetailsServices.m */; };
@@ -105,6 +107,7 @@
 		A0CAC3421D32A902002FC122 /* WWPayListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CAC3411D32A902002FC122 /* WWPayListTableViewCell.m */; };
 		A0CAC3451D32B6A7002FC122 /* WWPayListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CAC3441D32B6A7002FC122 /* WWPayListTableViewController.m */; };
 		A0CAC3481D32BBD2002FC122 /* WWPlayListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CAC3471D32BBD2002FC122 /* WWPlayListTableViewCell.m */; };
+		A0CAC35A1D33ED7A002FC122 /* WWMyBonusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CAC3591D33ED7A002FC122 /* WWMyBonusViewController.m */; };
 		A0D4848B1D143E93005F3CC3 /* GBHeadPortraitImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D4848A1D143E93005F3CC3 /* GBHeadPortraitImageView.m */; };
 		A0D4851C1D1593B1005F3CC3 /* WWVideoListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D4851B1D1593B1005F3CC3 /* WWVideoListModel.m */; };
 		A0D4851F1D1595F7005F3CC3 /* WWVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D4851E1D1595F7005F3CC3 /* WWVideoModel.m */; };
@@ -133,6 +136,10 @@
 /* Begin PBXFileReference section */
 		3C1E53478D7115997B340A25 /* libPods-MicroNetwork.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MicroNetwork.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		70B3EEA96410546CFE8ECFDE /* Pods-MicroNetwork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicroNetwork.release.xcconfig"; path = "Pods/Target Support Files/Pods-MicroNetwork/Pods-MicroNetwork.release.xcconfig"; sourceTree = "<group>"; };
+		A00D4A1B1D33F0E200968C97 /* WWWithdrawalValidation1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWWithdrawalValidation1ViewController.h; sourceTree = "<group>"; };
+		A00D4A1C1D33F0E200968C97 /* WWWithdrawalValidation1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWWithdrawalValidation1ViewController.m; sourceTree = "<group>"; };
+		A00D4A1E1D33F0EA00968C97 /* WWWithdrawalValidation2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWWithdrawalValidation2ViewController.h; sourceTree = "<group>"; };
+		A00D4A1F1D33F0EA00968C97 /* WWWithdrawalValidation2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWWithdrawalValidation2ViewController.m; sourceTree = "<group>"; };
 		A00DD0451D117E0E00BA1690 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A011632B1D1C3983002FA172 /* WWUserTokenModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWUserTokenModel.h; sourceTree = "<group>"; };
 		A011632C1D1C3983002FA172 /* WWUserTokenModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWUserTokenModel.m; sourceTree = "<group>"; };
@@ -486,6 +493,8 @@
 		A0CAC3441D32B6A7002FC122 /* WWPayListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWPayListTableViewController.m; sourceTree = "<group>"; };
 		A0CAC3461D32BBD2002FC122 /* WWPlayListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWPlayListTableViewCell.h; sourceTree = "<group>"; };
 		A0CAC3471D32BBD2002FC122 /* WWPlayListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWPlayListTableViewCell.m; sourceTree = "<group>"; };
+		A0CAC3581D33ED7A002FC122 /* WWMyBonusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWMyBonusViewController.h; sourceTree = "<group>"; };
+		A0CAC3591D33ED7A002FC122 /* WWMyBonusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWMyBonusViewController.m; sourceTree = "<group>"; };
 		A0D484891D143E93005F3CC3 /* GBHeadPortraitImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBHeadPortraitImageView.h; sourceTree = "<group>"; };
 		A0D4848A1D143E93005F3CC3 /* GBHeadPortraitImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBHeadPortraitImageView.m; sourceTree = "<group>"; };
 		A0D4851A1D1593B1005F3CC3 /* WWVideoListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWVideoListModel.h; sourceTree = "<group>"; };
@@ -1024,6 +1033,12 @@
 				A0CAC3391D326269002FC122 /* WWMyQrCodeViewController.m */,
 				A0CAC3431D32B6A7002FC122 /* WWPayListTableViewController.h */,
 				A0CAC3441D32B6A7002FC122 /* WWPayListTableViewController.m */,
+				A0CAC3581D33ED7A002FC122 /* WWMyBonusViewController.h */,
+				A0CAC3591D33ED7A002FC122 /* WWMyBonusViewController.m */,
+				A00D4A1B1D33F0E200968C97 /* WWWithdrawalValidation1ViewController.h */,
+				A00D4A1C1D33F0E200968C97 /* WWWithdrawalValidation1ViewController.m */,
+				A00D4A1E1D33F0EA00968C97 /* WWWithdrawalValidation2ViewController.h */,
+				A00D4A1F1D33F0EA00968C97 /* WWWithdrawalValidation2ViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1682,8 +1697,10 @@
 			files = (
 				A0D4852A1D15A994005F3CC3 /* NSArray+Log.m in Sources */,
 				A0CAC3341D3156E5002FC122 /* WWListModel.m in Sources */,
+				A00D4A1D1D33F0E200968C97 /* WWWithdrawalValidation1ViewController.m in Sources */,
 				A0CAC33A1D326269002FC122 /* WWMyQrCodeViewController.m in Sources */,
 				A06F0F821D06FAFE0095D7A5 /* WWUserCenterViewController.m in Sources */,
+				A0CAC35A1D33ED7A002FC122 /* WWMyBonusViewController.m in Sources */,
 				A01672E31D297287006497AF /* WWLiveMenberTableViewCell.m in Sources */,
 				A0C851711CFB0CD400AA6402 /* WWRegisterStep1ViewController.m in Sources */,
 				A01673E61D2D6B09006497AF /* FilterManager.m in Sources */,
@@ -1732,6 +1749,7 @@
 				A0C851741CFB0CF100AA6402 /* WWRegisterStep2ViewController.m in Sources */,
 				A011632D1D1C3983002FA172 /* WWUserTokenModel.m in Sources */,
 				A0C8512A1CFB02C900AA6402 /* WWBaseViewController.m in Sources */,
+				A00D4A201D33F0EA00968C97 /* WWWithdrawalValidation2ViewController.m in Sources */,
 				A03587DD1D1F106F003CAC6D /* WWWithdrawalsDetailTableViewCell.m in Sources */,
 				A0CAC3371D316644002FC122 /* WWAppointmentTableViewCell.m in Sources */,
 				A0C8516E1CFB084100AA6402 /* WWLoginViewController.m in Sources */,
