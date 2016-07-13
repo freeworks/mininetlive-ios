@@ -7,8 +7,15 @@
 //
 
 #import "WWWithdrawalsDetailTableViewCell.h"
+#import "WWCashModel.h"
 
 //4A90E2
+
+@interface WWWithdrawalsDetailTableViewCell ()
+@property (weak, nonatomic) IBOutlet UILabel *amount;
+@property (weak, nonatomic) IBOutlet UILabel *time;
+
+@end
 
 @implementation WWWithdrawalsDetailTableViewCell
 
@@ -21,6 +28,11 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setCashListData:(WWCashModel *)cashModel {
+    self.amount.text = [NSString stringWithFormat:@"%.2lf",cashModel.amount.doubleValue / 100];
+    self.time.text = cashModel.createTime;
 }
 
 @end

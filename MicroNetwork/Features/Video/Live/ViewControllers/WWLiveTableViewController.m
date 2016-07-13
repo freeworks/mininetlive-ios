@@ -11,6 +11,7 @@
 #import "WWRecordedDetailsViewController.h"
 #import "WWUtils.h"
 #import "NSUserDefaults+Signin.h"
+#import "WWNoLiveView.h"
 
 typedef enum : NSUInteger {
     kPlayTypesLive = 0,
@@ -19,13 +20,31 @@ typedef enum : NSUInteger {
 
 
 @interface WWLiveTableViewController ()
-
+@property (strong, nonatomic) WWNoLiveView *noLiveView;
 @end
 
 @implementation WWLiveTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (self.liveList.count == 0 && self.noLiveView == nil) {
+        self.noLiveView = [WWNoLiveView loadFromNib];
+        self.noLiveView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        [self.view addSubview:self.noLiveView];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    if (self.noLiveView) {
+        [self.noLiveView removeFromSuperview];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

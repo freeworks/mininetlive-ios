@@ -20,5 +20,6 @@ typedef void (^LoginResponse)(WWbaseModel *baseModel, NSError *error);
 + (void)requestUploadAvatar:(UIImage *)image resultBlock:(LoginResponse)block;
 + (void)requestUploadNickName:(NSString *)nickName resultBlock:(LoginResponse)block;
 + (void)requestUploadGender:(NSInteger)gender resultBlock:(LoginResponse)block;
-
++ (void)requestCashListWithResultBlock:(ListResponse)block;
++ (void)requestTakeCash:(NSInteger)amount resultBlock:(LoginResponse)block;
 @end

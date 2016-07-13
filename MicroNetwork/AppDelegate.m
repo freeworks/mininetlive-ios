@@ -15,7 +15,6 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
 #import "WeiboSDK.h"
-#import "EMSDK.h"
 #import "Pingpp.h"
 #import "UMessage.h"
 
@@ -31,9 +30,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self shareSDKinit];
-    
-    EMOptions *options = [EMOptions optionsWithAppkey:IM_APP_KEY];
-    [[EMClient sharedClient] initializeSDKWithOptions:options];
     
     //设置 AppKey 及 LaunchOptions
     [UMessage startWithAppkey:@"your app key" launchOptions:launchOptions];
@@ -152,11 +148,11 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    [[EMClient sharedClient] applicationDidEnterBackground:application];
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    [[EMClient sharedClient] applicationWillEnterForeground:application];
+
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

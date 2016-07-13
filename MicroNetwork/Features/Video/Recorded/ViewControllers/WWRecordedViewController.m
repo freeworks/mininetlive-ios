@@ -15,7 +15,7 @@
 #import "WWVideoService.h"
 #import "SVProgressHUD.h"
 #import "NSUserDefaults+Signin.h"
-#import "EMSDK.h"
+
 
 typedef enum : NSUInteger {
     kPlayTypesLive = 0,
@@ -43,20 +43,6 @@ typedef enum : NSUInteger {
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
     [SVProgressHUD setBackgroundColor:RGBA(255, 255, 255, 0.7)];
-    
-    if ([NSUserDefaults standardUserDefaults].userToken.length > 1) {
-        [self loginIM];
-    }
-}
-
-- (void)loginIM {
-
-    EMError *error = [[EMClient sharedClient] loginWithUsername:[NSUserDefaults standardUserDefaults].uid password:@"123456"];
-    if (error == nil) {
-        NSLog(@"IM登录成功");
-    } else {
-        NSLog(@"环信:%@",error);
-    }
 }
 
 - (void)didReceiveMemoryWarning {

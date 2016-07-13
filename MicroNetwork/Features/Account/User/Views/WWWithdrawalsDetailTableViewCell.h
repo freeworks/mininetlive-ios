@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class WWCashModel;
 
 @interface WWWithdrawalsDetailTableViewCell : UITableViewCell
+
+- (void)setCashListData:(WWCashModel *)cashModel;
 
 @end

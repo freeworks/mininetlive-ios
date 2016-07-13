@@ -19,7 +19,6 @@
 #import "WWUserTokenModel.h"
 #import "WWInviteCodeViewController.h"
 #import "SVProgressHUD.h"
-#import "EMSDK.h"
 
 
 typedef enum : NSUInteger {
@@ -68,25 +67,7 @@ typedef enum : NSUInteger {
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
-#pragma mark - Private Method
-- (void)loginIM {
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        EMError *error = [[EMClient sharedClient] registerWithUsername:[NSUserDefaults standardUserDefaults].uid password:@"123456"];
-        if (error == nil) {
-            NSLog(@"注册成功");
-        } else {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                EMError *error = [[EMClient sharedClient] loginWithUsername:[NSUserDefaults standardUserDefaults].uid password:@"123456"];
-                if (error == nil) {
-                    NSLog(@"IM登录成功");
-                } else {
-                    NSLog(@"IM登录失败");
-                }
-            });
-        }
-    });
-}
+#pragma mark - Private Metho
 
 #pragma mark - IBActions
 - (IBAction)btnLoginClick:(UIButton *)sender {
@@ -99,7 +80,6 @@ typedef enum : NSUInteger {
         if (!error) {
             [SVProgressHUD dismiss];
             if (baseModel.ret == KERN_SUCCESS) {
-                [weakSelf loginIM];
                 [weakSelf storedAndWhetherTheJumpInviteCodeVC:baseModel.data];
             } else {
                 [WWUtils showTipAlertWithMessage:baseModel.msg];
@@ -200,13 +180,11 @@ typedef enum : NSUInteger {
     [WWLoginServices requestThirdPartyLogin:userInfo resultBlock:^(WWbaseModel *baseModel, NSError *error) {
         if (!error) {
             if (baseModel.ret == KERN_SUCCESS) {
-                [weakSelf loginIM];
                 [weakSelf storedAndWhetherTheJumpInviteCodeVC:baseModel.data];
             } else if (baseModel.ret == 1000 || baseModel.ret == 1002) {
                 //服务器没有账户资料调用第三方注册
                 [WWLoginServices requestThirdPartyRegister:userInfo resultBlock:^(WWbaseModel *baseModel, NSError *error) {
                     if (baseModel.ret == KERN_SUCCESS) {
-                        [weakSelf loginIM];
                         [weakSelf storedAndWhetherTheJumpInviteCodeVC:baseModel.data];
                     } else {
                         [WWUtils showTipAlertWithMessage:baseModel.msg];

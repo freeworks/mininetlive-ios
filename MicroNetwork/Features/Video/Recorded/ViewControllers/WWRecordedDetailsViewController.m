@@ -17,7 +17,6 @@
 #import "Pingpp.h"
 #import "WWRecordedDetailsServices.h"
 #import "SVProgressHUD.h"
-#import "EMSDK.h"
 #import "NSUserDefaults+Signin.h"
 #import "WWLiveMenberTableViewCell.h"
 #import "WWLiveDetailsFootView.h"
@@ -54,7 +53,6 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) KRVideoPlayerController *videoController;
 @property (nonatomic, strong) WWTabBarView *tabBarView;
 
-@property (strong, nonatomic) EMGroup *group;
 @property (strong, nonatomic) WWLiveDetailsFootView *footView;
 @property (strong, nonatomic) WWPlayerView *playerView;
 
@@ -172,8 +170,6 @@ typedef enum : NSUInteger {
     __weak __block typeof(self) weakSelf = self;
     [WWRecordedDetailsServices requestGroupJoin:self.video.groupId resultBlock:^(WWbaseModel *baseModel, NSError *error) {
         if (self.video.streamType == kPlayTypesLive) {
-            EMError *err = nil;
-            weakSelf.group = [[EMClient sharedClient].groupManager fetchGroupInfo:self.video.groupId includeMembersList:YES error:&err];
             if (!error) {
                 //获取群成员资料
                 [WWRecordedDetailsServices requestGroupMemberList:weakSelf.video.groupId resultBlock:^(NSArray *menberList, NSError *error) {
@@ -192,13 +188,8 @@ typedef enum : NSUInteger {
 }
 
 - (void)leaveGroup {
-    __weak __block typeof(self) weakSelf = self;
     [WWRecordedDetailsServices requestGroupLeave:self.video.groupId resultBlock:^(WWbaseModel *baseModel, NSError *error) {
-        EMError *err = nil;
-        [[EMClient sharedClient].groupManager leaveGroup:weakSelf.group.groupId error:&err];
-        if (!err) {
-            NSLog(@"退群成功");
-        }
+
     }];
 }
 

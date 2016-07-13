@@ -8,6 +8,8 @@
 
 #import "WWUserServices.h"
 #import "WWListModel.h"
+#import "WWCashModel.h"
+
 
 #define LOGOUT_PATH             @"auth/logout"
 #define APPOINTMENT_LIST_PATH   @"account/record/appointment/list"
@@ -15,6 +17,8 @@
 #define PAY_LIST_PATH           @"account/record/pay/list"
 #define UPLOAD_IMAGE_PATH       @"account/avatar"
 #define UPLOAD_NICKNAME_PATH    @"account/nickname"
+#define CASH_PATH               @"account/record/withdraw/list"
+#define TAKE_PATH               @"pay/withdraw"
 
 
 typedef enum : NSUInteger {
@@ -42,7 +46,7 @@ typedef enum : NSUInteger {
 }
 
 + (void)requestListType:(NSInteger)listType resultBlock:(ListResponse)block {
-    
+
     NSString *path;
     switch (listType) {
         case MyListTypeAppointment:
@@ -87,7 +91,7 @@ typedef enum : NSUInteger {
 }
 
 + (void)requestUploadNickName:(NSString *)nickName resultBlock:(LoginResponse)block {
-    NSDictionary *parameters = @{@"nickName":nickName};
+    NSDictionary *parameters = @{@"nickname":nickName};
     [self startDataTaskWithParameters:parameters apiPath:UPLOAD_NICKNAME_PATH completionBlock:^(id responseObject, NSError *error) {
         if (!error) {
             NSLog(@"昵称更改:%@",responseObject);
@@ -107,6 +111,44 @@ typedef enum : NSUInteger {
     [self startDataTaskWithParameters:parameters apiPath:UPLOAD_NICKNAME_PATH completionBlock:^(id responseObject, NSError *error) {
         if (!error) {
             NSLog(@"性别更改:%@",responseObject);
+            WWbaseModel *baseModel = [WWbaseModel modelWithJSON:responseObject];
+            if (block) {
+                block(baseModel, nil);
+            }
+        } else {
+            NSLog(@"error:%@",error);
+            block(nil, error);
+        }
+    }];
+}
+
++ (void)requestCashListWithResultBlock:(ListResponse)block {
+    [self startDataTaskWithParameters:nil apiPath:CASH_PATH HTTPMethod:@"GET" completionBlock:^(id responseObject, NSError *error) {
+        if (!error) {
+            NSLog(@"取现明细:%@",responseObject);
+            
+            NSArray *cashList = responseObject[@"data"];
+            NSMutableArray *array = [NSMutableArray array];
+            for (NSDictionary *dic in cashList) {
+                WWCashModel *cash = [WWCashModel modelWithDictionary:dic];
+                [array addObject:cash];
+            }
+            
+            if (block) {
+                block(array, nil);
+            }
+        } else {
+            NSLog(@"error:%@",error);
+            block(nil, error);
+        }
+    }];
+}
+
++ (void)requestTakeCash:(NSInteger)amount resultBlock:(LoginResponse)block {
+    NSDictionary *parameters = @{@"amount":@(amount)};
+    [self startDataTaskWithParameters:parameters apiPath:TAKE_PATH completionBlock:^(id responseObject, NSError *error) {
+        if (!error) {
+            NSLog(@"取现金:%@",responseObject);
             WWbaseModel *baseModel = [WWbaseModel modelWithJSON:responseObject];
             if (block) {
                 block(baseModel, nil);

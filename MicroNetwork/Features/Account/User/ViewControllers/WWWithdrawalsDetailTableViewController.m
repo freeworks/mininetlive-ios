@@ -8,10 +8,12 @@
 
 #import "WWWithdrawalsDetailTableViewController.h"
 #import "WWWithdrawalsDetailTableViewCell.h"
+#import "WWUserServices.h"
 
 
 @interface WWWithdrawalsDetailTableViewController ()
 
+@property (nonatomic,strong) NSArray *cashList;
 @end
 
 @implementation WWWithdrawalsDetailTableViewController
@@ -19,7 +21,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    __weak __block typeof(self) weakSelf = self;
+    [WWUserServices requestCashListWithResultBlock:^(NSArray *list, NSError *error) {
+        if (error == nil) {
+            weakSelf.cashList = list;
+            [weakSelf.tableView reloadData];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,7 +39,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 5;
+    return self.cashList.count;
 }
 
 
@@ -41,6 +49,7 @@
     if(cell == nil) {
         cell = [[WWWithdrawalsDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:rid];
     }
+    [cell setCashListData:self.cashList[indexPath.row]];
     return cell;
 
 }

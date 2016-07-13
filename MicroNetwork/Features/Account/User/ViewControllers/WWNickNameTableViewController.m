@@ -30,8 +30,14 @@
 - (IBAction)saveNickName:(UIBarButtonItem *)sender {
     __weak __block typeof(self) weakSelf = self;
     [WWUserServices requestUploadNickName:self.textField.text resultBlock:^(WWbaseModel *baseModel, NSError *error) {
-        [[NSUserDefaults standardUserDefaults] setNickName:self.textField.text];
-        [weakSelf.navigationController popViewControllerAnimated:YES];
+        if (error == nil) {
+            if (baseModel.ret == KERN_SUCCESS) {
+                [[NSUserDefaults standardUserDefaults] setNickName:self.textField.text];
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            } 
+        } else {
+            
+        }
     }];
 }
 

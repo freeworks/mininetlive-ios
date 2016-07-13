@@ -7,6 +7,10 @@
 //
 
 #import "WWMyBonusViewController.h"
+#import "WWUserServices.h"
+#import "WWUtils.h"
+#import "SVProgressHUD.h"
+
 
 @interface WWMyBonusViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *amount;
@@ -17,7 +21,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [SVProgressHUD show];
+    [WWUserServices requestTakeCash:100 resultBlock:^(WWbaseModel *baseModel, NSError *error) {
+        [SVProgressHUD dismiss];
+        if (error == nil) {
+            if (baseModel.ret == KERN_SUCCESS) {
+                
+            } else {
+                [WWUtils showTipAlertWithMessage:baseModel.msg];
+            }
+        } else {
+            [WWUtils showTipAlertWithMessage:@"请求失败"];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

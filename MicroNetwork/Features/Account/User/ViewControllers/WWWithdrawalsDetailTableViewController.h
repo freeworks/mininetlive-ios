@@ -10,4 +10,5 @@
 
 @interface WWWithdrawalsDetailTableViewController : UITableViewController
 
+
 @end
