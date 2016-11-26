@@ -20,10 +20,6 @@ typedef void (^MenberListResponse)(NSArray *menberList, NSError *error);
 
 + (void)requestAppointment:(NSString *)aid resultBlock:(PayResponse)block;
 
-+ (void)requestGroupJoin:(NSString *)groupId resultBlock:(PayResponse)block;
-
-+ (void)requestGroupLeave:(NSString *)groupId resultBlock:(PayResponse)block;
-
 + (void)requestGroupMemberList:(NSString *)groupId resultBlock:(MenberListResponse)block;
 
 + (void)requestGroupMemberCount:(NSString *)groupId resultBlock:(PayResponse)block;

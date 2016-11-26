@@ -45,20 +45,21 @@
 
 - (void)selectMethodOfPayment:(kMethod)method andPayAmount:(NSString *)payAmount {
     self.method = method;
+    if (method == kMethodATip) {
+        self.title.text = @"打赏红包";
+        self.btnView.frame = CGRectMake(SCREEN_WIDTH * 0.5 - self.payView.frame.size.width * 0.5, SCREEN_HEIGHT  * 0.5 - self.btnView.frame.size.height * 0.5, self.payView.frame.size.width, 74);
+        [self addSubview:self.btnView];
+        self.textFieldMoney.delegate = self;
+        [self.textFieldMoney setValue:BTN_SELECT_BACKGROUNDCOLOR forKeyPath:@"_placeholderLabel.textColor"];
+        [self.textFieldMoney setValue:[UIFont boldSystemFontOfSize:17] forKeyPath:@"_placeholderLabel.font"];
+    } else {
+        self.title.text = @"支付金额";
+        self.labelPayAmount.text = payAmount;
+    }
     [UIView animateWithDuration:0.3 animations:^{
         self.alpha = 1;
     } completion:^(BOOL finished) {
-        if (method == kMethodATip) {
-            self.title.text = @"打赏红包";
-            self.btnView.frame = CGRectMake(SCREEN_WIDTH * 0.5 - self.payView.frame.size.width * 0.5, SCREEN_HEIGHT  * 0.5 - self.btnView.frame.size.height * 0.5, self.payView.frame.size.width, 74);
-            [self addSubview:self.btnView];
-            self.textFieldMoney.delegate = self;
-            [self.textFieldMoney setValue:BTN_SELECT_BACKGROUNDCOLOR forKeyPath:@"_placeholderLabel.textColor"];
-            [self.textFieldMoney setValue:[UIFont boldSystemFontOfSize:17] forKeyPath:@"_placeholderLabel.font"];
-        } else {
-            self.title.text = @"支付金额";
-            self.labelPayAmount.text = payAmount;
-        }
+
     }];
 }
 

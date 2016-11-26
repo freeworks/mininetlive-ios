@@ -17,9 +17,9 @@
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *date;
 @property (strong, nonatomic) NSString *desc;
-@property (strong, nonatomic) NSString *fontCover;
+@property (strong, nonatomic) NSString *frontCover;
 @property (assign, nonatomic) NSInteger type;
-@property (assign, nonatomic) NSInteger price;
+@property (assign, nonatomic) double price;
 @property (assign, nonatomic) NSInteger activityState;
 @property (assign, nonatomic) NSInteger activityType;
 @property (assign, nonatomic) NSInteger payState;
@@ -28,7 +28,6 @@
 @property (assign, nonatomic) NSInteger appointmentCount;
 @property (strong, nonatomic) NSString *livePullPath;
 @property (strong, nonatomic) NSString *videoPath;
-@property (strong, nonatomic) NSString *groupId;
 @property (strong, nonatomic) WWOwner *owner;
 
 //加载更多属性

@@ -69,10 +69,6 @@ typedef enum : NSUInteger {
     
     [self.view addSubview:self.videoController.view];
     
-    if (self.video.streamType == kPlayTypesLive) {
-        [self joinGroup];
-    }
-    
     //最后加上避免挡住
     [self addButtonBack];
 }
@@ -80,9 +76,6 @@ typedef enum : NSUInteger {
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    if (self.video.streamType == kPlayTypesLive) {
-        [self leaveGroup];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -166,33 +159,6 @@ typedef enum : NSUInteger {
     [self.tableView setTableFooterView:self.footView];
 }
 
-- (void)joinGroup {
-    __weak __block typeof(self) weakSelf = self;
-    [WWRecordedDetailsServices requestGroupJoin:self.video.groupId resultBlock:^(WWbaseModel *baseModel, NSError *error) {
-        if (self.video.streamType == kPlayTypesLive) {
-            if (!error) {
-                //获取群成员资料
-                [WWRecordedDetailsServices requestGroupMemberList:weakSelf.video.groupId resultBlock:^(NSArray *menberList, NSError *error) {
-                    //获取群人数
-                    [WWRecordedDetailsServices requestGroupMemberCount:self.video.groupId resultBlock:^(WWbaseModel *baseModel, NSError *error) {
-                        if (!error) {
-                            NSNumber *count = baseModel.data[@"count"];
-                            [weakSelf showmenberList:menberList menberCount:count];
-                        }
-                    }];
-                    
-                }];
-            }
-        }
-    }];
-}
-
-- (void)leaveGroup {
-    [WWRecordedDetailsServices requestGroupLeave:self.video.groupId resultBlock:^(WWbaseModel *baseModel, NSError *error) {
-
-    }];
-}
-
 //不同类型视频展示预约或购买人数
 - (void)initTipsView {
     UILabel *tipsShow = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-220, 80, 200, 24)];
@@ -227,7 +193,7 @@ typedef enum : NSUInteger {
 
 - (void)addRecordedVideoImageView {
     __weak __block typeof(self) weakSelf = self;
-    WWRecordedVideoImageView *recordedVideoImageView = [[WWRecordedVideoImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) imageURL:self.video.fontCover clickBlock:^{
+    WWRecordedVideoImageView *recordedVideoImageView = [[WWRecordedVideoImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) imageURL:self.video.frontCover clickBlock:^{
         if (weakSelf.video.activityType == kVideoTypeFee) {
             [WWUtils showTipAlertWithTitle:@"收费视频" message:@"请购买后观看"];
         } else {
@@ -338,15 +304,15 @@ typedef enum : NSUInteger {
 }
 
 - (void)shareClick {
-    NSArray* imageArray = @[[UIImage imageNamed:@"微网直播"]];
+    NSArray* imageArray = @[self.video.frontCover];
 //    （注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
     if (imageArray) {
-        
+        NSString *share = [NSString stringWithFormat:@"http://106.75.19.205:80/share.html?aid=%@",self.video.aid];
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-        [shareParams SSDKSetupShareParamsByText:@"分享内容"
+        [shareParams SSDKSetupShareParamsByText:self.video.desc
                                          images:imageArray
-                                            url:[NSURL URLWithString:@"http://mob.com"]
-                                          title:@"分享标题"
+                                            url:[NSURL URLWithString:share]
+                                          title:self.video.title
                                            type:SSDKContentTypeAuto];
         //2、分享（可以弹出我们的分享菜单和编辑界面）
         [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
@@ -415,7 +381,7 @@ typedef enum : NSUInteger {
 }
 
 - (void)buyClick {
-    [self showPayViewMethod:kMethodBuy andPayAmount:[NSString stringWithFormat:@"%zd",self.video.price]];
+    [self showPayViewMethod:kMethodBuy andPayAmount:[NSString stringWithFormat:@"￥%.2lf",self.video.price / 100]];
 }
 
 #pragma mark - TableView

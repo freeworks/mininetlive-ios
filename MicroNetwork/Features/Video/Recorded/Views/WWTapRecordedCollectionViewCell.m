@@ -22,7 +22,7 @@
     
     self.title.text = video.title;
     self.videoType.text = video.activityType == 0 ? @"课程类型：免费": @"课程类型：收费";
-    [self.fontCover setImageWithURL:[NSURL URLWithString:video.fontCover] placeholderImage:[UIImage imageNamed:@"img_default"]];
+    [self.fontCover setImageWithURL:[NSURL URLWithString:video.frontCover] placeholderImage:[UIImage imageNamed:@"img_default"]];
     self.appointmentCount.text = [NSString stringWithFormat:@"%zd人",video.appointmentCount];
     
     switch (video.activityState) {
@@ -61,10 +61,5 @@
     return _videoStatus;
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-//    self.frame = CGRectMake(0, 0, 320, 192);
-
-}
 
 @end

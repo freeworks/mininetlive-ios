@@ -14,7 +14,7 @@
 - (void)setVideoListData:(WWVideoModel *)video {
     self.title.text = video.title;
 //    self.videoType.text = video.videoType == 0 ? @"免费": @"收费";
-    [self.fontCover setImageWithURL:[NSURL URLWithString:video.fontCover] placeholderImage:[UIImage imageNamed:@"img_default"]];
+    [self.fontCover setImageWithURL:[NSURL URLWithString:video.frontCover] placeholderImage:[UIImage imageNamed:@"img_default"]];
     self.playCount.text = [NSString stringWithFormat:@"%zd人",video.appointmentCount];
 }
 

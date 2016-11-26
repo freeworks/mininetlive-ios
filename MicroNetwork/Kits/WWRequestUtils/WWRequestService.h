@@ -29,8 +29,6 @@ typedef void (^ServiceResponseBlock)(id responseObject, NSError *error);
 
 
 + (NSString *)baseURL;
-+ (NSString *)setAccessTokenFromKeychain;
-+ (NSString *)getAccessTokenFromKeychain;
 
 + (AFHTTPSessionManager *)sharedManager;
 

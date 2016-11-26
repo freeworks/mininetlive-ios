@@ -31,14 +31,6 @@ NSString *const kRet = @"ret";
     return nil;
 }
 
-+ (NSString *)setAccessTokenFromKeychain {
-    return nil;
-}
-
-+ (NSString *)getAccessTokenFromKeychain {
-    return nil;
-}
-
 + (NSString*)defaultHTTPMethod {
     return kHttpMethodPOST;
 }

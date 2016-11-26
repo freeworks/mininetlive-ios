@@ -12,8 +12,6 @@
 
 #define PAY_PING_PATH               @"pay/charge"
 #define APPOINTMENT_PATH            @"activity/appointment/"
-#define GROUP_JOIN_PATH             @"activity/group/join"
-#define GROUP_LEAVE_PATH            @"activity/group/leave"
 #define GROUP_MEMBER_LIST_PATH      @"activity/group/member/list"
 #define GROUP_MEMBER_COUNT_PATH     @"activity/group/member/count"
 
@@ -43,38 +41,6 @@
         if (!error) {
             WWbaseModel *baseModel = [WWbaseModel modelWithJSON:responseObject];
             NSLog(@"预约:%@",responseObject);
-            if (block) {
-                block(baseModel, nil);
-            }
-        } else {
-            NSLog(@"error:%@",error);
-            block(nil, error);
-        }
-    }];
-}
-
-+ (void)requestGroupJoin:(NSString *)groupId resultBlock:(PayResponse)block {
-    NSDictionary *parameters = @{@"groupId":groupId};
-    [self startDataTaskWithParameters:parameters apiPath:GROUP_JOIN_PATH completionBlock:^(id responseObject, NSError *error) {
-        if (!error) {
-            WWbaseModel *baseModel = [WWbaseModel modelWithJSON:responseObject];
-            NSLog(@"入群:%@",responseObject);
-            if (block) {
-                block(baseModel, nil);
-            }
-        } else {
-            NSLog(@"error:%@",error);
-            block(nil, error);
-        }
-    }];
-}
-
-+ (void)requestGroupLeave:(NSString *)groupId resultBlock:(PayResponse)block {
-    NSDictionary *parameters = @{@"groupId":groupId};
-    [self startDataTaskWithParameters:parameters apiPath:GROUP_LEAVE_PATH completionBlock:^(id responseObject, NSError *error) {
-        if (!error) {
-            WWbaseModel *baseModel = [WWbaseModel modelWithJSON:responseObject];
-            NSLog(@"出群:%@",responseObject);
             if (block) {
                 block(baseModel, nil);
             }
