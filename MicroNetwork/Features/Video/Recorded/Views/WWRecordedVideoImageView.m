@@ -17,16 +17,15 @@
         self.block = block;
         [self setImageWithURL:[NSURL URLWithString:imageURL] placeholderImage:[UIImage imageNamed:@"img_default"]];
         self.userInteractionEnabled = YES;
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width * 0.5 - 35, self.frame.size.height * 0.5 - 35, 70, 70)];
-        [btn setBackgroundImage:[UIImage imageNamed:@"video-play"] forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(playClick) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:btn];
+
     }
     return  self;
 }
 
-- (void)playClick {
-    self.block();
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    if (self.block) {
+        self.block();
+    }
 }
 
 /*

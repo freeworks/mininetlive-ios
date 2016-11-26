@@ -55,7 +55,7 @@ typedef enum : NSUInteger {
 
 @property (strong, nonatomic) WWLiveDetailsFootView *footView;
 @property (strong, nonatomic) WWPlayerView *playerView;
-
+@property (nonatomic, strong) WWRecordedVideoImageView *recordedVideoImageView;
 @end
 
 @implementation WWRecordedDetailsViewController
@@ -111,31 +111,39 @@ typedef enum : NSUInteger {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@(self.video.activityType) forKey:@"payType"];
     [dic setObject:money forKey:@"amount"];
-
+    [dic setObject:self.video.aid forKey:@"aid"];
+    
     if (payment == kPaymentAliPay) {
         [dic setObject:@"alipay" forKey:@"channel"];
     } else {
         [dic setObject:@"wx" forKey:@"channel"];
     }
     __weak __block typeof(self) weakSelf = self;
+    [SVProgressHUD show];
     [WWRecordedDetailsServices requestPay:dic resultBlock:^(WWbaseModel *baseModel, NSError *error) {
-        [Pingpp createPayment:baseModel.data
-               viewController:self
-                 appURLScheme:@"test"
-               withCompletion:^(NSString *result, PingppError *error) {
-                   if ([result isEqualToString:@"success"]) {
-                       WWPromptView *promptView = [WWPromptView loadFromNib];
-                       if (method == kMethodATip) {
-                           [promptView showPromptType:MyPromptATip];
+        if (!error) {
+            [Pingpp createPayment:baseModel.data
+                   viewController:self
+                     appURLScheme:@"test"
+                   withCompletion:^(NSString *result, PingppError *error) {
+                       if ([result isEqualToString:@"success"]) {
+                           WWPromptView *promptView = [WWPromptView loadFromNib];
+                           if (method == kMethodATip) {
+                               [promptView showPromptType:MyPromptATip];
+                           } else {
+                               [promptView showPromptType:MyPromptSuccess];
+                           }
+                           [weakSelf.view addSubview:promptView];
+                           [SVProgressHUD dismiss];
                        } else {
-                           [promptView showPromptType:MyPromptSuccess];
+                           // 支付失败或取消
+                           NSLog(@"Error: code=%lu msg=%@", error.code, [error getMsg]);
+                           [SVProgressHUD showErrorWithStatus:[error getMsg]];
                        }
-                       [weakSelf.view addSubview:promptView];
-                   } else {
-                       // 支付失败或取消
-                       NSLog(@"Error: code=%lu msg=%@", error.code, [error getMsg]);
-                   }
-               }];
+                   }];
+        } else {
+            [SVProgressHUD showErrorWithStatus:baseModel.msg];
+        }
     }];
 }
 
@@ -167,7 +175,7 @@ typedef enum : NSUInteger {
     if (self.video.streamType == kPlayTypesLive) {
         tipsShow.font = [UIFont systemFontOfSize:14];
         tipsShow.textColor = UIColorFromRGB(0xA0A0A0);
-        NSString *string = [NSString stringWithFormat:@"%zd",self.video.playCount];
+        NSString *string = [NSString stringWithFormat:@"%zd",self.video.appointmentCount];
         NSString *str = [NSString stringWithFormat:@"已有 %@ 人预约",string];
         NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:str];
         [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(3,string.length)];
@@ -182,18 +190,26 @@ typedef enum : NSUInteger {
         tipsShow.textColor = UIColorFromRGB(0x0AC653);
         tipsShow.font = [UIFont systemFontOfSize:20];
 
-        NSString *str = [NSString stringWithFormat:@"¥%zd", self.video.price];
+        NSString *str = [NSString stringWithFormat:@"¥%.2lf", self.video.price / 100];
         NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:str];
         [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, 1)];
         tipsShow.attributedText = attriString;
-        [self addRecordedVideoImageView];
+        if (self.video.activityType == kVideoTypeFee) {
+            if (self.video.payState == 0) {
+                [self addRecordedVideoImageView];
+            } else {
+                [self playVideoWithURL:[NSURL URLWithString:self.video.videoPath]];
+            }
+        } else {
+            [self playVideoWithURL:[NSURL URLWithString:self.video.videoPath]];
+        }
     }
     [self.topView addSubview:tipsShow];
 }
 
 - (void)addRecordedVideoImageView {
     __weak __block typeof(self) weakSelf = self;
-    WWRecordedVideoImageView *recordedVideoImageView = [[WWRecordedVideoImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) imageURL:self.video.frontCover clickBlock:^{
+    self.recordedVideoImageView = [[WWRecordedVideoImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) imageURL:self.video.frontCover clickBlock:^{
         if (weakSelf.video.activityType == kVideoTypeFee) {
             [WWUtils showTipAlertWithTitle:@"收费视频" message:@"请购买后观看"];
         } else {
@@ -201,7 +217,7 @@ typedef enum : NSUInteger {
         }
     }];
 
-    [self.view addSubview:recordedVideoImageView];
+    [self.view addSubview:self.recordedVideoImageView];
 }
 
 + (NSMutableAttributedString *)stringConversionAttributedString:(NSString *)string {
@@ -222,35 +238,47 @@ typedef enum : NSUInteger {
     
     if (self.video.streamType == kPlayTypesLive) {
         
-        if (self.video.activityType == kVideoTypeFree) {
-            if (self.video.appoinState == 0) {
-                [self.tabBarView setRightButtonTitle:@"立即预约" andBackgroundImageString:@"btn_reservation"];
-                [self.tabBarView.rightButton addTarget:self action:@selector(appointmentClick) forControlEvents:UIControlEventTouchUpInside];
-            } else {
-                [self.tabBarView setRightButtonTitle:@"已预约" andBackgroundImageString:@"btn_done"];
-            }
-        } else {
-            [self checkPayment];
+        switch (self.video.activityState) {
+            case 0:
+                if (self.video.appoinState == 0) {
+                    [self.tabBarView setRightButtonTitle:@"立即预约" andBackgroundImageString:@"btn_reservation"];
+                    [self.tabBarView.rightButton addTarget:self action:@selector(appointmentClick) forControlEvents:UIControlEventTouchUpInside];
+                } else {
+                    [self.tabBarView setRightButtonTitle:@"已预约" andBackgroundImageString:@"btn_done"];
+                    self.tabBarView.rightButton.userInteractionEnabled = NO;
+                }
+                
+                break;
+            case 1:
+                if (self.video.activityType == kVideoTypeFree) {
+                    [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
+                    [self.tabBarView.rightButton addTarget:self action:@selector(aTipClick) forControlEvents:UIControlEventTouchUpInside];
+                } else {
+                    [self checkPayment];
+                }
+                break;
+            case 2:
+                [self.tabBarView setRightButtonTitle:@"已结束" andBackgroundImageString:@"btn_done"];
+                self.tabBarView.rightButton.userInteractionEnabled = NO;
+                break;
+                
+            default:
+                break;
         }
-        
-    } else {
-        if (self.video.activityType == kVideoTypeFree) {
-            [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
-            [self.tabBarView.rightButton addTarget:self action:@selector(aTipClick) forControlEvents:UIControlEventTouchUpInside];
-        } else {
-            [self checkPayment];
-        }
+    } else {//点播
+        [self checkPayment];
     }
-    
 }
 
 - (void)checkPayment {
+    
     if (self.video.payState == 0) {
         [self.tabBarView setRightButtonTitle:@"购买观看" andBackgroundImageString:@"btn_buy"];
         [self.tabBarView.rightButton addTarget:self action:@selector(buyClick) forControlEvents:UIControlEventTouchUpInside];
     } else {
         [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
-        [self.tabBarView.rightButton addTarget:self action:@selector(aTipClick) forControlEvents:UIControlEventTouchUpInside];    }
+        [self.tabBarView.rightButton addTarget:self action:@selector(aTipClick) forControlEvents:UIControlEventTouchUpInside];
+    }
 }
 
 - (void)playVideoWithURL:(NSURL *)url
