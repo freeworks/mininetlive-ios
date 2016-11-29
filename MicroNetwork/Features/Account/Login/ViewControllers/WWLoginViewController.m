@@ -206,6 +206,7 @@ typedef enum : NSUInteger {
     [[NSUserDefaults standardUserDefaults] setUserToken:userToken.token];
     [[NSUserDefaults standardUserDefaults] setShowInvited:userToken.showInvited];
     [[NSUserDefaults standardUserDefaults] setUserInfo:userToken.user];
+    
     WWUserInfoModel *user = userToken.user;
     
     if (userToken.showInvited.integerValue == 0) {

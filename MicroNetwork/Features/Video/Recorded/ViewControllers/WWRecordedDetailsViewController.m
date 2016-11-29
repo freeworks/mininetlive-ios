@@ -209,15 +209,16 @@ typedef enum : NSUInteger {
 
 - (void)addRecordedVideoImageView {
     __weak __block typeof(self) weakSelf = self;
-    self.recordedVideoImageView = [[WWRecordedVideoImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) imageURL:self.video.frontCover clickBlock:^{
-        if (weakSelf.video.activityType == kVideoTypeFee) {
+    WWRecordedVideoImageView *recordedVideoImageView = [[WWRecordedVideoImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) imageURL:self.video.frontCover clickBlock:^{
+        if (self.video.payState == 0) {
             [WWUtils showTipAlertWithTitle:@"收费视频" message:@"请购买后观看"];
         } else {
             [weakSelf playVideoWithURL:[NSURL URLWithString:self.video.videoPath]];
+            [recordedVideoImageView removeFromSuperview];
         }
     }];
 
-    [self.view addSubview:self.recordedVideoImageView];
+    [self.view addSubview:recordedVideoImageView];
 }
 
 + (NSMutableAttributedString *)stringConversionAttributedString:(NSString *)string {
@@ -335,7 +336,7 @@ typedef enum : NSUInteger {
     NSArray* imageArray = @[self.video.frontCover];
 //    （注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
     if (imageArray) {
-        NSString *share = [NSString stringWithFormat:@"http://106.75.19.205:80/share.html?aid=%@",self.video.aid];
+        NSString *share = [NSString stringWithFormat:@"http://www.weiwanglive.com/share.html?aid=%@&icode=%@",self.video.aid, [[NSUserDefaults standardUserDefaults] inviteCode]];
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         [shareParams SSDKSetupShareParamsByText:self.video.desc
                                          images:imageArray

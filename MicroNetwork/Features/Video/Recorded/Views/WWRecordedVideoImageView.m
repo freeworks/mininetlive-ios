@@ -12,6 +12,15 @@
 
 @implementation WWRecordedVideoImageView
 
+- (instancetype)initWithFrame:(CGRect)frame imageURL:(NSString *)imageURL {
+    if (self = [super initWithFrame:frame]) {
+        [self setImageWithURL:[NSURL URLWithString:imageURL] placeholderImage:[UIImage imageNamed:@"img_default"]];
+        self.userInteractionEnabled = YES;
+        
+    }
+    return  self;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame imageURL:(NSString *)imageURL clickBlock:(PlayClickBlock)block {
     if (self = [super initWithFrame:frame]) {
         self.block = block;

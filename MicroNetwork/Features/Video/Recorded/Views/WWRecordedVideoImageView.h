@@ -12,6 +12,8 @@ typedef void(^PlayClickBlock)();
 
 @interface WWRecordedVideoImageView : UIImageView
 
+- (instancetype)initWithFrame:(CGRect)frame imageURL:(NSString *)imageURL;
+
 - (instancetype)initWithFrame:(CGRect)frame imageURL:(NSString *)imageURL clickBlock:(PlayClickBlock)block;
 
 @property (copy, nonatomic) PlayClickBlock block;
