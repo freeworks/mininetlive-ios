@@ -10,6 +10,7 @@
 
 #define VIDEO_LIST_PATH     @"activity/list"
 #define LOAD_MORE_PATH      @"activity/list/more"
+#define LIVE_LIST_PAGE      @"activity/live/list"
 
 @implementation WWVideoService
 

@@ -22,7 +22,7 @@
 @property (assign, nonatomic) double price;
 @property (assign, nonatomic) NSInteger activityState;
 @property (assign, nonatomic) NSInteger activityType;
-@property (assign, nonatomic) NSInteger payState;
+@property (assign, nonatomic) NSInteger payState;//付款状态
 @property (assign, nonatomic) NSInteger appoinState;
 @property (assign, nonatomic) NSInteger playCount;
 @property (assign, nonatomic) NSInteger appointmentCount;

@@ -9,7 +9,7 @@
 #import "WWUserServices.h"
 #import "WWListModel.h"
 #import "WWCashModel.h"
-
+#import "NSUserDefaults+Signin.h"
 
 #define LOGOUT_PATH             @"auth/logout"
 #define APPOINTMENT_LIST_PATH   @"account/record/appointment/list"
@@ -19,7 +19,8 @@
 #define UPLOAD_NICKNAME_PATH    @"account/nickname"
 #define CASH_PATH               @"account/record/withdraw/list"
 #define TAKE_PATH               @"pay/withdraw"
-
+#define TRANSFER_PATH           @"account/transfer/list"
+#define DIVIDEND_PATH           @"dividend/list"
 
 typedef enum : NSUInteger {
     MyListTypeAppointment = 1,
@@ -63,7 +64,8 @@ typedef enum : NSUInteger {
             break;
     }
     
-    [self startDataTaskWithParameters:nil apiPath:path HTTPMethod:@"GET" completionBlock:^(id responseObject, NSError *error) {
+    NSDictionary *dic = @{@"uid":[[NSUserDefaults standardUserDefaults] uid]};
+    [self startDataTaskWithParameters:dic apiPath:path HTTPMethod:@"GET" completionBlock:^(id responseObject, NSError *error) {
         if (!error) {
             NSLog(@"列表:%@",responseObject);
             NSArray *list = responseObject[@"data"];
