@@ -12,6 +12,8 @@
 #import "WWUtils.h"
 #import "NSUserDefaults+Signin.h"
 #import "WWNoLiveView.h"
+#import "WWVideoService.h"
+#import "WWVideoModel.h"
 
 typedef enum : NSUInteger {
     kPlayTypesLive = 0,
@@ -21,29 +23,34 @@ typedef enum : NSUInteger {
 
 @interface WWLiveTableViewController ()
 @property (strong, nonatomic) WWNoLiveView *noLiveView;
+@property (strong, nonatomic) NSArray *liveList;
 @end
 
 @implementation WWLiveTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    __weak __block typeof(self) weakSelf = self;
+    [WWVideoService requstLiveList:nil resultBlock:^(NSArray *liveArray, NSError *error) {
+        weakSelf.liveList = liveArray;
+        [weakSelf.tableView reloadData];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (self.liveList.count == 0 && self.noLiveView == nil) {
         self.noLiveView = [WWNoLiveView loadFromNib];
-        self.noLiveView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        self.noLiveView.frame = self.view.bounds;
         [self.view addSubview:self.noLiveView];
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     if (self.noLiveView) {
         [self.noLiveView removeFromSuperview];
+        self.noLiveView = nil;
     }
 }
 
@@ -62,6 +69,10 @@ static NSString *kIdentifier = @"Live Cell";
     
     WWLiveTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kIdentifier forIndexPath:indexPath];
     [cell setLiveData:self.liveList[indexPath.row]];
+    if (self.noLiveView) {
+        [self.noLiveView removeFromSuperview];
+        self.noLiveView = nil;
+    }
     return cell;
 }
 

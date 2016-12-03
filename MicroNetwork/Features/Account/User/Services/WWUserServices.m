@@ -21,6 +21,7 @@
 #define TAKE_PATH               @"pay/withdraw"
 #define TRANSFER_PATH           @"account/transfer/list"
 #define DIVIDEND_PATH           @"dividend/list"
+#define DEVICE_TOKEN_PATH       @"auth/bindPush"
 
 typedef enum : NSUInteger {
     MyListTypeAppointment = 1,
@@ -162,5 +163,17 @@ typedef enum : NSUInteger {
     }];
 }
 
++ (void)postDeviceToken:(NSString *)deviceToken resultBlock:(ResponseBlock)block {
+    NSDictionary *parameters = @{@"deviceId":deviceToken};
+    [self startDataTaskWithParameters:parameters apiPath:DEVICE_TOKEN_PATH completionBlock:^(id responseObject, NSError *error) {
+        if (!error) {
+            if (block) {
+                block(nil);
+            }
+        } else {
+            block(error);
+        }
+    }];
+}
 
 @end

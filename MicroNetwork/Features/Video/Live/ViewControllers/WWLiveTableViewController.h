@@ -10,6 +10,5 @@
 
 @interface WWLiveTableViewController : UITableViewController
 
-@property (strong, nonatomic) NSArray *liveList;
 
 @end

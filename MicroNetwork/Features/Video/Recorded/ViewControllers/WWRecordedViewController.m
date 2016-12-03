@@ -80,14 +80,6 @@ typedef enum : NSUInteger {
                 weakSelf.recommendList = videoList.recommend;
                 [weakSelf.generalList setArray:videoList.general];
                 weakSelf.partition = weakSelf.recommendList.count == 0 ? 1: 2;
-                //广播直播列表
-                dispatch_queue_t defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-                dispatch_async(defaultQueue, ^{
-                    NSDictionary *dict = @{@"live":videoList.recommend};
-                    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"Live List"
-                                                                                                         object:nil
-                                                                                                       userInfo:dict]];
-                });
 
                 if (videoList.hasmore) {
                     MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreVideo)];

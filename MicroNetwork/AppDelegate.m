@@ -17,6 +17,7 @@
 #import "WeiboSDK.h"
 #import "Pingpp.h"
 #import "UMessage.h"
+#import "WWUserServices.h"
 
 
 @interface AppDelegate ()
@@ -140,6 +141,16 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     [UMessage didReceiveRemoteNotification:userInfo];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    NSString *apns = [[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    apns = [apns stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if(apns.length){
+        [WWUserServices postDeviceToken:apns resultBlock:^(NSError *error) {
+        }];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

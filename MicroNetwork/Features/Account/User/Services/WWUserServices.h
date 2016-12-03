@@ -12,6 +12,7 @@
 
 typedef void (^ListResponse)(NSArray *list, NSError *error);
 typedef void (^LoginResponse)(WWbaseModel *baseModel, NSError *error);
+typedef void (^ResponseBlock)(NSError *error);
 
 @interface WWUserServices : WWServices
 
@@ -22,4 +23,5 @@ typedef void (^LoginResponse)(WWbaseModel *baseModel, NSError *error);
 + (void)requestUploadGender:(NSInteger)gender resultBlock:(LoginResponse)block;
 + (void)requestCashListWithResultBlock:(ListResponse)block;
 + (void)requestTakeCash:(NSInteger)amount resultBlock:(LoginResponse)block;
++ (void)postDeviceToken:(NSString *)deviceToken resultBlock:(ResponseBlock)block;
 @end

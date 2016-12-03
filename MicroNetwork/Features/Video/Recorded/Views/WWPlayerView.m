@@ -14,7 +14,6 @@
 #define BASE_URL        @"rtmp://vlive3.rtmp.cdn.ucloud.com.cn/ucloud/"
 static const CGFloat kVideoControlBarHeight = 40.0;
 static const CGFloat kVideoControlAnimationTimeinterval = 0.3;
-static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
 
 
 @interface WWPlayerView ()

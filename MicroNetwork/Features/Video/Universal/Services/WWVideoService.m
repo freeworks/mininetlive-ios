@@ -50,4 +50,24 @@
     }];
 }
 
++ (void)requstLiveList:(NSDictionary *)parameters resultBlock:(LiveListResponse)block {
+    [self startDataTaskWithParameters:parameters apiPath:LIVE_LIST_PAGE HTTPMethod:@"GET" completionBlock:^(id responseObject, NSError *error) {
+        if (!error) {
+            NSLog(@"直播视频列表:%@",responseObject);
+            NSArray *liveList = responseObject[@"data"];
+            NSMutableArray *array = [NSMutableArray array];
+            for (NSDictionary *dic in liveList) {
+                WWVideoModel *model = [WWVideoModel modelWithDictionary:dic];
+                [array addObject:model];
+            }
+            if (block) {
+                block(array, nil);
+            }
+        } else {
+            NSLog(@"error:%@",error);
+            block(nil, error);
+        }
+    }];
+}
+
 @end

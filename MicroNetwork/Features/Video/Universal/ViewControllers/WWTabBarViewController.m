@@ -71,10 +71,6 @@
             }
         }
         [self presentViewController:loginNav animated:YES completion:nil];
-    } else if (index == 1) {
-        WWRecordedViewController *recordedVC = (WWRecordedViewController *)self.recordedNav.topViewController;
-        WWLiveTableViewController *liveVC = (WWLiveTableViewController *)self.liveNav.topViewController;
-        liveVC.liveList = recordedVC.recommendList;
     }
 }
 
