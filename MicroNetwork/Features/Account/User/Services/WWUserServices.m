@@ -11,17 +11,18 @@
 #import "WWCashModel.h"
 #import "NSUserDefaults+Signin.h"
 
-#define LOGOUT_PATH             @"auth/logout"
 #define APPOINTMENT_LIST_PATH   @"account/record/appointment/list"
 #define PLAY_LIST_PATH          @"account/record/play/list"
 #define PAY_LIST_PATH           @"account/record/pay/list"
 #define UPLOAD_IMAGE_PATH       @"account/avatar"
 #define UPLOAD_NICKNAME_PATH    @"account/nickname"
-#define CASH_PATH               @"account/record/withdraw/list"
-#define TAKE_PATH               @"pay/withdraw"
+#define CASH_PATH               @"account/record/transfer/list"
+#define TAKE_PATH               @"pay/transfer"
 #define TRANSFER_PATH           @"account/transfer/list"
 #define DIVIDEND_PATH           @"dividend/list"
+#define LOGOUT_PATH             @"auth/logout"
 #define DEVICE_TOKEN_PATH       @"auth/bindPush"
+#define BALANCE_PATH            @"account/balance"
 
 typedef enum : NSUInteger {
     MyListTypeAppointment = 1,
@@ -66,7 +67,7 @@ typedef enum : NSUInteger {
     }
     
     NSDictionary *dic = @{@"uid":[[NSUserDefaults standardUserDefaults] uid]};
-    [self startDataTaskWithParameters:dic apiPath:path HTTPMethod:@"GET" completionBlock:^(id responseObject, NSError *error) {
+    [self startDataTaskWithParameters:dic apiPath:path HTTPMethod:kHttpMethodGET completionBlock:^(id responseObject, NSError *error) {
         if (!error) {
             NSLog(@"列表:%@",responseObject);
             NSArray *list = responseObject[@"data"];
@@ -126,9 +127,9 @@ typedef enum : NSUInteger {
 }
 
 + (void)requestCashListWithResultBlock:(ListResponse)block {
-    [self startDataTaskWithParameters:nil apiPath:CASH_PATH HTTPMethod:@"GET" completionBlock:^(id responseObject, NSError *error) {
+    [self startDataTaskWithParameters:nil apiPath:CASH_PATH HTTPMethod:kHttpMethodGET completionBlock:^(id responseObject, NSError *error) {
         if (!error) {
-            NSLog(@"取现明细:%@",responseObject);
+            NSLog(@"提现明细:%@",responseObject);
             
             NSArray *cashList = responseObject[@"data"];
             NSMutableArray *array = [NSMutableArray array];
@@ -172,6 +173,18 @@ typedef enum : NSUInteger {
             }
         } else {
             block(error);
+        }
+    }];
+}
+
++ (void)getUserBalanceResultBlock:(BalanceBlock)block {
+    [self startDataTaskWithParameters:nil apiPath:BALANCE_PATH HTTPMethod:kHttpMethodGET completionBlock:^(id responseObject, NSError *error) {
+        if (!error) {
+            if (block) {
+                block(responseObject[@"data"][@"balance"], nil);
+            }
+        } else {
+            block(nil,error);
         }
     }];
 }

@@ -22,7 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    __weak __block typeof(self) weakSelf = self;
+    [WWUserServices getUserBalanceResultBlock:^(NSString *balance, NSError *error) {
+        weakSelf.amount.text = [NSString stringWithFormat:@"%.2lf",balance.doubleValue / 100];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

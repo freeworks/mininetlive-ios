@@ -20,10 +20,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.tableView.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0);
     __weak __block typeof(self) weakSelf = self;
     [WWUserServices requestCashListWithResultBlock:^(NSArray *list, NSError *error) {
-        if (error == nil) {
+        if (!error) {
             weakSelf.cashList = list;
             [weakSelf.tableView reloadData];
         }

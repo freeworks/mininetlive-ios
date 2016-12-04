@@ -14,6 +14,7 @@
 #import "WWNoLiveView.h"
 #import "WWVideoService.h"
 #import "WWVideoModel.h"
+#import "SVProgressHUD.h"
 
 typedef enum : NSUInteger {
     kPlayTypesLive = 0,
@@ -30,8 +31,13 @@ typedef enum : NSUInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0);
+    self.noLiveView = [WWNoLiveView loadFromNib];
+    self.noLiveView.frame = self.view.bounds;
+    [SVProgressHUD show];
     __weak __block typeof(self) weakSelf = self;
     [WWVideoService requstLiveList:nil resultBlock:^(NSArray *liveArray, NSError *error) {
+        [SVProgressHUD dismiss];
         weakSelf.liveList = liveArray;
         [weakSelf.tableView reloadData];
     }];
@@ -39,19 +45,10 @@ typedef enum : NSUInteger {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (self.liveList.count == 0 && self.noLiveView == nil) {
-        self.noLiveView = [WWNoLiveView loadFromNib];
-        self.noLiveView.frame = self.view.bounds;
-        [self.view addSubview:self.noLiveView];
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    if (self.noLiveView) {
-        [self.noLiveView removeFromSuperview];
-        self.noLiveView = nil;
-    }
 }
 
 - (void)didReceiveMemoryWarning {

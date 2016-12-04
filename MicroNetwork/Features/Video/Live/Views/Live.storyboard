@@ -29,7 +29,7 @@
         <scene sceneID="Xt9-Wx-iMU">
             <objects>
                 <tableViewController id="Euk-Nf-zGN" customClass="WWLiveTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="275" sectionHeaderHeight="18" sectionFooterHeight="18" id="JV2-ce-F7g">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="275" sectionHeaderHeight="1" sectionFooterHeight="18" id="JV2-ce-F7g">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
