@@ -23,7 +23,7 @@
 #import "WWRecordedVideoImageView.h"
 #import "WWPlayerView.h"
 #import "WWPromptView.h"
-
+#import "WWVideoService.h"
 
 
 #define COLOR_GREEN     UIColorFromRGB(0x0AC653);
@@ -66,7 +66,9 @@ typedef enum : NSUInteger {
     [self initialize];
     [self addTabBarView];
     [self initTipsView];
-    
+    [WWVideoService requestVideoDetail:self.video.aid resultBlock:^(WWVideoModel *videoDetail, NSError *error) {
+        
+    }];
     [self.view addSubview:self.videoController.view];
     
     //最后加上避免挡住

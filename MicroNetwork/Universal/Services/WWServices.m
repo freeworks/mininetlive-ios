@@ -8,7 +8,7 @@
 
 #import "WWServices.h"
 
-#define BASE_URL        @"http://106.75.19.205:80/"
+#define BASE_URL        @"http://www.weiwanglive.com"
 
 
 @implementation WWServices

@@ -265,6 +265,7 @@
 		A07B1F651DFBF9E10055DDDF /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
 		A07B1F661DFBF9E10055DDDF /* ShareSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDK.bundle; sourceTree = "<group>"; };
 		A07B1F671DFBF9E10055DDDF /* ShareSDKConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKConnector.framework; sourceTree = "<group>"; };
+		A07B1F7B1DFC231A0055DDDF /* MicroNetwork.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MicroNetwork.entitlements; sourceTree = "<group>"; };
 		A0A2E1731CFB456C00614D0A /* WWUserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWUserInfoModel.h; sourceTree = "<group>"; };
 		A0A2E1741CFB456C00614D0A /* WWUserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWUserInfoModel.m; sourceTree = "<group>"; };
 		A0ABF9E31D00450B00F71612 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -355,6 +356,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0C851641CFB03B700AA6402 /* ImageIO.framework in Frameworks */,
+				A0C851681CFB03CA00AA6402 /* libsqlite3.tbd in Frameworks */,
 				A07B1F6F1DFBF9E10055DDDF /* WechatConnector.framework in Frameworks */,
 				A01673EF1D2D6B5F006497AF /* AudioToolbox.framework in Frameworks */,
 				A07B1F6B1DFBF9E10055DDDF /* ShareSDKUI.framework in Frameworks */,
@@ -372,10 +375,8 @@
 				A00DD0461D117E0E00BA1690 /* MessageUI.framework in Frameworks */,
 				A07B1F771DFBF9E10055DDDF /* MOBFoundation.framework in Frameworks */,
 				A0C8515C1CFB038E00AA6402 /* libicucore.tbd in Frameworks */,
-				A0C851681CFB03CA00AA6402 /* libsqlite3.tbd in Frameworks */,
 				A01673E51D2D6B09006497AF /* libUCloudMediaPlayer.a in Frameworks */,
 				A07B1F691DFBF9E10055DDDF /* ShareSDKExtension.framework in Frameworks */,
-				A0C851641CFB03B700AA6402 /* ImageIO.framework in Frameworks */,
 				A07B1F741DFBF9E10055DDDF /* libWeChatSDK.a in Frameworks */,
 				A07B1F721DFBF9E10055DDDF /* libWeiboSDK.a in Frameworks */,
 				A0C851661CFB03C000AA6402 /* AdSupport.framework in Frameworks */,
@@ -858,6 +859,7 @@
 		A0C850B91CFA26F300AA6402 /* MicroNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				A07B1F7B1DFC231A0055DDDF /* MicroNetwork.entitlements */,
 				A0C850ED1CFA271C00AA6402 /* Features */,
 				A0C850F61CFA271C00AA6402 /* Kits */,
 				A0C851031CFA271C00AA6402 /* Universal */,
@@ -1240,6 +1242,11 @@
 					A0C850B61CFA26F300AA6402 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = RNG6JK98J6;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 					A0C850CF1CFA26F300AA6402 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1568,6 +1575,7 @@
 			baseConfigurationReference = AC6AB9F17AE827320280FD3C /* Pods-MicroNetwork.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MicroNetwork/MicroNetwork.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = RNG6JK98J6;
@@ -1640,6 +1648,7 @@
 			baseConfigurationReference = 70B3EEA96410546CFE8ECFDE /* Pods-MicroNetwork.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MicroNetwork/MicroNetwork.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = RNG6JK98J6;

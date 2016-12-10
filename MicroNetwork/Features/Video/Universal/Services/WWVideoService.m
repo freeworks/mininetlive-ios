@@ -11,6 +11,7 @@
 #define VIDEO_LIST_PATH     @"activity/list"
 #define LOAD_MORE_PATH      @"activity/list/more"
 #define LIVE_LIST_PAGE      @"activity/live/list"
+#define VIDEO_DETAIL        @"activity/detail"
 
 @implementation WWVideoService
 
@@ -66,6 +67,21 @@
         } else {
             NSLog(@"error:%@",error);
             block(nil, error);
+        }
+    }];
+}
+
++ (void)requestVideoDetail:(NSString *)aid resultBlock:(VideoDetailResponse)block {
+    [self startDataTaskWithParameters:@{@"aid":aid} apiPath:VIDEO_DETAIL HTTPMethod:kHttpMethodGET completionBlock:^(id responseObject, NSError *error) {
+        if (!error) {
+            NSLog(@"视频详情:%@",responseObject);
+
+//            if (block) {
+//                block(array, nil);
+//            }
+        } else {
+//            NSLog(@"error:%@",error);
+//            block(nil, error);
         }
     }];
 }

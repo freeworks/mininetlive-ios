@@ -11,9 +11,10 @@
 #import "WWVideoListModel.h"
 #import "WWVideoModel.h"
 
+
 typedef void (^VideoListResponse)(WWbaseModel *baseModel, WWVideoListModel *videoList, NSError *error);
 typedef void (^LiveListResponse)(NSArray *liveArray, NSError *error);
-
+typedef void (^VideoDetailResponse)(WWVideoModel *videoDetail, NSError *error);
 
 @interface WWVideoService : WWServices
 
@@ -22,5 +23,7 @@ typedef void (^LiveListResponse)(NSArray *liveArray, NSError *error);
 + (void)requstLoadMoreVideo:(NSString *)tailVideoId resultBlock:(VideoListResponse)block;
 
 + (void)requstLiveList:(NSDictionary *)parameters resultBlock:(LiveListResponse)block;
+
++ (void)requestVideoDetail:(NSString *)aid resultBlock:(VideoDetailResponse)block;
 
 @end

@@ -95,7 +95,7 @@ NSString *const kRet = @"ret";
          serviceResponseBlock:(ServiceResponseBlock)block {
     
     AFHTTPSessionManager *sharedManager = [self.class sharedManager];
-    NSString *URLString = [[NSString alloc] initWithFormat:@"%@%@",[self.class baseURL], apiPath];
+    NSString *URLString = [[NSString alloc] initWithFormat:@"%@/%@",[self.class baseURL], apiPath];
     
     if (block) {
         if ([method isEqualToString:kHttpMethodPOST]) {

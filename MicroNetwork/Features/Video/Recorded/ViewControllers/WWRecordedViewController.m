@@ -53,6 +53,7 @@ typedef enum : NSUInteger {
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self refreshNewListData];
 }
 
 #pragma mark - Private Method
