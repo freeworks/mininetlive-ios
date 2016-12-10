@@ -135,6 +135,9 @@ typedef enum : NSUInteger {
                            }
                            [weakSelf.view addSubview:promptView];
                            [SVProgressHUD dismiss];
+                           self.video.payState = 1;
+                           [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
+                           [self.tabBarView.rightButton addTarget:self action:@selector(aTipClick) forControlEvents:UIControlEventTouchUpInside];
                        } else {
                            // 支付失败或取消
                            NSLog(@"Error: code=%lu msg=%@", error.code, [error getMsg]);
@@ -410,7 +413,7 @@ typedef enum : NSUInteger {
 }
 
 - (void)buyClick {
-    [self showPayViewMethod:kMethodBuy andPayAmount:[NSString stringWithFormat:@"￥%.2lf",self.video.price / 100]];
+    [self showPayViewMethod:kMethodBuy andPayAmount:[NSString stringWithFormat:@"%.2lf",self.video.price / 100]];
 }
 
 #pragma mark - TableView

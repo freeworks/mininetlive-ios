@@ -214,7 +214,7 @@ typedef enum : NSUInteger {
         inviteCodeVC.uib = user.uid;
         [self.navigationController pushViewController:inviteCodeVC animated:YES];
     } else {
-        
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

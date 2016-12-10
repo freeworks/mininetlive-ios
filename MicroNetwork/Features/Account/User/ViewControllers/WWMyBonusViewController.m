@@ -45,7 +45,7 @@
 //            [self performSegueWithIdentifier:@"ValidationStep1" sender:nil];
         } else {
             [SVProgressHUD show];
-            [WWUserServices requestTakeCash:100 resultBlock:^(WWbaseModel *baseModel, NSError *error) {
+            [WWUserServices requestTakeCash:self.textAmount.text.integerValue * 100 resultBlock:^(WWbaseModel *baseModel, NSError *error) {
                 [SVProgressHUD dismiss];
                 if (error == nil) {
                     if (baseModel.ret == KERN_SUCCESS) {

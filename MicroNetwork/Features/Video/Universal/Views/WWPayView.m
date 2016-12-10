@@ -45,6 +45,7 @@
 
 - (void)selectMethodOfPayment:(kMethod)method andPayAmount:(NSString *)payAmount {
     self.method = method;
+    self.money = payAmount;
     if (method == kMethodATip) {
         self.title.text = @"打赏红包";
         self.btnView.frame = CGRectMake(SCREEN_WIDTH * 0.5 - self.payView.frame.size.width * 0.5, SCREEN_HEIGHT  * 0.5 - self.btnView.frame.size.height * 0.5, self.payView.frame.size.width, 74);
@@ -54,7 +55,7 @@
         [self.textFieldMoney setValue:[UIFont boldSystemFontOfSize:17] forKeyPath:@"_placeholderLabel.font"];
     } else {
         self.title.text = @"支付金额";
-        self.labelPayAmount.text = payAmount;
+        self.labelPayAmount.text = [NSString stringWithFormat:@"￥%@",payAmount];
     }
     [UIView animateWithDuration:0.3 animations:^{
         self.alpha = 1;
@@ -70,6 +71,9 @@
     if ([self.delegate respondsToSelector:@selector(choicePaymentClick:andMoney:andMethod:)]) {
         if (self.textFieldMoney.text.length > 0) {
             self.money = [NSString stringWithFormat:@"%zd",self.textFieldMoney.text.integerValue * 100];
+        } else {
+            self.money = [NSString stringWithFormat:@"%.2lf",self.money.doubleValue * 100];
+            self.money = [NSString stringWithFormat:@"%zd",[self.money integerValue]];
         }
         if ([self.money isEqualToString:@""] || !self.money) {
             [SVProgressHUD showInfoWithStatus:@"请输入金额"];

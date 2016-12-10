@@ -67,7 +67,7 @@
                                 <action selector="btnChoicePayment:" destination="iN0-l3-epB" eventType="touchUpInside" id="8qb-h1-z9U"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥100.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqf-fn-jmg">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqf-fn-jmg">
                             <rect key="frame" x="0.0" y="76" width="270" height="29"/>
                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
                             <color key="textColor" red="0.039215686274509803" green="0.77647058823529413" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

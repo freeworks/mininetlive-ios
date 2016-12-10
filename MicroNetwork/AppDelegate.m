@@ -30,7 +30,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [self shareSDKinit];
+    [self shareSDK];
     
     //设置 AppKey 及 LaunchOptions
     [UMessage startWithAppkey:@"your app key" launchOptions:launchOptions];
@@ -73,7 +73,7 @@
     return YES;
 }
 
-- (void)shareSDKinit {
+- (void)shareSDK {
     [ShareSDK registerApp:SHARE_APPKEY
           activePlatforms:@[@(SSDKPlatformTypeWechat),
                             @(SSDKPlatformTypeQQ),
