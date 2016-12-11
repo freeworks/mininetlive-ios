@@ -72,16 +72,17 @@
 }
 
 + (void)requestVideoDetail:(NSString *)aid resultBlock:(VideoDetailResponse)block {
-    [self startDataTaskWithParameters:@{@"aid":aid} apiPath:VIDEO_DETAIL HTTPMethod:kHttpMethodGET completionBlock:^(id responseObject, NSError *error) {
+    NSString *path = [NSString stringWithFormat:@"%@/%@",VIDEO_DETAIL, aid];
+    [self startDataTaskWithParameters:nil apiPath:path HTTPMethod:kHttpMethodGET completionBlock:^(id responseObject, NSError *error) {
         if (!error) {
             NSLog(@"视频详情:%@",responseObject);
-
-//            if (block) {
-//                block(array, nil);
-//            }
+            WWVideoModel *model = [WWVideoModel modelWithJSON:responseObject[@"data"]];
+            if (block) {
+                block(model,nil);
+            }
         } else {
-//            NSLog(@"error:%@",error);
-//            block(nil, error);
+            NSLog(@"error:%@",error);
+            block(nil, error);
         }
     }];
 }

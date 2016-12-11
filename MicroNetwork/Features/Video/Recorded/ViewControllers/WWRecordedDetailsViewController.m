@@ -56,6 +56,7 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) WWLiveDetailsFootView *footView;
 @property (strong, nonatomic) WWPlayerView *playerView;
 @property (nonatomic, strong) WWRecordedVideoImageView *recordedVideoImageView;
+
 @end
 
 @implementation WWRecordedDetailsViewController
@@ -66,9 +67,6 @@ typedef enum : NSUInteger {
     [self initialize];
     [self addTabBarView];
     [self initTipsView];
-    [WWVideoService requestVideoDetail:self.video.aid resultBlock:^(WWVideoModel *videoDetail, NSError *error) {
-        
-    }];
     [self.view addSubview:self.videoController.view];
     
     //最后加上避免挡住
@@ -137,7 +135,11 @@ typedef enum : NSUInteger {
                            }
                            [weakSelf.view addSubview:promptView];
                            [SVProgressHUD dismiss];
-                           self.video.payState = 1;
+                           __weak __block typeof(self) weakSelf = self;
+                           [WWVideoService requestVideoDetail:self.video.aid resultBlock:^(WWVideoModel *videoDetail, NSError *error) {
+                               weakSelf.video = videoDetail;
+                               [weakSelf setNeedsFocusUpdate];
+                           }];
                            [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
                            [self.tabBarView.rightButton addTarget:self action:@selector(aTipClick) forControlEvents:UIControlEventTouchUpInside];
                        } else {
@@ -384,14 +386,13 @@ typedef enum : NSUInteger {
 }
 
 - (void)appointmentClick {
-    [SVProgressHUD show];
     
     if ([NSUserDefaults standardUserDefaults].userToken.length == 0) {
         [WWUtils showTipAlertWithMessage:@"请先登录"];
         [WWUtils showLoginVCWithTargetVC:self];
         return;
     }
-
+    [SVProgressHUD show];
     __weak __block typeof(self) weakSelf = self;
     [WWRecordedDetailsServices requestAppointment:self.video.aid resultBlock:^(WWbaseModel *baseModel, NSError *error) {
         if (!error) {

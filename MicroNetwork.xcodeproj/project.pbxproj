@@ -265,7 +265,6 @@
 		A07B1F651DFBF9E10055DDDF /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
 		A07B1F661DFBF9E10055DDDF /* ShareSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDK.bundle; sourceTree = "<group>"; };
 		A07B1F671DFBF9E10055DDDF /* ShareSDKConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKConnector.framework; sourceTree = "<group>"; };
-		A07B1F7B1DFC231A0055DDDF /* MicroNetwork.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MicroNetwork.entitlements; sourceTree = "<group>"; };
 		A0A2E1731CFB456C00614D0A /* WWUserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWUserInfoModel.h; sourceTree = "<group>"; };
 		A0A2E1741CFB456C00614D0A /* WWUserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWUserInfoModel.m; sourceTree = "<group>"; };
 		A0ABF9E31D00450B00F71612 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -859,7 +858,6 @@
 		A0C850B91CFA26F300AA6402 /* MicroNetwork */ = {
 			isa = PBXGroup;
 			children = (
-				A07B1F7B1DFC231A0055DDDF /* MicroNetwork.entitlements */,
 				A0C850ED1CFA271C00AA6402 /* Features */,
 				A0C850F61CFA271C00AA6402 /* Kits */,
 				A0C851031CFA271C00AA6402 /* Universal */,
@@ -1242,6 +1240,7 @@
 					A0C850B61CFA26F300AA6402 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = RNG6JK98J6;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 0;
