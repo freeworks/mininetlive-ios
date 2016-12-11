@@ -23,6 +23,8 @@
 #define LOGOUT_PATH             @"auth/logout"
 #define DEVICE_TOKEN_PATH       @"auth/bindPush"
 #define BALANCE_PATH            @"account/balance"
+#define PHONE_PATH              @"account/phone"
+#define VCODE_PATH              @"account/vcode"
 
 typedef enum : NSUInteger {
     MyListTypeAppointment = 1,
@@ -182,6 +184,35 @@ typedef enum : NSUInteger {
         if (!error) {
             if (block) {
                 block(responseObject[@"data"][@"balance"], nil);
+            }
+        } else {
+            block(nil,error);
+        }
+    }];
+}
+
++ (void)postBindingPhone:(NSString *)phone vcode:(NSString *)vcode resultBlock:(BindingResponseBlock)block {
+    NSDictionary *parameters = @{@"phone":phone,
+                                 @"vcode":vcode};
+    [self startDataTaskWithParameters:parameters apiPath:PHONE_PATH completionBlock:^(id responseObject, NSError *error) {
+        if (!error) {
+            WWbaseModel *baseModel = [WWbaseModel modelWithJSON:responseObject];
+            if (block) {
+                block(baseModel,nil);
+            }
+        } else {
+            block(nil,error);
+        }
+    }];
+}
+
++ (void)postVcodeWithPhone:(NSString *)phone resultBlock:(BindingResponseBlock)block {
+    NSDictionary *parameters = @{@"phone":phone};
+    [self startDataTaskWithParameters:parameters apiPath:VCODE_PATH completionBlock:^(id responseObject, NSError *error) {
+        if (!error) {
+            WWbaseModel *baseModel = [WWbaseModel modelWithJSON:responseObject];
+            if (block) {
+                block(baseModel,nil);
             }
         } else {
             block(nil,error);

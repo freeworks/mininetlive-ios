@@ -8,6 +8,9 @@
 
 #import "WWWithdrawalValidation1ViewController.h"
 #import "WWWithdrawalValidation2ViewController.h"
+#import "SVProgressHUD.h"
+#import "WWUtils.h"
+#import "WWUserServices.h"
 
 @interface WWWithdrawalValidation1ViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *textPhone;
@@ -27,9 +30,30 @@
 }
 
 - (IBAction)nextStepClick:(UIButton *)sender {
-    [self performSegueWithIdentifier:@"ValidationStep2" sender:nil];
+    if (self.textPhone.text.length != 11) {
+        [WWUtils showTipAlertWithMessage:@"请输入正确手机号"];
+        return;
+    }
+    [self sendSmsCode];
 }
 
+- (void)sendSmsCode {
+    [SVProgressHUD show];
+    __weak __block typeof(self) weakSelf = self;
+
+    [WWUserServices postVcodeWithPhone:self.textPhone.text resultBlock:^(WWbaseModel *baseModel, NSError *error) {
+        if (!error) {
+            [SVProgressHUD dismiss];
+            if (baseModel.ret == KERN_SUCCESS) {
+                [weakSelf performSegueWithIdentifier:@"ValidationStep2" sender:nil];
+            } else {
+                [WWUtils showTipAlertWithMessage:baseModel.msg];
+            }
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"连接服务器失败"];
+        }
+    }];
+}
 
 #pragma mark - Navigation
 

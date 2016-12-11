@@ -1642,9 +1642,9 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="验证码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWR-f3-7Pw">
-                                <rect key="frame" x="30" y="104" width="48" height="21"/>
+                                <rect key="frame" x="30" y="104" width="52" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="48" id="pwX-PC-qxo"/>
+                                    <constraint firstAttribute="width" constant="52" id="pwX-PC-qxo"/>
                                     <constraint firstAttribute="height" constant="21" id="x9U-2E-Ixs"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -1652,7 +1652,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入验证码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EzI-am-Ixt">
-                                <rect key="frame" x="88" y="100" width="193" height="30"/>
+                                <rect key="frame" x="92" y="100" width="189" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="q6L-9d-tQN"/>
                                 </constraints>
@@ -1660,7 +1660,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入登录密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XVX-FF-JWc">
-                                <rect key="frame" x="88" y="141" width="267" height="30"/>
+                                <rect key="frame" x="91" y="141" width="264" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="hp1-bY-2nt"/>
                                 </constraints>
@@ -1707,10 +1707,10 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jnX-Rs-wwd">
-                                <rect key="frame" x="30" y="146" width="32" height="20"/>
+                                <rect key="frame" x="30" y="146" width="35" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19.5" id="MOy-FB-KxJ"/>
-                                    <constraint firstAttribute="width" constant="32" id="ecN-ZX-5qQ"/>
+                                    <constraint firstAttribute="width" constant="35" id="ecN-ZX-5qQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

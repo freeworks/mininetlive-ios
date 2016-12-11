@@ -80,14 +80,12 @@
 
 - (BOOL)checkIfCodeIsCorrect {
     if (!self.validateCode.text || [self.validateCode.text isEqualToString:@""]) {
-        NSString *strTip = [NSString stringWithFormat:@"请输入验证码"];
-        [WWUtils showTipAlertWithMessage:strTip];
+        [WWUtils showTipAlertWithMessage:@"请输入验证码"];
         return NO;
     }
     
     if (!self.textPassword.text || [self.textPassword.text isEqualToString:@""] || self.textPassword.text.length < 6) {
-        NSString *strTip = [NSString stringWithFormat:@"请输入6位数密码"];
-        [WWUtils showTipAlertWithMessage:strTip];
+        [WWUtils showTipAlertWithMessage:@"请输入6位数密码"];
         return NO;
     }
     

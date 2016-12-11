@@ -10,7 +10,7 @@
 #import "WWUserServices.h"
 #import "WWUtils.h"
 #import "SVProgressHUD.h"
-
+#import "NSUserDefaults+Signin.h"
 
 @interface WWMyBonusViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *amount;
@@ -26,6 +26,7 @@
     [WWUserServices getUserBalanceResultBlock:^(NSString *balance, NSError *error) {
         weakSelf.amount.text = [NSString stringWithFormat:@"%.2lf",balance.doubleValue / 100];
     }];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bindingSuccess) name:@"BindingMobilePhoneSuccess" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,23 +43,31 @@
         if ([self.textAmount.text isEqualToString:@""] || !self.textAmount.text) {
             self.textAmount.hidden = YES;
             [sender setTitle:@"提现" forState:UIControlStateNormal];
-//            [self performSegueWithIdentifier:@"ValidationStep1" sender:nil];
+            
         } else {
-            [SVProgressHUD show];
-            [WWUserServices requestTakeCash:self.textAmount.text.integerValue * 100 resultBlock:^(WWbaseModel *baseModel, NSError *error) {
-                [SVProgressHUD dismiss];
-                if (error == nil) {
-                    if (baseModel.ret == KERN_SUCCESS) {
-                        
+            if ([[NSUserDefaults standardUserDefaults].phone isEqualToString:@""] || [NSUserDefaults standardUserDefaults].phone == nil) {
+                [self performSegueWithIdentifier:@"ValidationStep1" sender:nil];
+            } else {
+                [SVProgressHUD show];
+                [WWUserServices requestTakeCash:self.textAmount.text.integerValue * 100 resultBlock:^(WWbaseModel *baseModel, NSError *error) {
+                    [SVProgressHUD dismiss];
+                    if (error == nil) {
+                        if (baseModel.ret == KERN_SUCCESS) {
+                            [self bindingSuccess];
+                        } else {
+                            [WWUtils showTipAlertWithMessage:baseModel.msg];
+                        }
                     } else {
-                        [WWUtils showTipAlertWithMessage:baseModel.msg];
+                        [WWUtils showTipAlertWithMessage:@"请求失败"];
                     }
-                } else {
-                    [WWUtils showTipAlertWithMessage:@"请求失败"];
-                }
-            }];
+                }];
+            }
         }
     }
+}
+
+- (void)bindingSuccess {
+    [WWUtils showTipAlertWithMessage:@"关注公众号“微网Live”,发送消息“提现”根据提示绑定手机即可"];
 }
 
 /*

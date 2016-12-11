@@ -141,7 +141,7 @@ typedef enum : NSUInteger {
                                [weakSelf setNeedsFocusUpdate];
                            }];
                            [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
-                           [self.tabBarView.rightButton addTarget:self action:@selector(aTipClick) forControlEvents:UIControlEventTouchUpInside];
+                           [self.tabBarView.rightButton addTarget:self action:@selector(buyClick:) forControlEvents:UIControlEventTouchUpInside];
                        } else {
                            // 支付失败或取消
                            NSLog(@"Error: code=%lu msg=%@", error.code, [error getMsg]);
@@ -189,9 +189,16 @@ typedef enum : NSUInteger {
         [attriString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x4A90E2) range:NSMakeRange(3, string.length)];
         tipsShow.attributedText = attriString;
         
-        self.playerView = [[WWPlayerView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) VideoModel:self.video];
-        self.playerView.delegate = self;
-        [self.view addSubview:self.playerView];
+        if (self.video.activityType == kVideoTypeFee) {
+            if (self.video.payState == 0) {
+                [self addRecordedVideoImageView];
+            } else {
+                [self addPlayerView];
+            }
+        } else {
+            [self addPlayerView];
+        }
+
 
     } else {
         tipsShow.textColor = UIColorFromRGB(0x0AC653);
@@ -212,6 +219,12 @@ typedef enum : NSUInteger {
         }
     }
     [self.topView addSubview:tipsShow];
+}
+
+- (void)addPlayerView {
+    self.playerView = [[WWPlayerView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) VideoModel:self.video];
+    self.playerView.delegate = self;
+    [self.view addSubview:self.playerView];
 }
 
 - (void)addRecordedVideoImageView {
@@ -260,7 +273,7 @@ typedef enum : NSUInteger {
             case 1:
                 if (self.video.activityType == kVideoTypeFree) {
                     [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
-                    [self.tabBarView.rightButton addTarget:self action:@selector(aTipClick) forControlEvents:UIControlEventTouchUpInside];
+                    [self.tabBarView.rightButton addTarget:self action:@selector(buyClick:) forControlEvents:UIControlEventTouchUpInside];
                 } else {
                     [self checkPayment];
                 }
@@ -282,11 +295,10 @@ typedef enum : NSUInteger {
     
     if (self.video.payState == 0) {
         [self.tabBarView setRightButtonTitle:@"购买观看" andBackgroundImageString:@"btn_buy"];
-        [self.tabBarView.rightButton addTarget:self action:@selector(buyClick) forControlEvents:UIControlEventTouchUpInside];
     } else {
         [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
-        [self.tabBarView.rightButton addTarget:self action:@selector(aTipClick) forControlEvents:UIControlEventTouchUpInside];
     }
+    [self.tabBarView.rightButton addTarget:self action:@selector(buyClick:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)playVideoWithURL:(NSURL *)url
@@ -415,8 +427,12 @@ typedef enum : NSUInteger {
     [self showPayViewMethod:kMethodATip andPayAmount:nil];
 }
 
-- (void)buyClick {
-    [self showPayViewMethod:kMethodBuy andPayAmount:[NSString stringWithFormat:@"%.2lf",self.video.price / 100]];
+- (void)buyClick:(UIButton *)button {
+    if ([button.titleLabel.text isEqualToString:@"打赏红包"]) {
+        [self showPayViewMethod:kMethodATip andPayAmount:nil];
+    } else if ([button.titleLabel.text isEqualToString:@"购买观看"]) {
+        [self showPayViewMethod:kMethodBuy andPayAmount:[NSString stringWithFormat:@"%.2lf",self.video.price / 100]];
+    }
 }
 
 #pragma mark - TableView

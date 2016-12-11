@@ -24,7 +24,7 @@
     [super viewDidLoad];
     [self.userImageView setImageWithURL:[NSURL URLWithString:[NSUserDefaults standardUserDefaults].avatar] placeholderImage:[UIImage imageNamed:@"ic_head"]];
     self.name.text = [NSUserDefaults standardUserDefaults].nickName;
-    [self.qeCodeImageView setImageWithURL:[NSURL URLWithString:[NSUserDefaults standardUserDefaults].avatar] placeholderImage:[UIImage imageNamed:@""]];
+    [self.qeCodeImageView setImageWithURL:[NSURL URLWithString:[NSUserDefaults standardUserDefaults].qrcode] placeholderImage:[UIImage imageNamed:@""]];
 }
 
 - (void)didReceiveMemoryWarning {

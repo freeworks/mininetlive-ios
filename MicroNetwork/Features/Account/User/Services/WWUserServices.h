@@ -14,7 +14,7 @@ typedef void (^ListResponse)(NSArray *list, NSError *error);
 typedef void (^LoginResponse)(WWbaseModel *baseModel, NSError *error);
 typedef void (^ResponseBlock)(NSError *error);
 typedef void (^BalanceBlock)(NSString *balance, NSError *error);
-
+typedef void (^BindingResponseBlock)(WWbaseModel *baseModel, NSError *error);
 
 @interface WWUserServices : WWServices
 
@@ -27,4 +27,6 @@ typedef void (^BalanceBlock)(NSString *balance, NSError *error);
 + (void)requestTakeCash:(NSInteger)amount resultBlock:(LoginResponse)block;
 + (void)postDeviceToken:(NSString *)deviceToken resultBlock:(ResponseBlock)block;
 + (void)getUserBalanceResultBlock:(BalanceBlock)block;
++ (void)postBindingPhone:(NSString *)phone vcode:(NSString *)vcode resultBlock:(BindingResponseBlock)block;
++ (void)postVcodeWithPhone:(NSString *)phone resultBlock:(BindingResponseBlock)block;
 @end

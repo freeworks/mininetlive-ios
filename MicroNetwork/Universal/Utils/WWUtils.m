@@ -36,7 +36,7 @@
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
                                                         message:message
                                                        delegate:nil
-                                              cancelButtonTitle:@"好的" otherButtonTitles:nil];
+                                              cancelButtonTitle:@"确定" otherButtonTitles:nil];
     [alertView show];
 }
 
