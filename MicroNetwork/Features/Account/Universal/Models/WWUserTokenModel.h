@@ -10,7 +10,7 @@
 #import "YYKit.h"
 #import "WWUserInfoModel.h"
 
-@interface WWUserTokenModel : NSObject <NSCoding>
+@interface WWUserTokenModel : NSObject 
 
 @property (copy, nonatomic) NSString *token;
 @property (strong, nonatomic) NSNumber *showInvited;
