@@ -36,23 +36,26 @@ NSString *const kRet = @"ret";
 }
 
 + (AFHTTPSessionManager *)sharedManager {
-    static AFHTTPSessionManager *_sharedManager = nil;
+    static AFHTTPSessionManager *sharedManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-        config.HTTPMaximumConnectionsPerHost = 1;
-        _sharedManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:config];
-        _sharedManager.responseSerializer = [AFJSONResponseSerializer serializer];
-        _sharedManager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        _sharedManager.securityPolicy = [AFSecurityPolicy defaultPolicy];
-//        [_sharedManager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [_sharedManager.requestSerializer setValue:[NSUserDefaults standardUserDefaults].uid forHTTPHeaderField:@"uid"];
-        [_sharedManager.requestSerializer setValue:[NSUserDefaults standardUserDefaults].userToken forHTTPHeaderField:@"token"];
-        [_sharedManager setSessionDidReceiveAuthenticationChallengeBlock:[self.class sessionDidReceiveAuthenticationChallengeBlock]];
-        [_sharedManager setTaskWillPerformHTTPRedirectionBlock:[self.class taskWillPerformHTTPRedirectionBlock]];
-        [_sharedManager setTaskDidReceiveAuthenticationChallengeBlock:[self.class taskDidReceiveAuthenticationChallengeBlock]];
+//        NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+//        config.HTTPMaximumConnectionsPerHost = 1;
+//        sharedManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:config];
+        sharedManager = [AFHTTPSessionManager manager];
+        sharedManager.responseSerializer = [AFJSONResponseSerializer serializer];
+        sharedManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        sharedManager.securityPolicy = [AFSecurityPolicy defaultPolicy];
+        sharedManager.responseSerializer.acceptableContentTypes = nil;//[NSSet setWithObject:@"text/ plain"];
+        sharedManager.securityPolicy.allowInvalidCertificates = YES;//忽略https证书
+        sharedManager.securityPolicy.validatesDomainName = NO;//是否验证域名
+        [sharedManager.requestSerializer setValue:[NSUserDefaults standardUserDefaults].uid forHTTPHeaderField:@"uid"];
+        [sharedManager.requestSerializer setValue:[NSUserDefaults standardUserDefaults].userToken forHTTPHeaderField:@"token"];
+        [sharedManager setSessionDidReceiveAuthenticationChallengeBlock:[self.class sessionDidReceiveAuthenticationChallengeBlock]];
+        [sharedManager setTaskWillPerformHTTPRedirectionBlock:[self.class taskWillPerformHTTPRedirectionBlock]];
+        [sharedManager setTaskDidReceiveAuthenticationChallengeBlock:[self.class taskDidReceiveAuthenticationChallengeBlock]];
     });
-    return _sharedManager;
+    return sharedManager;
 }
 
 + (id)sessionDidReceiveAuthenticationChallengeBlock {

@@ -199,16 +199,20 @@ typedef enum : NSUInteger {
             [self addPlayerView];
         }
 
+        [self.topView addSubview:tipsShow];
 
     } else {
-        tipsShow.textColor = UIColorFromRGB(0x0AC653);
-        tipsShow.font = [UIFont systemFontOfSize:20];
 
-        NSString *str = [NSString stringWithFormat:@"¥%.2lf", self.video.price / 100];
-        NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:str];
-        [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, 1)];
-        tipsShow.attributedText = attriString;
         if (self.video.activityType == kVideoTypeFee) {
+            tipsShow.textColor = UIColorFromRGB(0x0AC653);
+            tipsShow.font = [UIFont systemFontOfSize:20];
+            
+            NSString *str = [NSString stringWithFormat:@"¥%.2lf", self.video.price / 100];
+            NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:str];
+            [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, 1)];
+            tipsShow.attributedText = attriString;
+            [self.topView addSubview:tipsShow];
+            
             if (self.video.payState == 0) {
                 [self addRecordedVideoImageView];
             } else {
@@ -218,7 +222,6 @@ typedef enum : NSUInteger {
             [self playVideoWithURL:[NSURL URLWithString:self.video.videoPath]];
         }
     }
-    [self.topView addSubview:tipsShow];
 }
 
 - (void)addPlayerView {

@@ -168,6 +168,21 @@ UCLOUD_EXTERN NSString *const UCloudPlayerVideoDecoderOpenNotification;
  *  直播推流端旋转方向
  */
 UCLOUD_EXTERN NSString *const UCloudPlayerVideoChangeRotationNotification;
+
+/**
+ *
+ * 缓冲buffer变更，直播下cachedDuration>0才生效
+ *
+ */
+UCLOUD_EXTERN NSString *const UCloudPlayerBufferingUpdateNotification;
+
+/**
+ *
+ * 缓冲buffer变更的Key，直播下cachedDuration>0才生效
+ *
+ */
+UCLOUD_EXTERN NSString *const UCloudPlayerBufferStateKey;
+
 @end
 
 #pragma mark UCloudMediaResource

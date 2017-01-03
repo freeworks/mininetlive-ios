@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WWLiveTableViewController : UITableViewController
+@interface WWLiveTableViewController : UIViewController
 
 
 @end

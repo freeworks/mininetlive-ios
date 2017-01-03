@@ -13,7 +13,7 @@
 
 @property (strong, nonatomic) NSString *aid;
 @property (strong, nonatomic) NSString *streamId;
-@property (assign, nonatomic) NSInteger streamType;
+@property (assign, nonatomic) NSInteger streamType;//视频类型
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *date;
 @property (strong, nonatomic) NSString *desc;

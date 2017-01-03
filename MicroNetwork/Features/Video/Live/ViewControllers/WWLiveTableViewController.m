@@ -22,8 +22,10 @@ typedef enum : NSUInteger {
 } kPlayTypes;
 
 
-@interface WWLiveTableViewController ()
+@interface WWLiveTableViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) WWNoLiveView *noLiveView;
+@property (weak, nonatomic) IBOutlet UIView *topView;
 @property (strong, nonatomic) NSArray *liveList;
 @end
 
@@ -39,6 +41,7 @@ typedef enum : NSUInteger {
     [WWVideoService requstLiveList:nil resultBlock:^(NSArray *liveArray, NSError *error) {
         [SVProgressHUD dismiss];
         weakSelf.liveList = liveArray;
+        [weakSelf.topView removeAllSubviews];
         [weakSelf.tableView reloadData];
     }];
 }
