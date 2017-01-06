@@ -9,7 +9,8 @@
 #import "WWPayListTableViewController.h"
 #import "WWUserServices.h"
 #import "WWPayListTableViewCell.h"
-
+#import "WWEmptyDataView.h"
+#import "UITableView+EmptyView.h"
 
 @interface WWPayListTableViewController ()
 @property (strong, nonatomic) NSArray *list;
@@ -22,7 +23,7 @@
     
     self.title = @"购买视频";
     self.tableView.contentInset = UIEdgeInsetsMake(-27, 0, 0, 0);
-    
+    self.tableView.emptyDataView = [WWEmptyDataView emptyDataViewWithDescription:@"暂无记录" type:WWEmptyDataViewTypeLive];
     __weak __block typeof(self) weakSelf = self;
     [WWUserServices requestListType:2 resultBlock:^(NSArray *list, NSError *error) {
         weakSelf.list = list;

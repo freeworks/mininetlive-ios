@@ -15,12 +15,16 @@
 #import "SVProgressHUD.h"
 #import "WWMyInviteCodeViewController.h"
 #import "WWUniversalListTableViewController.h"
+#import "WWUserCentreTableViewCell.h"
+#import "WWUserCentre1TableViewCell.h"
 
-
-@interface WWUserCenterViewController () <UITableViewDelegate, UIActionSheetDelegate>
+@interface WWUserCenterViewController () <UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *userImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nickName;
 @property (weak, nonatomic) IBOutlet UILabel *phone;
+@property (nonatomic, assign) BOOL isRelase;
+@property (nonatomic, strong) NSArray *images;
+@property (nonatomic, strong) NSArray *cellTitles;
 @end
 
 @implementation WWUserCenterViewController
@@ -31,7 +35,8 @@
     self.userImageView.layer.masksToBounds = YES;
     self.userImageView.layer.borderWidth = 1;
     self.userImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-    
+    NSNumber *isRelaseNumber = [[NSUserDefaults standardUserDefaults] objectForKey:kIsRelase];
+    self.isRelase = ![isRelaseNumber boolValue];
 }
 
 - (void)initializeTheUserDataShow {
@@ -40,26 +45,110 @@
     self.phone.text = [NSUserDefaults standardUserDefaults].phone;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self initializeTheUserDataShow];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%zd",indexPath.row);
-    if (indexPath.section == 0) {
-        if (indexPath.row == 1 || indexPath.row == 3) {
-            WWUniversalListTableViewController *universalListVC = (WWUniversalListTableViewController *)[WWUtils getVCWithStoryboard:@"User" viewControllerId:@"UniversalListVC"];
-            universalListVC.listType = indexPath.row;
-            [self.navigationController pushViewController:universalListVC animated:YES];
+- (NSArray *)images {
+    if (!_images) {
+        if (self.isRelase) {
+            _images = @[@[@"ic_money",
+                          @"ic_living"],
+                        @[@"ic_Invitation_code",
+                          @"ic_about"]];
+        } else {
+            _images = @[@[@"ic_money",
+                          @"ic_ reserva",
+                          @"ic_living",
+                          @"ic_play_history"],
+                        @[@"ic_Invitation_code",
+                          @"ic_about"]];
         }
     }
+    return _images;
+}
+
+- (NSArray *)cellTitles {
+    if (!_cellTitles) {
+        if (self.isRelase) {
+            _cellTitles = @[@[@"直播预约",
+                              @"播放历史"],
+                            @[@"我的邀请码",
+                              @"关于微网"],
+                            @[@"退出登录"]];
+        } else {
+            _cellTitles = @[@[@"我的分红",
+                              @"直播预约",
+                              @"购买列表",
+                              @"播放历史"],
+                            @[@"我的邀请码",
+                              @"关于微网"],
+                            @[@"退出登录"]];
+        }
+    }
+    return _cellTitles;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.cellTitles.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return [self.cellTitles[section] count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 2) {
+        static NSString *rid= @"UserCell1";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rid];
+        if(cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:rid];
+        }
+        return cell;
+    } else {
+        static NSString *rid= @"UserCell";
+        WWUserCentreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rid];
+        if(cell == nil) {
+            cell = [[WWUserCentreTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:rid];
+        }
+        
+        cell.titleLabel.text = self.cellTitles[indexPath.section][indexPath.row];
+        cell.titleImageView.image = [UIImage imageNamed:self.images[indexPath.section][indexPath.row]];
+        return cell;
+    }
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        if (self.isRelase) {
+            if (indexPath.row == 0) {
+                [self performSegueWithIdentifier:@"showMyBonus" sender:nil];
+            } else {
+                WWUniversalListTableViewController *universalListVC = (WWUniversalListTableViewController *)[WWUtils getVCWithStoryboard:@"User" viewControllerId:@"UniversalListVC"];
+                universalListVC.listType = indexPath.row;
+                [self.navigationController pushViewController:universalListVC animated:YES];
+            }
+        } else {
+            if (indexPath.row == 1 || indexPath.row == 3) {
+                WWUniversalListTableViewController *universalListVC = (WWUniversalListTableViewController *)[WWUtils getVCWithStoryboard:@"User" viewControllerId:@"UniversalListVC"];
+                universalListVC.listType = indexPath.row;
+                [self.navigationController pushViewController:universalListVC animated:YES];
+            } else if (indexPath.row == 0) {
+                [self performSegueWithIdentifier:@"showMyBonus" sender:nil];
+            } else {
+                [self performSegueWithIdentifier:@"showPayList" sender:nil];
+            }
+        }
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            [self performSegueWithIdentifier:@"showCode" sender:nil];
+        } else {
+            [self performSegueWithIdentifier:@"MicroNetwork" sender:nil];
+        }
+    } else {
         
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"是否确定要注销登录"
                                                                  delegate:self
@@ -95,10 +184,9 @@
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//   
-//}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+   
+}
 
 
 @end

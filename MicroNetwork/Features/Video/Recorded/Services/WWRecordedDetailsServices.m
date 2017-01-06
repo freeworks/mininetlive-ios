@@ -14,6 +14,7 @@
 #define APPOINTMENT_PATH            @"activity/appointment/"
 #define GROUP_MEMBER_LIST_PATH      @"activity/group/member/list"
 #define GROUP_MEMBER_COUNT_PATH     @"activity/group/member/count"
+#define PLAY_HISTORY_PATH           @"activity/play"
 
 
 @implementation WWRecordedDetailsServices
@@ -85,6 +86,19 @@
         } else {
             NSLog(@"error:%@",error);
             block(nil, error);
+        }
+    }];
+}
+
++ (void)requestPlayHistory:(NSString *)aid resultBlock:(PlayHistoryResponse)block {
+    [self startDataTaskWithParameters:@{@"aid":aid} apiPath:PLAY_HISTORY_PATH completionBlock:^(id responseObject, NSError *error) {
+        if (!error) {
+            if (block) {
+                block(nil);
+            }
+        } else {
+            NSLog(@"error:%@",error);
+            block(error);
         }
     }];
 }

@@ -10,6 +10,8 @@
 #import "WWUserServices.h"
 #import "WWAppointmentTableViewCell.h"
 #import "WWPlayListTableViewCell.h"
+#import "WWEmptyDataView.h"
+#import "UITableView+EmptyView.h"
 
 
 typedef enum : NSUInteger {
@@ -28,7 +30,8 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0);
-    [self requestListType:self.listType];
+    self.tableView.emptyDataView = [WWEmptyDataView emptyDataViewWithDescription:@"暂无记录" type:WWEmptyDataViewTypeLive];
+//    [self requestListType:self.listType];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,7 +39,12 @@ typedef enum : NSUInteger {
     // Dispose of any resources that can be recreated.
 }
 
-- (void)requestListType:(NSInteger)listType {
+- (void)setListType:(NSInteger)listType {
+    if (self.listType == 1) {
+        self.title = @"直播预约";
+    } else {
+        self.title = @"播放历史";
+    }
     __weak __block typeof(self) weakSelf = self;
     [WWUserServices requestListType:listType resultBlock:^(NSArray *list, NSError *error) {
         weakSelf.list = list;

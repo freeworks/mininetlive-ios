@@ -9,6 +9,8 @@
 #import "WWWithdrawalsDetailTableViewController.h"
 #import "WWWithdrawalsDetailTableViewCell.h"
 #import "WWUserServices.h"
+#import "WWEmptyDataView.h"
+#import "UITableView+EmptyView.h"
 
 
 @interface WWWithdrawalsDetailTableViewController ()
@@ -20,7 +22,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.tableView.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0);
+    
+    self.tableView.emptyDataView = [WWEmptyDataView emptyDataViewWithDescription:@"暂无记录" type:WWEmptyDataViewTypeLive];
+    
     __weak __block typeof(self) weakSelf = self;
     [WWUserServices requestCashListWithResultBlock:^(NSArray *list, NSError *error) {
         if (!error) {

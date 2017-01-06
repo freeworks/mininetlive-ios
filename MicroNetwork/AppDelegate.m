@@ -65,12 +65,21 @@
      //UIRemoteNotificationType types7 = UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound;
      //UIUserNotificationType types8 = UIUserNotificationTypeAlert|UIUserNotificationTypeSound|UIUserNotificationTypeBadge;
      //[UMessage registerForRemoteNotifications:categories withTypesForIos7:types7 withTypesForIos8:types8];
-     
-    
+    //配置信息
+    [self performSelectorInBackground:@selector(getConfig) withObject:nil];
     //for log
     [UMessage setLogEnabled:YES];
 
     return YES;
+}
+
+- (void)getConfig {
+    [WWServices getConfigResultBlock:^(WWbaseModel *baseModel, NSError *error) {
+        NSInteger isRelase = [baseModel.data[kIsRelase] integerValue];
+        NSInteger enable = [baseModel.data[kEnable] integerValue];
+        [[NSUserDefaults standardUserDefaults] setObject:@(isRelase) forKey:kIsRelase];
+        [[NSUserDefaults standardUserDefaults] setObject:@(enable) forKey:kEnable];
+    }];
 }
 
 - (void)shareSDK {

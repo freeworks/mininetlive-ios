@@ -23,7 +23,6 @@
     self.title.text = video.title;
     self.videoType.text = video.activityType == 0 ? @"课程类型：免费": @"课程类型：收费";
     [self.fontCover setImageWithURL:[NSURL URLWithString:video.frontCover] placeholderImage:[UIImage imageNamed:@"img_default"]];
-    self.appointmentCount.text = [NSString stringWithFormat:@"%zd人",video.appointmentCount];
     
     if (video.streamType == 0) {
         switch (video.activityState) {
@@ -47,6 +46,9 @@
                 break;
         }
         [self addSubview:self.videoStatus];
+        self.appointmentCount.text = [NSString stringWithFormat:@"%zd人",video.appointmentCount];
+    } else {
+        self.appointmentCount.text = [NSString stringWithFormat:@"%zd次",video.appointmentCount];
     }
 
 }

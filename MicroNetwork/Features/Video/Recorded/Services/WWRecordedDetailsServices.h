@@ -13,6 +13,8 @@ typedef void (^PayResponse)(WWbaseModel *baseModel, NSError *error);
 
 typedef void (^MenberListResponse)(NSArray *menberList, NSError *error);
 
+typedef void(^PlayHistoryResponse)(NSError *error);
+
 
 @interface WWRecordedDetailsServices : WWServices
 
@@ -23,5 +25,7 @@ typedef void (^MenberListResponse)(NSArray *menberList, NSError *error);
 + (void)requestGroupMemberList:(NSString *)groupId resultBlock:(MenberListResponse)block;
 
 + (void)requestGroupMemberCount:(NSString *)groupId resultBlock:(PayResponse)block;
+
++ (void)requestPlayHistory:(NSString *)aid resultBlock:(PlayHistoryResponse)block;
 
 @end

@@ -90,6 +90,7 @@ static const CGFloat kVideoControlAnimationTimeinterval = 0.3;
 }
 
 - (void)shutdown {
+    [self.mediaPlayer.player stop];
     [self.mediaPlayer.player shutdown];
     self.mediaPlayer = nil;
 }

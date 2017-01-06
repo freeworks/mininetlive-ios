@@ -132,27 +132,9 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="275" sectionHeaderHeight="1" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="rDU-xX-vOc">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="6Mv-af-WeA">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_no_network" translatesAutoresizingMaskIntoConstraints="NO" id="HJt-wy-DYD">
-                                            <rect key="frame" x="136" y="145" width="103" height="110"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="103" id="Ff4-ih-2Vd"/>
-                                                <constraint firstAttribute="height" constant="110" id="o5e-2x-ZWa"/>
-                                            </constraints>
-                                        </imageView>
-                                    </subviews>
-                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                    <constraints>
-                                        <constraint firstItem="HJt-wy-DYD" firstAttribute="centerY" secondItem="6Mv-af-WeA" secondAttribute="centerY" id="Hax-dr-eJR"/>
-                                        <constraint firstItem="HJt-wy-DYD" firstAttribute="centerX" secondItem="6Mv-af-WeA" secondAttribute="centerX" id="OeP-QH-bJT"/>
-                                    </constraints>
-                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Live Cell" rowHeight="275" id="hyp-ET-YJq" customClass="WWLiveTableViewCell">
-                                        <rect key="frame" x="0.0" y="455.5" width="375" height="275"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="275"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hyp-ET-YJq" id="d8E-5g-Pn3">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="274"/>

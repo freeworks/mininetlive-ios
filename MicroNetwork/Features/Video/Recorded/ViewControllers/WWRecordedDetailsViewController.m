@@ -67,6 +67,7 @@ typedef enum : NSUInteger {
     [self initialize];
     [self addTabBarView];
     [self initTipsView];
+    [self postPlayHistory];
     [self.view addSubview:self.videoController.view];
     
     //最后加上避免挡住
@@ -176,18 +177,18 @@ typedef enum : NSUInteger {
 
 //不同类型视频展示预约或购买人数
 - (void)initTipsView {
-    UILabel *tipsShow = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-220, 80, 200, 24)];
-    tipsShow.textAlignment = NSTextAlignmentRight;
+    UILabel *tipsShowLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-220, 80, 200, 24)];
+    tipsShowLabel.textAlignment = NSTextAlignmentRight;
     
     if (self.video.streamType == kPlayTypesLive) {
-        tipsShow.font = [UIFont systemFontOfSize:14];
-        tipsShow.textColor = UIColorFromRGB(0xA0A0A0);
+        tipsShowLabel.font = [UIFont systemFontOfSize:14];
+        tipsShowLabel.textColor = UIColorFromRGB(0xA0A0A0);
         NSString *string = [NSString stringWithFormat:@"%zd",self.video.appointmentCount];
         NSString *str = [NSString stringWithFormat:@"已有 %@ 人预约",string];
         NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:str];
         [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(3,string.length)];
         [attriString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x4A90E2) range:NSMakeRange(3, string.length)];
-        tipsShow.attributedText = attriString;
+        tipsShowLabel.attributedText = attriString;
         
         if (self.video.activityType == kVideoTypeFee) {
             if (self.video.payState == 0) {
@@ -199,19 +200,19 @@ typedef enum : NSUInteger {
             [self addPlayerView];
         }
 
-        [self.topView addSubview:tipsShow];
+        [self.topView addSubview:tipsShowLabel];
 
     } else {
 
         if (self.video.activityType == kVideoTypeFee) {
-            tipsShow.textColor = UIColorFromRGB(0x0AC653);
-            tipsShow.font = [UIFont systemFontOfSize:20];
+            tipsShowLabel.textColor = UIColorFromRGB(0x0AC653);
+            tipsShowLabel.font = [UIFont systemFontOfSize:20];
             
             NSString *str = [NSString stringWithFormat:@"¥%.2lf", self.video.price / 100];
             NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:str];
             [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, 1)];
-            tipsShow.attributedText = attriString;
-            [self.topView addSubview:tipsShow];
+            tipsShowLabel.attributedText = attriString;
+            [self.topView addSubview:tipsShowLabel];
             
             if (self.video.payState == 0) {
                 [self addRecordedVideoImageView];
@@ -253,6 +254,12 @@ typedef enum : NSUInteger {
 
 //根据不同类型视频底部展示预约或者购买
 - (void)addTabBarView {
+    
+    NSNumber *isRelase = [[NSUserDefaults standardUserDefaults] objectForKey:kIsRelase];
+    if ([isRelase boolValue]) {
+        return;
+    }
+    
     CGRect frame = CGRectMake(0, SCREEN_HEIGHT-49, SCREEN_WIDTH, 49);
     self.tabBarView = [WWTabBarView loadFromNib];
     self.tabBarView.frame = frame;
@@ -340,9 +347,10 @@ typedef enum : NSUInteger {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)postPlayHistory {
+    [WWRecordedDetailsServices requestPlayHistory:self.video.aid resultBlock:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - IBActions
@@ -459,6 +467,7 @@ typedef enum : NSUInteger {
 //        return cell;
 //    }
 }
+
 
 
 

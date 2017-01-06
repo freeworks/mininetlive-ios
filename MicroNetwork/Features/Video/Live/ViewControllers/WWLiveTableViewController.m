@@ -11,10 +11,11 @@
 #import "WWRecordedDetailsViewController.h"
 #import "WWUtils.h"
 #import "NSUserDefaults+Signin.h"
-#import "WWNoLiveView.h"
 #import "WWVideoService.h"
 #import "WWVideoModel.h"
 #import "SVProgressHUD.h"
+#import "WWEmptyDataView.h"
+#import "UITableView+EmptyView.h"
 
 typedef enum : NSUInteger {
     kPlayTypesLive = 0,
@@ -24,7 +25,6 @@ typedef enum : NSUInteger {
 
 @interface WWLiveTableViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) WWNoLiveView *noLiveView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (strong, nonatomic) NSArray *liveList;
 @end
@@ -34,8 +34,8 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0);
-    self.noLiveView = [WWNoLiveView loadFromNib];
-    self.noLiveView.frame = self.view.bounds;
+    self.tableView.emptyDataView = [WWEmptyDataView emptyDataViewWithDescription:@"暂无直播活动" type:WWEmptyDataViewTypeLive];
+    
     [SVProgressHUD show];
     __weak __block typeof(self) weakSelf = self;
     [WWVideoService requstLiveList:nil resultBlock:^(NSArray *liveArray, NSError *error) {
@@ -44,19 +44,6 @@ typedef enum : NSUInteger {
         [weakSelf.topView removeAllSubviews];
         [weakSelf.tableView reloadData];
     }];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -69,10 +56,6 @@ static NSString *kIdentifier = @"Live Cell";
     
     WWLiveTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kIdentifier forIndexPath:indexPath];
     [cell setLiveData:self.liveList[indexPath.row]];
-    if (self.noLiveView) {
-        [self.noLiveView removeFromSuperview];
-        self.noLiveView = nil;
-    }
     return cell;
 }
 

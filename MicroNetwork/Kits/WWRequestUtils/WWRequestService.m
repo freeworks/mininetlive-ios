@@ -51,6 +51,14 @@ NSString *const kRet = @"ret";
         sharedManager.securityPolicy.validatesDomainName = NO;//是否验证域名
         [sharedManager.requestSerializer setValue:[NSUserDefaults standardUserDefaults].uid forHTTPHeaderField:@"uid"];
         [sharedManager.requestSerializer setValue:[NSUserDefaults standardUserDefaults].userToken forHTTPHeaderField:@"token"];
+        [sharedManager.requestSerializer setValue:@"ios" forHTTPHeaderField:@"platform"];
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        [sharedManager.requestSerializer setValue:[infoDictionary objectForKey:@"CFBundleVersion"] forHTTPHeaderField:@"verisonCode"];
+        NSLog(@"头:%@",[infoDictionary objectForKey:@"CFBundleVersion"]);
+        [sharedManager.requestSerializer setValue:[infoDictionary objectForKey:@"CFBundleShortVersionString"] forHTTPHeaderField:@"CFBundleShortVersionString"];
+        [sharedManager.requestSerializer setValue:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forHTTPHeaderField:@"deviceId"];
+        [sharedManager.requestSerializer setValue:[[UIDevice currentDevice] systemVersion] forHTTPHeaderField:@"os"];
+        [sharedManager.requestSerializer setValue:[[UIDevice currentDevice] model] forHTTPHeaderField:@"model"];
         [sharedManager setSessionDidReceiveAuthenticationChallengeBlock:[self.class sessionDidReceiveAuthenticationChallengeBlock]];
         [sharedManager setTaskWillPerformHTTPRedirectionBlock:[self.class taskWillPerformHTTPRedirectionBlock]];
         [sharedManager setTaskDidReceiveAuthenticationChallengeBlock:[self.class taskDidReceiveAuthenticationChallengeBlock]];

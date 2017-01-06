@@ -67,7 +67,7 @@
 }
 
 - (void)bindingSuccess {
-    [WWUtils showTipAlertWithMessage:@"关注公众号“微网Live”,发送消息“提现”根据提示绑定手机即可"];
+    [WWUtils showTipAlertWithMessage:@"还没有绑定公众账号，请关注公众号“微网LIVE”，输入“提现”"];
 }
 
 /*
