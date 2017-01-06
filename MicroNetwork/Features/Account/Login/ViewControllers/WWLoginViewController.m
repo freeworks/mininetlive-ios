@@ -75,7 +75,7 @@ typedef enum : NSUInteger {
     [SVProgressHUD show];
     [[NSUserDefaults standardUserDefaults] setUserName:self.textAccount.text];
     NSDictionary *dic = @{@"phone":self.textAccount.text,
-                          @"password":self.textPassword.text};
+                          @"password":self.textPassword.text.md5String};
     [WWLoginServices requestLogin:dic resultBlock:^(WWbaseModel *baseModel, NSError *error) {
         if (!error) {
             [SVProgressHUD dismiss];
