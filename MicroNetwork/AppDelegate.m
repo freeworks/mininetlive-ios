@@ -33,7 +33,7 @@
     [self shareSDK];
     
     //设置 AppKey 及 LaunchOptions
-    [UMessage startWithAppkey:@"your app key" launchOptions:launchOptions];
+    [UMessage startWithAppkey:UMessage_AppKey launchOptions:launchOptions];
     
     //1.3.0版本开始简化初始化过程。如不需要交互式的通知，下面用下面一句话注册通知即可。
     [UMessage registerForRemoteNotifications];
@@ -154,6 +154,7 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
+    [UMessage registerDeviceToken:deviceToken];
     NSString *apns = [[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     apns = [apns stringByReplacingOccurrencesOfString:@" " withString:@""];
     if(apns.length){

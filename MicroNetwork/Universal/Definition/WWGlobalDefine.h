@@ -53,4 +53,8 @@
 #define SHARE_SMS_APPKEY    @"13e8f46c927f9"
 #define SHARE_SMS_SECRET    @"1a989984162317f0714f1a82ca1bddf0"
 
+//友盟
+#define UMessage_AppKey     @"5870749ec62dca23b8001c4e"
+#define APP_MASTER_SECRET   @"enioljdzgo5mdmz9gwmfmkw1vsbmodeb"
+
 #endif /* WWGlobalDefine_h */

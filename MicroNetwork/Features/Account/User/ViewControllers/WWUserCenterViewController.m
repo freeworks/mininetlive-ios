@@ -124,13 +124,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (self.isRelase) {
-            if (indexPath.row == 0) {
-                [self performSegueWithIdentifier:@"showMyBonus" sender:nil];
-            } else {
-                WWUniversalListTableViewController *universalListVC = (WWUniversalListTableViewController *)[WWUtils getVCWithStoryboard:@"User" viewControllerId:@"UniversalListVC"];
-                universalListVC.listType = indexPath.row;
-                [self.navigationController pushViewController:universalListVC animated:YES];
-            }
+            WWUniversalListTableViewController *universalListVC = (WWUniversalListTableViewController *)[WWUtils getVCWithStoryboard:@"User" viewControllerId:@"UniversalListVC"];
+            universalListVC.listType = indexPath.row;
+            [self.navigationController pushViewController:universalListVC animated:YES];
         } else {
             if (indexPath.row == 1 || indexPath.row == 3) {
                 WWUniversalListTableViewController *universalListVC = (WWUniversalListTableViewController *)[WWUtils getVCWithStoryboard:@"User" viewControllerId:@"UniversalListVC"];
