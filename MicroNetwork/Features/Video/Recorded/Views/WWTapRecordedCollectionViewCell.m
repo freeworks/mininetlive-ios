@@ -48,7 +48,7 @@
         [self addSubview:self.videoStatus];
         self.appointmentCount.text = [NSString stringWithFormat:@"%zd人",video.appointmentCount];
     } else {
-        self.appointmentCount.text = [NSString stringWithFormat:@"%zd次",video.appointmentCount];
+        self.appointmentCount.text = [NSString stringWithFormat:@"%zd次",video.playCount];
     }
 
 }

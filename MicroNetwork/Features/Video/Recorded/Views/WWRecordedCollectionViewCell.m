@@ -16,6 +16,11 @@
 //    self.videoType.text = video.videoType == 0 ? @"免费": @"收费";
     [self.fontCover setImageWithURL:[NSURL URLWithString:video.frontCover] placeholderImage:[UIImage imageNamed:@"img_default"]];
     self.playCount.text = [NSString stringWithFormat:@"%zd人",video.appointmentCount];
+    if (video.streamType == 0) {
+        self.playCount.text = [NSString stringWithFormat:@"%zd人",video.appointmentCount];
+    } else {
+        self.playCount.text = [NSString stringWithFormat:@"%zd次",video.playCount];
+    }
 }
 
 @end
