@@ -40,7 +40,7 @@ typedef enum : NSUInteger {
 }
 
 - (void)setListType:(NSInteger)listType {
-    if (self.listType == 1 || self.listType == 0) {
+    if (self.listType == 1) {
         self.title = @"直播预约";
     } else {
         self.title = @"播放历史";

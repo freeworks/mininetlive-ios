@@ -125,7 +125,11 @@
     if (indexPath.section == 0) {
         if (self.isRelase) {
             WWUniversalListTableViewController *universalListVC = (WWUniversalListTableViewController *)[WWUtils getVCWithStoryboard:@"User" viewControllerId:@"UniversalListVC"];
-            universalListVC.listType = indexPath.row;
+            if (indexPath.row == 0) {
+                universalListVC.listType = 1;
+            } else {
+                universalListVC.listType = 3;
+            }
             [self.navigationController pushViewController:universalListVC animated:YES];
         } else {
             if (indexPath.row == 1 || indexPath.row == 3) {

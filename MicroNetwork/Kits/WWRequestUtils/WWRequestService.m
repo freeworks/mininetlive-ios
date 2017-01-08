@@ -11,6 +11,7 @@
 #import <objc/runtime.h>
 #import "AFNetworking.h"
 #import "NSUserDefaults+Signin.h"
+#import "SVProgressHUD.h"
 
 
 NSString *const kHttpMethodPOST = @"POST";
@@ -122,7 +123,9 @@ NSString *const kRet = @"ret";
     [sharedManager POST:URLString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
+        if ([self checkServerResponse:responseObject]) {
+            return ;
+        }
         block(responseObject, nil);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -134,7 +137,9 @@ NSString *const kRet = @"ret";
     [sharedManager GET:URLString parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
+        if ([self checkServerResponse:responseObject]) {
+            return ;
+        }
         block(responseObject, nil);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -161,6 +166,17 @@ serviceResponseBlock:(ServiceResponseBlock)block {
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         block(nil, error);
     }];
+}
+
++ (BOOL)checkServerResponse:(NSDictionary *)responseObject {
+    NSDictionary *dic = responseObject;
+    NSInteger ret = [dic[@"ret"] integerValue];
+    if (ret == 1300) {
+        [SVProgressHUD showErrorWithStatus:@"服务器错误"];
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 @end

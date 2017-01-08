@@ -42,6 +42,7 @@ typedef enum : NSUInteger {
     [self addMJRefresh];
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
+    [SVProgressHUD setMinimumDismissTimeInterval:2];
     [SVProgressHUD setBackgroundColor:RGBA(255, 255, 255, 0.7)];
 }
 
