@@ -40,10 +40,10 @@ typedef enum : NSUInteger {
 }
 
 - (void)setListType:(NSInteger)listType {
-    if (self.listType == 1) {
-        self.title = @"直播预约";
-    } else {
+    if (listType == 3) {
         self.title = @"播放历史";
+    }  else {
+        self.title = @"直播预约";
     }
     __weak __block typeof(self) weakSelf = self;
     [WWUserServices requestListType:listType resultBlock:^(NSArray *list, NSError *error) {
