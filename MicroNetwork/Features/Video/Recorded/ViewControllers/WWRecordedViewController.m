@@ -63,7 +63,6 @@ typedef enum : NSUInteger {
     
     header.automaticallyChangeAlpha = YES;
     header.lastUpdatedTimeLabel.hidden = YES;
-    [header beginRefreshing];
     
     self.collectionView.mj_header = header;
 }

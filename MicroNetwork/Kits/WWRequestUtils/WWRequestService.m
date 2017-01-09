@@ -171,8 +171,8 @@ serviceResponseBlock:(ServiceResponseBlock)block {
 + (BOOL)checkServerResponse:(NSDictionary *)responseObject {
     NSDictionary *dic = responseObject;
     NSInteger ret = [dic[@"ret"] integerValue];
-    if (ret == 1300) {
-        [SVProgressHUD showErrorWithStatus:@"服务器错误"];
+    if (ret == 1300 || ret == 1013) {
+        [SVProgressHUD showErrorWithStatus:dic[@"msg"]];
         return YES;
     } else {
         return NO;

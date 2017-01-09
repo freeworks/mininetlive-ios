@@ -1251,21 +1251,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_start_logo" translatesAutoresizingMaskIntoConstraints="NO" id="eq0-iQ-hc0">
-                                <rect key="frame" x="116.5" y="178.5" width="142" height="91"/>
+                                <rect key="frame" x="116.5" y="106" width="142" height="91"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="142" id="IK0-0G-sf8"/>
                                     <constraint firstAttribute="height" constant="91" id="tFR-zV-SiE"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="微网直播" translatesAutoresizingMaskIntoConstraints="NO" id="BpZ-To-8kS">
-                                <rect key="frame" x="133" y="289.5" width="109" height="27"/>
+                                <rect key="frame" x="133" y="217" width="109" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="109" id="KcR-aB-SiV"/>
                                     <constraint firstAttribute="height" constant="27" id="RCw-8D-Ozc"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   一起看大咖现场！" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O7K-Vm-Y5t">
-                                <rect key="frame" x="16" y="326.5" width="343" height="20"/>
+                                <rect key="frame" x="16" y="254" width="343" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.69019607839999997" green="0.69019607839999997" blue="0.69019607839999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1285,7 +1285,7 @@
                             <constraint firstItem="O7K-Vm-Y5t" firstAttribute="leading" secondItem="r0T-gg-5eS" secondAttribute="leadingMargin" id="Lw0-2N-Kw6"/>
                             <constraint firstItem="LMS-ZN-Zwg" firstAttribute="trailing" secondItem="r0T-gg-5eS" secondAttribute="trailingMargin" id="dJR-hS-6J6"/>
                             <constraint firstItem="eq0-iQ-hc0" firstAttribute="centerX" secondItem="r0T-gg-5eS" secondAttribute="centerX" id="dUd-iF-53n"/>
-                            <constraint firstItem="eq0-iQ-hc0" firstAttribute="centerY" secondItem="r0T-gg-5eS" secondAttribute="centerY" constant="-77.5" id="h7J-go-VNK"/>
+                            <constraint firstItem="eq0-iQ-hc0" firstAttribute="centerY" secondItem="r0T-gg-5eS" secondAttribute="centerY" constant="-150" id="h7J-go-VNK"/>
                             <constraint firstItem="LMS-ZN-Zwg" firstAttribute="leading" secondItem="r0T-gg-5eS" secondAttribute="leadingMargin" id="hTO-2j-PoR"/>
                             <constraint firstItem="O7K-Vm-Y5t" firstAttribute="top" secondItem="BpZ-To-8kS" secondAttribute="bottom" constant="10" id="ndI-Yz-Y8t"/>
                             <constraint firstAttribute="bottomMargin" secondItem="LMS-ZN-Zwg" secondAttribute="bottom" constant="45" id="uf6-n2-GJS"/>

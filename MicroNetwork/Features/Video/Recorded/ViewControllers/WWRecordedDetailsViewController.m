@@ -256,7 +256,7 @@ typedef enum : NSUInteger {
 - (void)addTabBarView {
     
     NSNumber *isRelase = [[NSUserDefaults standardUserDefaults] objectForKey:kIsRelase];
-    if (![isRelase boolValue]) {
+    if ([isRelase boolValue]) {
         return;
     }
     
