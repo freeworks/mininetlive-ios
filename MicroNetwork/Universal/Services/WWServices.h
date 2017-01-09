@@ -9,7 +9,7 @@
 #import "WWRequestService.h"
 @class WWbaseModel;
 
-static NSString *kIsRelase  = @"isRelase";
+static NSString *kIsRelase  = @"isRelease";
 static NSString *kEnable    = @"enable";
 
 typedef void(^ConfigBlock)(WWbaseModel *baseModel, NSError *error);

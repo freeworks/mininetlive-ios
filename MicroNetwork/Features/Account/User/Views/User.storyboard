@@ -821,7 +821,7 @@
                                 <color key="textColor" red="0.96470588239999999" green="0.48627450979999998" blue="0.08235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关注公众号“微网”，发送消息“提现” 就可以收到微信提现红包" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PzR-qX-V4o">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="还没有绑定公众账号，请关注公众号“微网LIVE”，输入“提现”" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PzR-qX-V4o">
                                 <rect key="frame" x="73" y="505" width="229" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="5Nm-nf-GRI"/>

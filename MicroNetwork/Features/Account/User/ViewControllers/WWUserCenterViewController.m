@@ -36,7 +36,7 @@
     self.userImageView.layer.borderWidth = 1;
     self.userImageView.layer.borderColor = [UIColor whiteColor].CGColor;
     NSNumber *isRelaseNumber = [[NSUserDefaults standardUserDefaults] objectForKey:kIsRelase];
-    self.isRelase = [isRelaseNumber boolValue];
+    self.isRelase = ![isRelaseNumber boolValue];
 }
 
 - (void)initializeTheUserDataShow {
