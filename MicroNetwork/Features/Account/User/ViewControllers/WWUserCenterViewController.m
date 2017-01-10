@@ -22,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nickName;
 @property (weak, nonatomic) IBOutlet UILabel *phone;
-@property (nonatomic, assign) BOOL isRelase;
+@property (nonatomic, assign) BOOL isRelease;
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic, strong) NSArray *cellTitles;
 @end
@@ -36,7 +36,7 @@
     self.userImageView.layer.borderWidth = 1;
     self.userImageView.layer.borderColor = [UIColor whiteColor].CGColor;
     NSNumber *isRelaseNumber = [[NSUserDefaults standardUserDefaults] objectForKey:kIsRelase];
-    self.isRelase = ![isRelaseNumber boolValue];
+    self.isRelease = [isRelaseNumber boolValue];
 }
 
 - (void)initializeTheUserDataShow {
@@ -52,7 +52,7 @@
 
 - (NSArray *)images {
     if (!_images) {
-        if (self.isRelase) {
+        if (self.isRelease) {
             _images = @[@[@"ic_money",
                           @"ic_living"],
                         @[@"ic_Invitation_code",
@@ -71,7 +71,7 @@
 
 - (NSArray *)cellTitles {
     if (!_cellTitles) {
-        if (self.isRelase) {
+        if (self.isRelease) {
             _cellTitles = @[@[@"直播预约",
                               @"播放历史"],
                             @[@"我的邀请码",
@@ -123,7 +123,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (self.isRelase) {
+        if (self.isRelease) {
             WWUniversalListTableViewController *universalListVC = (WWUniversalListTableViewController *)[WWUtils getVCWithStoryboard:@"User" viewControllerId:@"UniversalListVC"];
             if (indexPath.row == 0) {
                 universalListVC.listType = 1;
