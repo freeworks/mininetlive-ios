@@ -19,7 +19,7 @@
 #define USER_INVITECODE     @"inviteCode"
 #define USER_QRCODE         @"qrcode"
 #define USER_PHONE          @"phone"
-
+#define DEVICE_TOKEN        @"deviceToken"
 
 
 @implementation NSUserDefaults (Signin)
@@ -110,6 +110,14 @@
 
 - (void)setPhone:(NSString *)phone {
     [self setValue:phone forKey:USER_PHONE];
+}
+
+- (NSString *)deviceToken {
+    return [self valueForKey:DEVICE_TOKEN];
+}
+
+- (void)setDeviceToken:(NSString *)deviceToken {
+    [self setValue:deviceToken forKey:DEVICE_TOKEN];
 }
 
 - (void)setUserInfo:(WWUserInfoModel *)userInfo {

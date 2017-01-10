@@ -14,7 +14,7 @@
 #import "NSUserDefaults+Signin.h"
 #import "WWUserTokenModel.h"
 #import "SVProgressHUD.h"
-
+#import "WWUserServices.h"
 
 
 @interface WWRegisterStep3ViewController ()
@@ -75,6 +75,8 @@
                 [[NSUserDefaults standardUserDefaults] setUserToken:userToken.token];
                 [[NSUserDefaults standardUserDefaults] setShowInvited:userToken.showInvited];
                 [[NSUserDefaults standardUserDefaults] setUserInfo:userToken.user];
+                [WWUserServices postDeviceToken:[NSUserDefaults standardUserDefaults].deviceToken resultBlock:^(NSError *error) {
+                }];
                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
             } else {
                 [WWUtils showTipAlertWithMessage:baseModel.msg];

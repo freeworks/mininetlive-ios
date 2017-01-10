@@ -49,10 +49,10 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Tap Recorded Cell" id="PO6-JU-ToQ" customClass="WWTapRecordedCollectionViewCell">
-                                        <rect key="frame" x="0.0" y="10" width="576" height="280"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="280"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="576" height="280"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="280"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NpM-1W-skc">
@@ -62,13 +62,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="预约人数：1000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dyw-vW-rar">
-                                                    <rect key="frame" x="457" y="241" width="104" height="17"/>
+                                                    <rect key="frame" x="256" y="241" width="104" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.62745098040000002" green="0.62745098040000002" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7FX-Hg-t1N">
-                                                    <rect key="frame" x="13" y="16" width="550" height="192"/>
+                                                    <rect key="frame" x="13" y="16" width="349" height="192"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="192" id="rUR-H5-8av"/>
                                                     </constraints>
@@ -80,7 +80,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ioX-kp-YDL">
-                                                    <rect key="frame" x="0.0" y="272" width="576" height="8"/>
+                                                    <rect key="frame" x="0.0" y="272" width="375" height="8"/>
                                                     <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="8" id="Vi5-Px-at7"/>
@@ -108,7 +108,7 @@
                                             <constraint firstItem="ioX-kp-YDL" firstAttribute="leading" secondItem="PO6-JU-ToQ" secondAttribute="leading" id="wai-4O-RMp"/>
                                             <constraint firstAttribute="trailing" secondItem="ioX-kp-YDL" secondAttribute="trailing" id="zPK-L1-jOn"/>
                                         </constraints>
-                                        <size key="customSize" width="576" height="280"/>
+                                        <size key="customSize" width="375" height="280"/>
                                         <connections>
                                             <outlet property="appointmentCount" destination="Dyw-vW-rar" id="Khw-gn-Huw"/>
                                             <outlet property="fontCover" destination="7FX-Hg-t1N" id="sL2-Gh-mfu"/>
@@ -117,7 +117,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Recorded Cell" id="cLi-IX-ufK" customClass="WWRecordedCollectionViewCell">
-                                        <rect key="frame" x="0.0" y="300" width="264" height="161"/>
+                                        <rect key="frame" x="55.5" y="290" width="264" height="161"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="264" height="161"/>
@@ -298,7 +298,7 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Details Introduced" id="T9s-bd-1u8" customClass="WWRecordedIntroducedTableViewCell">
-                                        <rect key="frame" x="0.0" y="193" width="375" height="137"/>
+                                        <rect key="frame" x="0.0" y="192.5" width="375" height="137"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T9s-bd-1u8" id="b6Y-oH-IAc">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="137"/>
@@ -355,6 +355,7 @@
                         <outlet property="labelTime" destination="GBm-rq-4sC" id="NRh-OM-d9F"/>
                         <outlet property="labelTitle" destination="a2r-XR-YCu" id="cPr-os-tCz"/>
                         <outlet property="labelVideoType" destination="PSD-Z6-AAh" id="tGz-1J-Jiy"/>
+                        <outlet property="ownerImageView" destination="MSd-PE-DkC" id="SEc-pH-Mke"/>
                         <outlet property="tableView" destination="v6l-Hz-Hp5" id="10f-bP-5sw"/>
                         <outlet property="topView" destination="n2C-8Z-N9Z" id="eZY-jF-ce4"/>
                     </connections>

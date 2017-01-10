@@ -22,6 +22,7 @@
 @property (copy, nonatomic) NSString *inviteCode;
 @property (copy, nonatomic) NSString *qrcode;
 @property (copy, nonatomic) NSString *phone;
+@property (nonatomic, copy) NSString *deviceToken;
 
 - (void)setUserInfo:(WWUserInfoModel *)userInfo;
 - (void)removeUserInfo;

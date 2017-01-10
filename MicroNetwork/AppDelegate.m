@@ -18,6 +18,7 @@
 #import "Pingpp.h"
 #import "UMessage.h"
 #import "WWUserServices.h"
+#import "NSUserDefaults+Signin.h"
 
 
 @interface AppDelegate ()
@@ -158,8 +159,7 @@
     NSString *apns = [[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     apns = [apns stringByReplacingOccurrencesOfString:@" " withString:@""];
     if(apns.length){
-        [WWUserServices postDeviceToken:apns resultBlock:^(NSError *error) {
-        }];
+        [[NSUserDefaults standardUserDefaults] setDeviceToken:apns];
     }
 }
 

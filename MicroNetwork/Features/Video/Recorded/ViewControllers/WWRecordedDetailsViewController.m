@@ -52,6 +52,7 @@ typedef enum : NSUInteger {
 @property (nonatomic) CGSize size;
 @property (nonatomic, strong) KRVideoPlayerController *videoController;
 @property (nonatomic, strong) WWTabBarView *tabBarView;
+@property (weak, nonatomic) IBOutlet UIImageView *ownerImageView;
 
 @property (strong, nonatomic) WWLiveDetailsFootView *footView;
 @property (strong, nonatomic) WWPlayerView *playerView;
@@ -164,6 +165,8 @@ typedef enum : NSUInteger {
     self.labelPlayCount.text = [NSString stringWithFormat:@"播放：%zd次",self.video.playCount];
     self.tableView.estimatedRowHeight = 137;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.labelVideoType.text = self.video.owner.nickname;
+    [self.ownerImageView setImageURL:[NSURL URLWithString:self.video.owner.avatar]];
 }
 
 - (void)showmenberList:(NSArray *)menberList menberCount:(NSNumber *)menberCount {
@@ -336,14 +339,11 @@ typedef enum : NSUInteger {
 
 - (void)popVC {
 
-    if (self.videoController) {
-        [self.videoController dismiss];
-        self.videoController = nil;
-    } else if (self.playerView) {
-        [self.playerView shutdown];
-        [self.playerView removeAllSubviews];
-        self.playerView = nil;
-    }
+    [self.videoController dismiss];
+    self.videoController = nil;
+    [self.playerView shutdown];
+    [self.playerView removeAllSubviews];
+    self.playerView = nil;
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -19,7 +19,8 @@
 #import "WWUserTokenModel.h"
 #import "WWInviteCodeViewController.h"
 #import "SVProgressHUD.h"
-
+#import "AFNetworking.h"
+#import "WWUserServices.h"
 
 typedef enum : NSUInteger {
     ThirdPartyWeChat = 1000,
@@ -206,8 +207,12 @@ typedef enum : NSUInteger {
     [[NSUserDefaults standardUserDefaults] setUserToken:userToken.token];
     [[NSUserDefaults standardUserDefaults] setShowInvited:userToken.showInvited];
     [[NSUserDefaults standardUserDefaults] setUserInfo:userToken.user];
-    
+    AFHTTPSessionManager *sharedManager = [WWServices sharedManager];
+    [sharedManager.requestSerializer setValue:[NSUserDefaults standardUserDefaults].uid forHTTPHeaderField:@"uid"];
     WWUserInfoModel *user = userToken.user;
+    
+    [WWUserServices postDeviceToken:[NSUserDefaults standardUserDefaults].deviceToken resultBlock:^(NSError *error) {
+    }];
     
     if (userToken.showInvited.integerValue == 0) {
         WWInviteCodeViewController *inviteCodeVC = (WWInviteCodeViewController *)[WWUtils getVCWithStoryboard:@"Account" viewControllerId:@"InviteCodeVC"];
