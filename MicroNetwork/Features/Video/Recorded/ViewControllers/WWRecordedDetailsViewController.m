@@ -258,8 +258,8 @@ typedef enum : NSUInteger {
 //根据不同类型视频底部展示预约或者购买
 - (void)addTabBarView {
     
-    NSNumber *isRelase = [[NSUserDefaults standardUserDefaults] objectForKey:kIsRelase];
-    if ([isRelase boolValue]) {
+    NSNumber *isRelease = [[NSUserDefaults standardUserDefaults] objectForKey:kIsRelase];
+    if ([isRelease boolValue]) {
         return;
     }
     
@@ -306,7 +306,7 @@ typedef enum : NSUInteger {
 
 - (void)checkPayment {
     
-    if (self.video.payState == 0) {
+    if (self.video.activityType != 0) {
         [self.tabBarView setRightButtonTitle:@"购买观看" andBackgroundImageString:@"btn_buy"];
     } else {
         [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
