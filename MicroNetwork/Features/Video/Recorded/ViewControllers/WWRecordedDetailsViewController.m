@@ -275,7 +275,7 @@ typedef enum : NSUInteger {
         switch (self.video.activityState) {
             case 0:
                 if (self.video.appoinState == 0) {
-                    [self.tabBarView setRightButtonTitle:@"立即预约" andBackgroundImageString:@"btn_reservation"];
+                    [self.tabBarView setRightButtonTitle:@"预约" andBackgroundImageString:@"btn_reservation"];
                     [self.tabBarView.rightButton addTarget:self action:@selector(appointmentClick) forControlEvents:UIControlEventTouchUpInside];
                 } else {
                     [self.tabBarView setRightButtonTitle:@"已预约" andBackgroundImageString:@"btn_done"];
@@ -288,7 +288,11 @@ typedef enum : NSUInteger {
                     [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
                     [self.tabBarView.rightButton addTarget:self action:@selector(buyClick:) forControlEvents:UIControlEventTouchUpInside];
                 } else {
-                    [self checkPayment];
+                    if (self.video.payState == 0) {
+                        [self.tabBarView setRightButtonTitle:@"购买观看" andBackgroundImageString:@"btn_buy"];
+                    } else {
+                        [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
+                    }
                 }
                 break;
             case 2:
@@ -306,8 +310,12 @@ typedef enum : NSUInteger {
 
 - (void)checkPayment {
     
-    if (self.video.activityType != 0) {
-        [self.tabBarView setRightButtonTitle:@"购买观看" andBackgroundImageString:@"btn_buy"];
+    if (self.video.activityType == kVideoTypeFee) {
+        if (self.video.payState == 0) {
+            [self.tabBarView setRightButtonTitle:@"购买观看" andBackgroundImageString:@"btn_buy"];
+        } else {
+            [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
+        }
     } else {
         [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
     }

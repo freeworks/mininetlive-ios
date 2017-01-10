@@ -40,16 +40,16 @@ NSString *const kRet = @"ret";
     static AFHTTPSessionManager *sharedManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-//        NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-//        config.HTTPMaximumConnectionsPerHost = 1;
-//        sharedManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:config];
-        sharedManager = [AFHTTPSessionManager manager];
+        NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+        config.HTTPMaximumConnectionsPerHost = 1;
+        sharedManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:config];
+//        sharedManager = [AFHTTPSessionManager manager];
         sharedManager.responseSerializer = [AFJSONResponseSerializer serializer];
         sharedManager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        sharedManager.securityPolicy = [AFSecurityPolicy defaultPolicy];
-        sharedManager.responseSerializer.acceptableContentTypes = nil;//[NSSet setWithObject:@"text/ plain"];
-        sharedManager.securityPolicy.allowInvalidCertificates = YES;//忽略https证书
-        sharedManager.securityPolicy.validatesDomainName = NO;//是否验证域名
+//        sharedManager.securityPolicy = [AFSecurityPolicy defaultPolicy];
+//        sharedManager.responseSerializer.acceptableContentTypes = nil;//[NSSet setWithObject:@"text/ plain"];
+//        sharedManager.securityPolicy.allowInvalidCertificates = YES;//忽略https证书
+//        sharedManager.securityPolicy.validatesDomainName = NO;//是否验证域名
         [sharedManager.requestSerializer setValue:[NSUserDefaults standardUserDefaults].uid forHTTPHeaderField:@"uid"];
         [sharedManager.requestSerializer setValue:[NSUserDefaults standardUserDefaults].userToken forHTTPHeaderField:@"token"];
         [sharedManager.requestSerializer setValue:@"ios" forHTTPHeaderField:@"platform"];
