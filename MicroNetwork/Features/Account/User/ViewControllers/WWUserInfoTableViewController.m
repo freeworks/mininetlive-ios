@@ -74,6 +74,10 @@ typedef enum : NSUInteger {
         if (indexPath.row == 0) {
             [self.headPortrait alterHeadPortrait:nil];
         }
+    } else if (indexPath.section == 1) {
+        if (self.phoneNumber.text.length == 0) {
+            [self performSegueWithIdentifier:@"BindingPhoneVC" sender:nil];
+        }
     }
     
 }

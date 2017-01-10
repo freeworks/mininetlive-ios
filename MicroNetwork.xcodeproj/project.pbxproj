@@ -15,6 +15,7 @@
 		A00D4A331D368B7200968C97 /* WWNoLiveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A00D4A321D368B7200968C97 /* WWNoLiveView.xib */; };
 		A00DD0461D117E0E00BA1690 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00DD0451D117E0E00BA1690 /* MessageUI.framework */; };
 		A011632D1D1C3983002FA172 /* WWUserTokenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A011632C1D1C3983002FA172 /* WWUserTokenModel.m */; };
+		A011D15C1E24B97800BC37DE /* WWBindingPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A011D15B1E24B97800BC37DE /* WWBindingPhoneViewController.m */; };
 		A01672D61D240B22006497AF /* WWRecordedDetailsServices.m in Sources */ = {isa = PBXBuildFile; fileRef = A01672D51D240B22006497AF /* WWRecordedDetailsServices.m */; };
 		A01672DA1D2578B6006497AF /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A01672D81D2578B6006497AF /* libUMessage_Sdk_1.3.0.a */; };
 		A01672E31D297287006497AF /* WWLiveMenberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A01672E21D297287006497AF /* WWLiveMenberTableViewCell.m */; };
@@ -169,6 +170,8 @@
 		A00DD0451D117E0E00BA1690 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A011632B1D1C3983002FA172 /* WWUserTokenModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWUserTokenModel.h; sourceTree = "<group>"; };
 		A011632C1D1C3983002FA172 /* WWUserTokenModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWUserTokenModel.m; sourceTree = "<group>"; };
+		A011D15A1E24B97800BC37DE /* WWBindingPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWBindingPhoneViewController.h; sourceTree = "<group>"; };
+		A011D15B1E24B97800BC37DE /* WWBindingPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWBindingPhoneViewController.m; sourceTree = "<group>"; };
 		A01672D41D240B22006497AF /* WWRecordedDetailsServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWRecordedDetailsServices.h; sourceTree = "<group>"; };
 		A01672D51D240B22006497AF /* WWRecordedDetailsServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWRecordedDetailsServices.m; sourceTree = "<group>"; };
 		A01672D81D2578B6006497AF /* libUMessage_Sdk_1.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.3.0.a; sourceTree = "<group>"; };
@@ -746,6 +749,8 @@
 				A00D4A1C1D33F0E200968C97 /* WWWithdrawalValidation1ViewController.m */,
 				A00D4A1E1D33F0EA00968C97 /* WWWithdrawalValidation2ViewController.h */,
 				A00D4A1F1D33F0EA00968C97 /* WWWithdrawalValidation2ViewController.m */,
+				A011D15A1E24B97800BC37DE /* WWBindingPhoneViewController.h */,
+				A011D15B1E24B97800BC37DE /* WWBindingPhoneViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1500,6 +1505,7 @@
 				A0C851791CFB228400AA6402 /* WWLoginServices.m in Sources */,
 				A0CAC3451D32B6A7002FC122 /* WWPayListTableViewController.m in Sources */,
 				A04CB2401D0B215800B065CB /* WWAddressTableViewCell.m in Sources */,
+				A011D15C1E24B97800BC37DE /* WWBindingPhoneViewController.m in Sources */,
 				A0C851231CFAE9DA00AA6402 /* NSUserDefaults+Signin.m in Sources */,
 				A04CB22E1D0AC61000B065CB /* WWNickNameTableViewController.m in Sources */,
 				A0C8511D1CFAE7C000AA6402 /* WWRequestService.m in Sources */,

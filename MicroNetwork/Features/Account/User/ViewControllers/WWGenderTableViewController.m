@@ -9,6 +9,7 @@
 #import "WWGenderTableViewController.h"
 #import "NSUserDefaults+Signin.h"
 #import "WWUserServices.h"
+#import "SVProgressHUD.h"
 
 typedef enum : NSUInteger {
     MyGenderWoman = 0,
@@ -36,7 +37,11 @@ typedef enum : NSUInteger {
 
 - (IBAction)saveGender:(UIBarButtonItem *)sender {
     [WWUserServices requestUploadGender:self.gender resultBlock:^(WWbaseModel *baseModel, NSError *error) {
-        
+        if (!error) {
+            if (baseModel.ret != 1000) {
+                [SVProgressHUD showErrorWithStatus:baseModel.msg];
+            }
+        }
     }];
 }
 
