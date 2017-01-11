@@ -28,6 +28,7 @@
 @property (assign, nonatomic) NSInteger appointmentCount;
 @property (strong, nonatomic) NSString *livePullPath;
 @property (strong, nonatomic) NSString *videoPath;
+@property (nonatomic, assign) NSInteger onlineCount;//在线人数
 @property (strong, nonatomic) WWOwner *owner;
 
 //加载更多属性

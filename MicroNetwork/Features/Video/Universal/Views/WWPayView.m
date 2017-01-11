@@ -21,6 +21,7 @@
 
 @interface WWPayView  () <UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *defaultButton;
 @property (strong, nonatomic) UIButton *currentBtn;
 @property (strong, nonatomic) NSString *money;
 @property (weak, nonatomic) IBOutlet UILabel *labelPayAmount;
@@ -53,6 +54,7 @@
         self.textFieldMoney.delegate = self;
         [self.textFieldMoney setValue:BTN_SELECT_BACKGROUNDCOLOR forKeyPath:@"_placeholderLabel.textColor"];
         [self.textFieldMoney setValue:[UIFont boldSystemFontOfSize:17] forKeyPath:@"_placeholderLabel.font"];
+        [self btnSelectTheDefaultPaymentAmount:self.defaultButton];
     } else {
         self.title.text = @"支付金额";
         self.labelPayAmount.text = [NSString stringWithFormat:@"￥%@",payAmount];
@@ -71,9 +73,6 @@
     if ([self.delegate respondsToSelector:@selector(choicePaymentClick:andMoney:andMethod:)]) {
         if (self.textFieldMoney.text.length > 0) {
             self.money = [NSString stringWithFormat:@"%zd",self.textFieldMoney.text.integerValue * 100];
-        } else {
-            self.money = [NSString stringWithFormat:@"%.2lf",self.money.doubleValue * 100];
-            self.money = [NSString stringWithFormat:@"%zd",[self.money integerValue]];
         }
         if ([self.money isEqualToString:@""] || !self.money) {
             [SVProgressHUD showInfoWithStatus:@"请输入金额"];

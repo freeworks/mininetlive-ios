@@ -24,7 +24,7 @@
 #import "WWPlayerView.h"
 #import "WWPromptView.h"
 #import "WWVideoService.h"
-
+#import <VKVideoPlayer/VKVideoPlayer.h>
 
 #define COLOR_GREEN     UIColorFromRGB(0x0AC653);
 
@@ -180,34 +180,28 @@ typedef enum : NSUInteger {
 
 //不同类型视频展示预约或购买人数
 - (void)initTipsView {
-    UILabel *tipsShowLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-220, 80, 200, 24)];
-    tipsShowLabel.textAlignment = NSTextAlignmentRight;
+
     
     if (self.video.streamType == kPlayTypesLive) {
-        tipsShowLabel.font = [UIFont systemFontOfSize:14];
-        tipsShowLabel.textColor = UIColorFromRGB(0xA0A0A0);
-        NSString *string = [NSString stringWithFormat:@"%zd",self.video.appointmentCount];
-        NSString *str = [NSString stringWithFormat:@"已有 %@ 人预约",string];
-        NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:str];
-        [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(3,string.length)];
-        [attriString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x4A90E2) range:NSMakeRange(3, string.length)];
-        tipsShowLabel.attributedText = attriString;
-        
+
         if (self.video.activityType == kVideoTypeFee) {
-            if (self.video.payState == 0) {
-                [self addRecordedVideoImageView];
-            } else {
-                [self addPlayerView];
-            }
-        } else {
-            [self addPlayerView];
+
+            UILabel *tipsShowLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-220, 40, 200, 24)];
+            tipsShowLabel.textAlignment = NSTextAlignmentRight;
+            tipsShowLabel.textColor = UIColorFromRGB(0x0AC653);
+            tipsShowLabel.font = [UIFont systemFontOfSize:20];
+            
+            NSString *str = [NSString stringWithFormat:@"¥%.2lf", self.video.price / 100];
+            NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:str];
+            [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, 1)];
+            tipsShowLabel.attributedText = attriString;
+            [self.topView addSubview:tipsShowLabel];
         }
-
-        [self.topView addSubview:tipsShowLabel];
-
     } else {
 
         if (self.video.activityType == kVideoTypeFee) {
+            UILabel *tipsShowLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-220, 40, 200, 24)];
+            tipsShowLabel.textAlignment = NSTextAlignmentRight;
             tipsShowLabel.textColor = UIColorFromRGB(0x0AC653);
             tipsShowLabel.font = [UIFont systemFontOfSize:20];
             
@@ -228,6 +222,30 @@ typedef enum : NSUInteger {
     }
 }
 
+- (void)addLabelType:(NSInteger)type {
+    UILabel *tipsShowLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-220, 80, 200, 24)];
+    tipsShowLabel.textAlignment = NSTextAlignmentRight;
+    tipsShowLabel.font = [UIFont systemFontOfSize:14];
+    tipsShowLabel.textColor = UIColorFromRGB(0xA0A0A0);
+    
+    NSString *string;
+    NSString *str;
+    
+    if (type == 0) {
+        string = [NSString stringWithFormat:@"%zd",self.video.appointmentCount];
+        str = [NSString stringWithFormat:@"已有 %@ 人预约",string];
+    } else {
+        string = [NSString stringWithFormat:@"%zd",self.video.onlineCount];
+        str = [NSString stringWithFormat:@"在线 %@ 人",string];
+    }
+    
+    NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:str];
+    [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(3,string.length)];
+    [attriString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x4A90E2) range:NSMakeRange(3, string.length)];
+    tipsShowLabel.attributedText = attriString;
+    [self.topView addSubview:tipsShowLabel];
+}
+
 - (void)addPlayerView {
     self.playerView = [[WWPlayerView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) VideoModel:self.video];
     self.playerView.delegate = self;
@@ -236,15 +254,28 @@ typedef enum : NSUInteger {
 
 - (void)addRecordedVideoImageView {
     __weak __block typeof(self) weakSelf = self;
-    WWRecordedVideoImageView *recordedVideoImageView = [[WWRecordedVideoImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) imageURL:self.video.frontCover clickBlock:^{
-        if (self.video.payState == 0) {
+    WWRecordedVideoImageView *recordedVideoImageView = [[WWRecordedVideoImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) imageURL:weakSelf.video.frontCover clickBlock:^{
+        if (weakSelf.video.payState == 0) {
             [WWUtils showTipAlertWithTitle:@"收费视频" message:@"请购买后观看"];
         } else {
             [weakSelf playVideoWithURL:[NSURL URLWithString:self.video.videoPath]];
             [recordedVideoImageView removeFromSuperview];
         }
     }];
+    recordedVideoImageView.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:recordedVideoImageView];
+}
 
+- (void)addVideoImageViewType:(NSInteger)type {
+    __weak __block typeof(self) weakSelf = self;
+    WWRecordedVideoImageView *recordedVideoImageView = [[WWRecordedVideoImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) imageURL:weakSelf.video.frontCover clickBlock:^{
+        if (type == 0) {
+            [WWUtils showTipAlertWithTitle:@"敬请期待" message:@"直播尚未开始"];
+        } else {
+            [WWUtils showTipAlertWithTitle:@"直播结束" message:@""];
+        }
+    }];
+    recordedVideoImageView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:recordedVideoImageView];
 }
 
@@ -274,6 +305,7 @@ typedef enum : NSUInteger {
         
         switch (self.video.activityState) {
             case 0:
+                [self addVideoImageViewType:0];
                 if (self.video.appoinState == 0) {
                     [self.tabBarView setRightButtonTitle:@"预约" andBackgroundImageString:@"btn_reservation"];
                     [self.tabBarView.rightButton addTarget:self action:@selector(appointmentClick) forControlEvents:UIControlEventTouchUpInside];
@@ -281,12 +313,13 @@ typedef enum : NSUInteger {
                     [self.tabBarView setRightButtonTitle:@"已预约" andBackgroundImageString:@"btn_done"];
                     self.tabBarView.rightButton.userInteractionEnabled = NO;
                 }
+                [self addLabelType:0];
                 
                 break;
             case 1:
                 if (self.video.activityType == kVideoTypeFree) {
                     [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
-                    [self.tabBarView.rightButton addTarget:self action:@selector(buyClick:) forControlEvents:UIControlEventTouchUpInside];
+
                 } else {
                     if (self.video.payState == 0) {
                         [self.tabBarView setRightButtonTitle:@"购买观看" andBackgroundImageString:@"btn_buy"];
@@ -294,8 +327,12 @@ typedef enum : NSUInteger {
                         [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
                     }
                 }
+                [self.tabBarView.rightButton addTarget:self action:@selector(buyClick:) forControlEvents:UIControlEventTouchUpInside];
+                [self addLabelType:1];
+                [self addPlayerView];
                 break;
             case 2:
+                [self addVideoImageViewType:1];
                 [self.tabBarView setRightButtonTitle:@"已结束" andBackgroundImageString:@"btn_done"];
                 self.tabBarView.rightButton.userInteractionEnabled = NO;
                 break;
@@ -321,7 +358,7 @@ typedef enum : NSUInteger {
     }
     [self.tabBarView.rightButton addTarget:self action:@selector(buyClick:) forControlEvents:UIControlEventTouchUpInside];
 }
-
+//点播播放器
 - (void)playVideoWithURL:(NSURL *)url
 {
     if (!self.videoController) {

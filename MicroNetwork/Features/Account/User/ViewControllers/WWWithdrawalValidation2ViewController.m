@@ -17,7 +17,6 @@
 @interface WWWithdrawalValidation2ViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *labelPhone;
 @property (weak, nonatomic) IBOutlet UITextField *textCode;
-@property (weak, nonatomic) IBOutlet UITextField *textPassword;
 @property (weak, nonatomic) IBOutlet UIButton *sendAgainButton;
 
 
@@ -78,11 +77,6 @@
 - (BOOL)checkIfCodeIsCorrect {
     if (!self.textCode.text || [self.textCode.text isEqualToString:@""]) {
         [WWUtils showTipAlertWithMessage:@"请输入验证码"];
-        return NO;
-    }
-    
-    if (!self.textPassword.text || [self.textPassword.text isEqualToString:@""] || self.textPassword.text.length < 6) {
-        [WWUtils showTipAlertWithMessage:@"请输入6位数密码"];
         return NO;
     }
     
