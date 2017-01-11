@@ -24,7 +24,6 @@
 #import "WWPlayerView.h"
 #import "WWPromptView.h"
 #import "WWVideoService.h"
-#import <VKVideoPlayer/VKVideoPlayer.h>
 
 #define COLOR_GREEN     UIColorFromRGB(0x0AC653);
 
@@ -358,7 +357,7 @@ typedef enum : NSUInteger {
     }
     [self.tabBarView.rightButton addTarget:self action:@selector(buyClick:) forControlEvents:UIControlEventTouchUpInside];
 }
-//点播播放器
+//录播播放器
 - (void)playVideoWithURL:(NSURL *)url
 {
     if (!self.videoController) {
