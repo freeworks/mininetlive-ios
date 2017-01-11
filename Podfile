@@ -8,5 +8,6 @@ pod 'AFNetworking', '~> 3.0'
 pod 'MJRefresh'
 pod 'YYKit'
 pod 'SVProgressHUD'
+pod 'Bugly'
 
 end

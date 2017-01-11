@@ -19,6 +19,7 @@
 #import "UMessage.h"
 #import "WWUserServices.h"
 #import "NSUserDefaults+Signin.h"
+#import <Bugly/Bugly/Bugly.h>
 
 
 @interface AppDelegate ()
@@ -32,7 +33,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self shareSDK];
-    
+    [Bugly startWithAppId:@"dc6ccc28-f030-4f9c-829c-b3442dddd613"];
     //设置 AppKey 及 LaunchOptions
     [UMessage startWithAppkey:UMessage_AppKey launchOptions:launchOptions];
     
