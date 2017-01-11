@@ -1442,7 +1442,6 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="nextStepButton:" destination="lkV-EI-3S4" eventType="touchUpInside" id="8WR-tf-iMW"/>
                                     <action selector="nextStepClick:" destination="lkV-EI-3S4" eventType="touchUpInside" id="mxa-J5-kBI"/>
                                 </connections>
                             </button>
