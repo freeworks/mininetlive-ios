@@ -47,13 +47,13 @@
             break;
         case 1:
             self.videoStatus.text = @"直播中";
-            self.videoStatus.backgroundColor = RGBA(255, 104, 75, 0.9);
             self.videoStatus.frame = CGRectMake(SCREEN_WIDTH - 90, 16, 55, 31);
+            self.videoStatus.backgroundColor = RGBA(255, 104, 75, 0.9);
             break;
         case 2:
             self.videoStatus.text = @"结束";
-            self.self.videoStatus.backgroundColor = RGBA(165, 170, 178, 0.9);
             self.videoStatus.frame = CGRectMake(SCREEN_WIDTH - 75, 16, 40, 31);
+            self.self.videoStatus.backgroundColor = RGBA(165, 170, 178, 0.9);
             break;
             
         default:
