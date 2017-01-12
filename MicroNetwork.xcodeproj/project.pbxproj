@@ -16,6 +16,9 @@
 		A00DD0461D117E0E00BA1690 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00DD0451D117E0E00BA1690 /* MessageUI.framework */; };
 		A011632D1D1C3983002FA172 /* WWUserTokenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A011632C1D1C3983002FA172 /* WWUserTokenModel.m */; };
 		A011D15C1E24B97800BC37DE /* WWBindingPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A011D15B1E24B97800BC37DE /* WWBindingPhoneViewController.m */; };
+		A011D1631E26FD3400BC37DE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A011D1621E26FD3400BC37DE /* SystemConfiguration.framework */; };
+		A011D1651E26FD4300BC37DE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A011D1641E26FD4300BC37DE /* Security.framework */; };
+		A011D1671E26FD5900BC37DE /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A011D1661E26FD5900BC37DE /* libc++.tbd */; };
 		A01672D61D240B22006497AF /* WWRecordedDetailsServices.m in Sources */ = {isa = PBXBuildFile; fileRef = A01672D51D240B22006497AF /* WWRecordedDetailsServices.m */; };
 		A01672DA1D2578B6006497AF /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A01672D81D2578B6006497AF /* libUMessage_Sdk_1.3.0.a */; };
 		A01672E31D297287006497AF /* WWLiveMenberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A01672E21D297287006497AF /* WWLiveMenberTableViewCell.m */; };
@@ -172,6 +175,9 @@
 		A011632C1D1C3983002FA172 /* WWUserTokenModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWUserTokenModel.m; sourceTree = "<group>"; };
 		A011D15A1E24B97800BC37DE /* WWBindingPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWBindingPhoneViewController.h; sourceTree = "<group>"; };
 		A011D15B1E24B97800BC37DE /* WWBindingPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWBindingPhoneViewController.m; sourceTree = "<group>"; };
+		A011D1621E26FD3400BC37DE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		A011D1641E26FD4300BC37DE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		A011D1661E26FD5900BC37DE /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		A01672D41D240B22006497AF /* WWRecordedDetailsServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWRecordedDetailsServices.h; sourceTree = "<group>"; };
 		A01672D51D240B22006497AF /* WWRecordedDetailsServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWRecordedDetailsServices.m; sourceTree = "<group>"; };
 		A01672D81D2578B6006497AF /* libUMessage_Sdk_1.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.3.0.a; sourceTree = "<group>"; };
@@ -408,6 +414,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A011D1671E26FD5900BC37DE /* libc++.tbd in Frameworks */,
+				A0C8515E1CFB039800AA6402 /* libz.tbd in Frameworks */,
+				A011D1651E26FD4300BC37DE /* Security.framework in Frameworks */,
+				A011D1631E26FD3400BC37DE /* SystemConfiguration.framework in Frameworks */,
 				A0C851641CFB03B700AA6402 /* ImageIO.framework in Frameworks */,
 				A099CA271DFDA13B00DB211F /* WechatConnector.framework in Frameworks */,
 				A099CA2C1DFDA13B00DB211F /* libWeChatSDK.a in Frameworks */,
@@ -422,7 +432,6 @@
 				A01673EB1D2D6B4D006497AF /* CoreMedia.framework in Frameworks */,
 				A01673E91D2D6B42006497AF /* VideoToolbox.framework in Frameworks */,
 				A099CA251DFDA13B00DB211F /* QQConnector.framework in Frameworks */,
-				A0C8515E1CFB039800AA6402 /* libz.tbd in Frameworks */,
 				A0C851601CFB03A300AA6402 /* libstdc++.tbd in Frameworks */,
 				A0C851621CFB03AD00AA6402 /* JavaScriptCore.framework in Frameworks */,
 				A00DD0461D117E0E00BA1690 /* MessageUI.framework in Frameworks */,
@@ -457,6 +466,9 @@
 		102FCFEDAE4B36344A63647B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A011D1661E26FD5900BC37DE /* libc++.tbd */,
+				A011D1641E26FD4300BC37DE /* Security.framework */,
+				A011D1621E26FD3400BC37DE /* SystemConfiguration.framework */,
 				A01673EE1D2D6B5F006497AF /* AudioToolbox.framework */,
 				A01673EC1D2D6B57006497AF /* AVFoundation.framework */,
 				A01673EA1D2D6B4D006497AF /* CoreMedia.framework */,

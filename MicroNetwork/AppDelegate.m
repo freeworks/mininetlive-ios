@@ -34,6 +34,7 @@
     
     [self shareSDK];
     [Bugly startWithAppId:@"da6745b10d"];
+    [BuglyConfig defaultConfig].unexpectedTerminatingDetectionEnable = YES;
     //设置 AppKey 及 LaunchOptions
     [UMessage startWithAppkey:UMessage_AppKey launchOptions:launchOptions];
     
