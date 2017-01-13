@@ -10,6 +10,7 @@
 #import "UCloudMediaPlayer.h"
 #import "WWVideoModel.h"
 #import "WWUtils.h"
+#import "SVProgressHUD.h"
 
 #define BASE_URL        @"rtmp://vlive3.rtmp.cdn.ucloud.com.cn/ucloud/"
 static const CGFloat kVideoControlBarHeight = 40.0;
@@ -30,30 +31,13 @@ static const CGFloat kVideoControlAnimationTimeinterval = 0.3;
 
 @implementation WWPlayerView
 
-+ (NSString *)path:(NSString *)url {
-    
-    return [NSString stringWithFormat:@"%@%@",BASE_URL, url];
-}
-
-
-+ (WWPlayerView *)sharedManager{
-    static dispatch_once_t predicate;
-    static WWPlayerView * sharedManager;
-    if (sharedManager == nil) {
-        dispatch_once(&predicate, ^{
-            sharedManager=[[WWPlayerView alloc] init];
-        });
-    }
-    return sharedManager;
-}
-
 - (instancetype)initWithFrame:(CGRect)frame VideoModel:(WWVideoModel *)video {
     if (self = [super initWithFrame:frame]) {
         
         self.backgroundColor = [UIColor blackColor];
         self.video = video;
-        self.mediaPlayer = [UCloudMediaPlayer ucloudMediaPlayer];
-        [self addPlayerWithPlayerURL:[self.class path:@"testlive_mininetlive_fee"]];
+        self.mediaPlayer = [[UCloudMediaPlayer alloc] init];
+        [self addPlayerWithPlayerURL:video.livePullPath];
         [self addSubview:self.bottomBar];
         [self.bottomBar addSubview:self.fullScreenButton];
         [self.bottomBar addSubview:self.shrinkScreenButton];
@@ -81,8 +65,8 @@ static const CGFloat kVideoControlAnimationTimeinterval = 0.3;
 
 - (void)addPlayerWithPlayerURL:(NSString *)url {
     [self.mediaPlayer showMediaPlayer:url urltype:UrlTypeLive frame:CGRectNull view:self completion:^(NSInteger defaultNum, NSArray *data) {
-        if (self.mediaPlayer) {
-            
+        if (defaultNum == 6 || defaultNum == 7) {
+            [SVProgressHUD showErrorWithStatus:@"连接超时"];
         }
     }];
     self.mediaPlayer.player.controlStyle = MPMovieControlStyleNone;

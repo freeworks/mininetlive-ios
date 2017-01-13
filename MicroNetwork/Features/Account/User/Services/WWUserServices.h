@@ -29,4 +29,5 @@ typedef void (^BindingResponseBlock)(WWbaseModel *baseModel, NSError *error);
 + (void)getUserBalanceResultBlock:(BalanceBlock)block;
 + (void)postBindingPhone:(NSString *)phone vcode:(NSString *)vcode resultBlock:(BindingResponseBlock)block;
 + (void)postVcodeWithPhone:(NSString *)phone resultBlock:(BindingResponseBlock)block;
++ (void)getUserInfoResultBlock:(BindingResponseBlock)block;
 @end

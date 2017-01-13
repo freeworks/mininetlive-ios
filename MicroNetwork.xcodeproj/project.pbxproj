@@ -414,8 +414,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A011D1671E26FD5900BC37DE /* libc++.tbd in Frameworks */,
 				A0C8515E1CFB039800AA6402 /* libz.tbd in Frameworks */,
+				A01673EF1D2D6B5F006497AF /* AudioToolbox.framework in Frameworks */,
+				A01673ED1D2D6B57006497AF /* AVFoundation.framework in Frameworks */,
+				A01673EB1D2D6B4D006497AF /* CoreMedia.framework in Frameworks */,
+				A01673E91D2D6B42006497AF /* VideoToolbox.framework in Frameworks */,
+				A011D1671E26FD5900BC37DE /* libc++.tbd in Frameworks */,
 				A011D1651E26FD4300BC37DE /* Security.framework in Frameworks */,
 				A011D1631E26FD3400BC37DE /* SystemConfiguration.framework in Frameworks */,
 				A0C851641CFB03B700AA6402 /* ImageIO.framework in Frameworks */,
@@ -424,13 +428,9 @@
 				A099CA241DFDA13B00DB211F /* ShareSDKUI.framework in Frameworks */,
 				A0C851681CFB03CA00AA6402 /* libsqlite3.tbd in Frameworks */,
 				A099CA2A1DFDA13B00DB211F /* libWeiboSDK.a in Frameworks */,
-				A01673EF1D2D6B5F006497AF /* AudioToolbox.framework in Frameworks */,
 				A099CA2F1DFDA13B00DB211F /* MOBFoundation.framework in Frameworks */,
 				A099CA261DFDA13B00DB211F /* SinaWeiboConnector.framework in Frameworks */,
 				A099CA211DFDA13B00DB211F /* ShareSDK.framework in Frameworks */,
-				A01673ED1D2D6B57006497AF /* AVFoundation.framework in Frameworks */,
-				A01673EB1D2D6B4D006497AF /* CoreMedia.framework in Frameworks */,
-				A01673E91D2D6B42006497AF /* VideoToolbox.framework in Frameworks */,
 				A099CA251DFDA13B00DB211F /* QQConnector.framework in Frameworks */,
 				A0C851601CFB03A300AA6402 /* libstdc++.tbd in Frameworks */,
 				A0C851621CFB03AD00AA6402 /* JavaScriptCore.framework in Frameworks */,

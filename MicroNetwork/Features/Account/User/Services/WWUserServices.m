@@ -25,6 +25,7 @@
 #define BALANCE_PATH            @"account/balance"
 #define PHONE_PATH              @"account/phone"
 #define VCODE_PATH              @"account/vcode"
+#define INFO_PATH               @"account/info"
 
 typedef enum : NSUInteger {
     MyListTypeAppointment = 1,
@@ -213,6 +214,19 @@ typedef enum : NSUInteger {
             WWbaseModel *baseModel = [WWbaseModel modelWithJSON:responseObject];
             if (block) {
                 block(baseModel,nil);
+            }
+        } else {
+            block(nil,error);
+        }
+    }];
+}
+
++ (void)getUserInfoResultBlock:(BindingResponseBlock)block {
+    [self startDataTaskWithParameters:nil apiPath:INFO_PATH HTTPMethod:kHttpMethodGET completionBlock:^(id responseObject, NSError *error) {
+        if (!error) {
+            WWbaseModel *model = [WWbaseModel modelWithJSON:responseObject];
+            if (block) {
+                block(model, nil);
             }
         } else {
             block(nil,error);

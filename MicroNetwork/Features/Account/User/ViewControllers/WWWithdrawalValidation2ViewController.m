@@ -12,6 +12,7 @@
 #import "WWUserServices.h"
 #import "WWUtils.h"
 #import "WWMyBonusViewController.h"
+#import "WWUserInfoModel.h"
 
 
 @interface WWWithdrawalValidation2ViewController ()
@@ -54,6 +55,7 @@
     if (![self checkIfCodeIsCorrect]) {
         return;
     }
+    [SVProgressHUD show];
     __weak __block typeof(self) weakSelf = self;
     [WWUserServices postBindingPhone:self.phone vcode:self.textCode.text resultBlock:^(WWbaseModel *baseModel, NSError *error) {
         if (!error) {
@@ -61,8 +63,20 @@
             if (baseModel.ret == KERN_SUCCESS) {
                 for (UIViewController *vc in weakSelf.navigationController.viewControllers) {
                     if ([vc isKindOfClass:[WWMyBonusViewController class]]) {
-                        [weakSelf.navigationController popToViewController:vc animated:YES];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"BindingMobilePhoneSuccess" object:nil];
+                        [WWUserServices getUserInfoResultBlock:^(WWbaseModel *baseModel, NSError *error) {
+                            if (!error) {
+                                if (baseModel.ret == KERN_SUCCESS) {
+                                    WWUserInfoModel *userInfo = [WWUserInfoModel modelWithDictionary:baseModel.data];
+                                    [[NSUserDefaults standardUserDefaults] setUserInfo:userInfo];
+                                    [weakSelf.navigationController popToViewController:vc animated:YES];
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"BindingMobilePhoneSuccess" object:nil];
+                                } else {
+                                    [WWUtils showTipAlertWithMessage:baseModel.msg];
+                                }
+                            } else {
+                                [SVProgressHUD showErrorWithStatus:@"连接服务器失败"];
+                            }
+                        }];
                     }
                 }
             } else {

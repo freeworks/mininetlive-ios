@@ -12,7 +12,7 @@
 #import "SVProgressHUD.h"
 #import "NSUserDefaults+Signin.h"
 
-@interface WWMyBonusViewController ()
+@interface WWMyBonusViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *amount;
 @property (weak, nonatomic) IBOutlet UITextField *textAmount;
 
@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.textAmount.delegate = self;
     __weak __block typeof(self) weakSelf = self;
     [WWUserServices getUserBalanceResultBlock:^(NSString *balance, NSError *error) {
         weakSelf.amount.text = [NSString stringWithFormat:@"%.2lf",balance.doubleValue / 100];
@@ -29,12 +30,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bindingSuccess) name:@"BindingMobilePhoneSuccess" object:nil];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)withdrawalClick:(UIButton *)sender {
+    [self.view endEditing:YES];
     sender.selected = !sender.selected;
     if (sender.selected) {
         self.textAmount.hidden = NO;
@@ -64,6 +61,30 @@
             }
         }
     }
+}
+
+#pragma mark - TextField Delegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([textField.text containsString:@"."] && [string isEqualToString:@"."]) {
+        return NO;
+    }
+    NSMutableString * futureString = [NSMutableString stringWithString:textField.text];
+    [futureString  insertString:string atIndex:range.location];
+    NSInteger flag=0;
+    const NSInteger limited = 2;//小数点后需要限制的个数
+    for (NSInteger i = futureString.length-1; i>=0; i--) {
+        
+        if ([futureString characterAtIndex:i] == '.') {
+
+            if (flag > limited) {
+                return NO;
+            }
+            break;
+        }
+        flag++;
+    }
+    return YES;
 }
 
 - (void)bindingSuccess {

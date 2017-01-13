@@ -58,6 +58,8 @@
     } else {
         self.title.text = @"支付金额";
         self.labelPayAmount.text = [NSString stringWithFormat:@"￥%@",payAmount];
+        NSString *value = [self decimalNumberWithDouble:self.money.doubleValue];
+        self.money = value;
     }
     [UIView animateWithDuration:0.3 animations:^{
         self.alpha = 1;
@@ -78,9 +80,18 @@
             [SVProgressHUD showInfoWithStatus:@"请输入金额"];
             return;
         }
+        
         [self.delegate choicePaymentClick:sender.tag andMoney:self.money andMethod:self.method];
         [self removeFromSuperview];
     }
+}
+
+- (NSString *)decimalNumberWithDouble:(double)conversionValue {
+    NSString *doubleString = [NSString stringWithFormat:@"%.2lf", conversionValue];
+    NSDecimalNumber *decNumber = [NSDecimalNumber decimalNumberWithString:doubleString];
+    NSDecimalNumber *value = [NSDecimalNumber decimalNumberWithString:@"100"];
+    decNumber = [decNumber decimalNumberByMultiplyingBy:value];
+    return [decNumber stringValue];
 }
 
 - (IBAction)btnSelectTheDefaultPaymentAmount:(UIButton *)sender {
