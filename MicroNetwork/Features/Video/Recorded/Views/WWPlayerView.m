@@ -11,6 +11,7 @@
 #import "WWVideoModel.h"
 #import "WWUtils.h"
 #import "SVProgressHUD.h"
+#import "UCloudPlayback.h"
 
 #define BASE_URL        @"rtmp://vlive3.rtmp.cdn.ucloud.com.cn/ucloud/"
 static const CGFloat kVideoControlBarHeight = 40.0;
@@ -27,6 +28,8 @@ static const CGFloat kVideoControlAnimationTimeinterval = 0.3;
 @property (nonatomic, assign) CGRect originFrame;
 @property (nonatomic, assign) BOOL isBarShowing;
 @property (nonatomic, assign) WWVideoModel *video;
+@property (assign, nonatomic) BOOL isPrepared;
+@property (nonatomic, strong) NSTimer *time;
 @end
 
 @implementation WWPlayerView
@@ -49,8 +52,72 @@ static const CGFloat kVideoControlAnimationTimeinterval = 0.3;
         [self addGestureRecognizer:tapGesture];
         self.isBarShowing = YES;
         [self autoFadeOutControlBar];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noti:) name:UCloudPlaybackIsPreparedToPlayDidChangeNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noti:) name:UCloudPlayerLoadStateDidChangeNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noti:) name:UCloudMoviePlayerSeekCompleted object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noti:) name:UCloudPlayerPlaybackStateDidChangeNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noti:) name:UCloudPlayerPlaybackDidFinishNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noti:) name:UCloudPlayerBufferingUpdateNotification object:nil];
     }
     return self;
+}
+
+- (void)noti:(NSNotification *)noti {
+        NSLog(@"%@", noti.name);
+    __block NSInteger i = 0;
+    if ([noti.name isEqualToString:UCloudPlayerLoadStateDidChangeNotification])
+    {
+        if ([self.mediaPlayer.player loadState] == MPMovieLoadStateStalled)
+        {
+            //网速不好，开始缓冲
+            [SVProgressHUD show];
+        }
+        else if ([self.mediaPlayer.player loadState] == (MPMovieLoadStatePlayable|MPMovieLoadStatePlaythroughOK))
+        {
+            //缓冲完毕
+            [SVProgressHUD dismiss];
+            [self.time invalidate];
+        }
+    }
+    else if ([noti.name isEqualToString:UCloudPlayerPlaybackStateDidChangeNotification])
+    {
+        NSLog(@"backState:%ld", (long)[self.mediaPlayer.player playbackState]);
+        if ([self.mediaPlayer.player playbackState] == MPMoviePlaybackStateStopped) {
+            __weak __block typeof(self) weakSelf = self;
+            self.time = [NSTimer scheduledTimerWithTimeInterval:5.0 block:^(NSTimer * _Nonnull timer) {
+                i++;
+                [weakSelf addPlayerWithPlayerURL:weakSelf.video.livePullPath];
+                if (i == 10) {
+                    [weakSelf.time invalidate];
+                    [SVProgressHUD showErrorWithStatus:@"播放异常，请退出当前页面后再进入直播"];
+                }
+            } repeats:YES];
+        }
+    }
+    else if ([noti.name isEqualToString:UCloudPlayerPlaybackDidFinishNotification])
+    {
+        MPMovieFinishReason reson = [[noti.userInfo objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] integerValue];
+        
+        SubErrorCode subErrorCode = [[noti.userInfo objectForKey:@"error"] integerValue];
+        
+        if (reson == MPMovieFinishReasonPlaybackEnded)
+        {
+//            [self.mediaPlayer.player stop];
+        }
+        else if (reson == MPMovieFinishReasonPlaybackError)
+        {
+            NSLog(@"player manager finish reason playback error! subErrorCode:%zd",subErrorCode);
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注意" message:@"视频播放错误" delegate:self cancelButtonTitle:@"知道了"   otherButtonTitles: nil, nil];
+            [alert show];
+        }
+        
+        self.backgroundColor = [UIColor whiteColor];
+    }
+
+        [self.mediaPlayer.player.view updateConstraintsIfNeeded];
+    
 }
 
 - (void)onTap:(UITapGestureRecognizer *)gesture

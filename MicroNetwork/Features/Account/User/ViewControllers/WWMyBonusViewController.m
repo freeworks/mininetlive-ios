@@ -49,8 +49,12 @@
                 [WWUserServices requestTakeCash:self.textAmount.text.integerValue * 100 resultBlock:^(WWbaseModel *baseModel, NSError *error) {
                     [SVProgressHUD dismiss];
                     if (error == nil) {
-                        if (baseModel.ret == KERN_SUCCESS) {
+                        if (baseModel.ret == 2007) {
                             [self bindingSuccess];
+                        } else if (baseModel.ret == 2006) {
+                            [self performSegueWithIdentifier:@"ValidationStep1" sender:nil];
+                        } else if (baseModel.ret == 2008) {
+                            [WWUtils showTipAlertWithMessage:@"金额不正确"];
                         } else {
                             [WWUtils showTipAlertWithMessage:baseModel.msg];
                         }

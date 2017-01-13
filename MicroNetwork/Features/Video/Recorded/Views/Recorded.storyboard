@@ -297,7 +297,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Details Introduced" id="T9s-bd-1u8" customClass="WWRecordedIntroducedTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Details Introduced" id="T9s-bd-1u8" customClass="WWRecordedIntroducedTableViewCell">
                                         <rect key="frame" x="0.0" y="192.5" width="375" height="137"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T9s-bd-1u8" id="b6Y-oH-IAc">

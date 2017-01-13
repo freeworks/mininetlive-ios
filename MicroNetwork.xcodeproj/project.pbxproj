@@ -19,6 +19,8 @@
 		A011D1631E26FD3400BC37DE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A011D1621E26FD3400BC37DE /* SystemConfiguration.framework */; };
 		A011D1651E26FD4300BC37DE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A011D1641E26FD4300BC37DE /* Security.framework */; };
 		A011D1671E26FD5900BC37DE /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A011D1661E26FD5900BC37DE /* libc++.tbd */; };
+		A011D16A1E2955F200BC37DE /* WWRewardTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A011D1691E2955F200BC37DE /* WWRewardTableViewController.m */; };
+		A011D16D1E29560500BC37DE /* WWRewardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A011D16C1E29560500BC37DE /* WWRewardTableViewCell.m */; };
 		A01672D61D240B22006497AF /* WWRecordedDetailsServices.m in Sources */ = {isa = PBXBuildFile; fileRef = A01672D51D240B22006497AF /* WWRecordedDetailsServices.m */; };
 		A01672DA1D2578B6006497AF /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A01672D81D2578B6006497AF /* libUMessage_Sdk_1.3.0.a */; };
 		A01672E31D297287006497AF /* WWLiveMenberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A01672E21D297287006497AF /* WWLiveMenberTableViewCell.m */; };
@@ -178,6 +180,10 @@
 		A011D1621E26FD3400BC37DE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A011D1641E26FD4300BC37DE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		A011D1661E26FD5900BC37DE /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		A011D1681E2955F200BC37DE /* WWRewardTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWRewardTableViewController.h; sourceTree = "<group>"; };
+		A011D1691E2955F200BC37DE /* WWRewardTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWRewardTableViewController.m; sourceTree = "<group>"; };
+		A011D16B1E29560500BC37DE /* WWRewardTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWRewardTableViewCell.h; sourceTree = "<group>"; };
+		A011D16C1E29560500BC37DE /* WWRewardTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWRewardTableViewCell.m; sourceTree = "<group>"; };
 		A01672D41D240B22006497AF /* WWRecordedDetailsServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWRecordedDetailsServices.h; sourceTree = "<group>"; };
 		A01672D51D240B22006497AF /* WWRecordedDetailsServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWRecordedDetailsServices.m; sourceTree = "<group>"; };
 		A01672D81D2578B6006497AF /* libUMessage_Sdk_1.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.3.0.a; sourceTree = "<group>"; };
@@ -763,6 +769,8 @@
 				A00D4A1F1D33F0EA00968C97 /* WWWithdrawalValidation2ViewController.m */,
 				A011D15A1E24B97800BC37DE /* WWBindingPhoneViewController.h */,
 				A011D15B1E24B97800BC37DE /* WWBindingPhoneViewController.m */,
+				A011D1681E2955F200BC37DE /* WWRewardTableViewController.h */,
+				A011D1691E2955F200BC37DE /* WWRewardTableViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -787,6 +795,8 @@
 				A09F9DE91E1FE04200C4D596 /* WWUserCentreTableViewCell.m */,
 				A09F9DEB1E1FED8A00C4D596 /* WWUserCentre1TableViewCell.h */,
 				A09F9DEC1E1FED8A00C4D596 /* WWUserCentre1TableViewCell.m */,
+				A011D16B1E29560500BC37DE /* WWRewardTableViewCell.h */,
+				A011D16C1E29560500BC37DE /* WWRewardTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1558,6 +1568,7 @@
 				A01672E61D298315006497AF /* WWLiveDetailsFootView.m in Sources */,
 				A0D4848B1D143E93005F3CC3 /* GBHeadPortraitImageView.m in Sources */,
 				A0C8517C1CFB233000AA6402 /* WWServices.m in Sources */,
+				A011D16D1E29560500BC37DE /* WWRewardTableViewCell.m in Sources */,
 				A09F9DE01E1E2B2C00C4D596 /* MASLayoutConstraint.m in Sources */,
 				A09F9DDF1E1E2B2C00C4D596 /* MASConstraintMaker.m in Sources */,
 				A04CB2471D0BC5C700B065CB /* WWRegisterStep3ViewController.m in Sources */,
@@ -1565,6 +1576,7 @@
 				A09F9DDE1E1E2B2C00C4D596 /* MASConstraint.m in Sources */,
 				A0C851841CFB2A0800AA6402 /* WWbaseModel.m in Sources */,
 				A0C851741CFB0CF100AA6402 /* WWRegisterStep2ViewController.m in Sources */,
+				A011D16A1E2955F200BC37DE /* WWRewardTableViewController.m in Sources */,
 				A011632D1D1C3983002FA172 /* WWUserTokenModel.m in Sources */,
 				A09F9DE31E1E2B2C00C4D596 /* NSArray+MASAdditions.m in Sources */,
 				A0C8512A1CFB02C900AA6402 /* WWBaseViewController.m in Sources */,

@@ -22,9 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.tableView.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0);
-    
+        
     self.tableView.emptyDataView = [WWEmptyDataView emptyDataViewWithDescription:@"暂无记录" type:WWEmptyDataViewTypeLive];
     
     __weak __block typeof(self) weakSelf = self;

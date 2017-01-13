@@ -26,6 +26,7 @@
 #define PHONE_PATH              @"account/phone"
 #define VCODE_PATH              @"account/vcode"
 #define INFO_PATH               @"account/info"
+#define RECORD_PATH             @"account/record/dividend/list"
 
 typedef enum : NSUInteger {
     MyListTypeAppointment = 1,
@@ -227,6 +228,24 @@ typedef enum : NSUInteger {
             WWbaseModel *model = [WWbaseModel modelWithJSON:responseObject];
             if (block) {
                 block(model, nil);
+            }
+        } else {
+            block(nil,error);
+        }
+    }];
+}
+
++ (void)getRewardListResultBlock:(ListResponse)block {
+    [self startDataTaskWithParameters:nil apiPath:RECORD_PATH HTTPMethod:kHttpMethodGET completionBlock:^(id responseObject, NSError *error) {
+        if (!error) {
+            NSArray *list = responseObject[@"data"];
+            NSMutableArray *listModels = [NSMutableArray array];
+            for (NSDictionary *dic in list) {
+                WWListModel *listModel = [WWListModel modelWithDictionary:dic];
+                [listModels addObject:listModel];
+            }
+            if (block) {
+                block(listModels, nil);
             }
         } else {
             block(nil,error);

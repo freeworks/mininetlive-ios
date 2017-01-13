@@ -46,9 +46,11 @@
                 break;
         }
         [self addSubview:self.videoStatus];
-        self.appointmentCount.text = [NSString stringWithFormat:@"%zd人",video.appointmentCount];
+        self.appointmentCount.text = [NSString stringWithFormat:@"已有%zd人预约",video.appointmentCount];
     } else {
-        self.appointmentCount.text = [NSString stringWithFormat:@"%zd次",video.playCount];
+        self.videoStatus.text = @"";
+        self.videoStatus.backgroundColor = [UIColor clearColor];
+        self.appointmentCount.text = [NSString stringWithFormat:@"已播放%zd次",video.playCount];
     }
 
 }

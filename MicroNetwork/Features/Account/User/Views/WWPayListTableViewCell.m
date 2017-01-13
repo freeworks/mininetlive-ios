@@ -44,6 +44,22 @@
     self.type.text = listModel.nickname;
     self.videoDate.text = listModel.date;
     self.title.text = listModel.title;
+    if (listModel.activityType == 1) {
+        switch (listModel.activityState) {
+            case 0:
+                self.status.text = @"未开始";
+                break;
+            case 1:
+                self.status.text = @"直播中";
+                break;
+            case 2:
+                self.status.text = @"已结束";
+                break;
+                
+            default:
+                break;
+        }
+    }
 }
 
 @end

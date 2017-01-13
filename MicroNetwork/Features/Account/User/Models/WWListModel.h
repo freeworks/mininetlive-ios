@@ -20,10 +20,13 @@
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *nickname;
 @property (assign, nonatomic) NSInteger activityState;
+@property (nonatomic, assign) NSInteger activityType;
 @property (strong, nonatomic) NSString *date;
 @property (assign, nonatomic) NSInteger amount;
 @property (nonatomic,strong) NSString *frontCover;
 @property (nonatomic,strong) NSString *channel;
 @property (nonatomic,assign) NSInteger playCount;
+@property (strong, nonatomic) NSString *create_time;
+
 
 @end

@@ -30,4 +30,7 @@ typedef void (^BindingResponseBlock)(WWbaseModel *baseModel, NSError *error);
 + (void)postBindingPhone:(NSString *)phone vcode:(NSString *)vcode resultBlock:(BindingResponseBlock)block;
 + (void)postVcodeWithPhone:(NSString *)phone resultBlock:(BindingResponseBlock)block;
 + (void)getUserInfoResultBlock:(BindingResponseBlock)block;
+
++ (void)getRewardListResultBlock:(ListResponse)block;
+
 @end

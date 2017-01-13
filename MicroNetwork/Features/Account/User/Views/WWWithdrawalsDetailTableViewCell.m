@@ -14,6 +14,7 @@
 @interface WWWithdrawalsDetailTableViewCell ()
 @property (weak, nonatomic) IBOutlet UILabel *amount;
 @property (weak, nonatomic) IBOutlet UILabel *time;
+@property (weak, nonatomic) IBOutlet UILabel *status;
 
 @end
 
@@ -33,6 +34,10 @@
 - (void)setCashListData:(WWCashModel *)cashModel {
     self.amount.text = [NSString stringWithFormat:@"%.2lf",cashModel.amount.doubleValue / 100];
     self.time.text = cashModel.createTime;
+    if (cashModel.state == 1) {
+        self.status.text = [NSString stringWithFormat:@"提现成功"];
+        self.status.textColor = RGBA(74, 144, 226, 1);
+    }
 }
 
 @end

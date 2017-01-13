@@ -1,65 +1,52 @@
 //
-//  WWPayListTableViewController.m
+//  WWRewardTableViewController.m
 //  MicroNetwork
 //
-//  Created by Lucas on 16/7/11.
-//  Copyright © 2016年 Lucas. All rights reserved.
+//  Created by Lucas on 2017/1/14.
+//  Copyright © 2017年 Lucas. All rights reserved.
 //
 
-#import "WWPayListTableViewController.h"
+#import "WWRewardTableViewController.h"
+#import "WWRewardTableViewCell.h"
 #import "WWUserServices.h"
-#import "WWPayListTableViewCell.h"
+#import "WWListModel.h"
 #import "WWEmptyDataView.h"
 #import "UITableView+EmptyView.h"
 
-@interface WWPayListTableViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *videoStatusLabel;
-@property (strong, nonatomic) NSArray *list;
+@interface WWRewardTableViewController ()
+@property (nonatomic, strong) NSArray *list;
+
 @end
 
-@implementation WWPayListTableViewController
+@implementation WWRewardTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.title = @"购买视频";
-    self.tableView.contentInset = UIEdgeInsetsMake(-27, 0, 0, 0);
+    self.title = @"邀请有奖";
     self.tableView.emptyDataView = [WWEmptyDataView emptyDataViewWithDescription:@"暂无记录" type:WWEmptyDataViewTypeLive];
     __weak __block typeof(self) weakSelf = self;
-    [WWUserServices requestListType:2 resultBlock:^(NSArray *list, NSError *error) {
+    [WWUserServices getRewardListResultBlock:^(NSArray *list, NSError *error) {
         weakSelf.list = list;
         [weakSelf.tableView reloadData];
     }];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    return self.list.count;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
-    return 1;
+    return self.list.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WWPayListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Pay List Cell" forIndexPath:indexPath];
-    [cell setPayListDada:self.list[indexPath.row]];
+    static NSString *rid= @"WWRewardTableViewCell";
+    WWRewardTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rid];
+    if(cell == nil) {
+        cell = [[WWRewardTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:rid];
+    }
+    cell.listModel = self.list[indexPath.row];
     return cell;
-    
+        
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
 
 /*
 // Override to support conditional editing of the table view.

@@ -12,5 +12,5 @@
 
 @property (nonatomic, strong) NSNumber *amount;
 @property (nonatomic, strong) NSString *createTime;
-
+@property (nonatomic, assign) NSInteger state;
 @end
