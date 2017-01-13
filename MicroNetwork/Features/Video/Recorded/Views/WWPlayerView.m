@@ -36,7 +36,8 @@ static const CGFloat kVideoControlAnimationTimeinterval = 0.3;
         
         self.backgroundColor = [UIColor blackColor];
         self.video = video;
-        self.mediaPlayer = [[UCloudMediaPlayer alloc] init];
+        self.mediaPlayer = [UCloudMediaPlayer ucloudMediaPlayer];
+        self.mediaPlayer.delayOptimization = YES;
         [self addPlayerWithPlayerURL:video.livePullPath];
         [self addSubview:self.bottomBar];
         [self.bottomBar addSubview:self.fullScreenButton];
