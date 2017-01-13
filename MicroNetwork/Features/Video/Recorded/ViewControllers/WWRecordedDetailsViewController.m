@@ -57,7 +57,7 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) WWLiveDetailsFootView *footView;
 @property (strong, nonatomic) WWPlayerView *playerView;
 @property (nonatomic, strong) WWRecordedVideoImageView *recordedVideoImageView;
-
+@property (nonatomic, strong) UILabel *tipsShowLabel;
 @end
 
 @implementation WWRecordedDetailsViewController
@@ -73,11 +73,18 @@ typedef enum : NSUInteger {
     
     //最后加上避免挡住
     [self addButtonBack];
+    
+    [WWRecordedDetailsServices postJoin:self.video.aid resultBlock:^(WWbaseModel *baseModel, NSError *error) {
+        
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [WWRecordedDetailsServices postLeave:self.video.aid resultBlock:^(WWbaseModel *baseModel, NSError *error) {
+        
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -183,7 +190,6 @@ typedef enum : NSUInteger {
 
     
     if (self.video.streamType == kPlayTypesLive) {
-
         if (self.video.activityType == kVideoTypeFee) {
 
             UILabel *tipsShowLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-220, 40, 200, 24)];
@@ -222,11 +228,17 @@ typedef enum : NSUInteger {
     }
 }
 
+- (UILabel *)tipsShowLabel {
+    if (!_tipsShowLabel) {
+        _tipsShowLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-220, 80, 200, 24)];
+        _tipsShowLabel.textAlignment = NSTextAlignmentRight;
+        _tipsShowLabel.font = [UIFont systemFontOfSize:14];
+        _tipsShowLabel.textColor = UIColorFromRGB(0xA0A0A0);
+    }
+    return _tipsShowLabel;
+}
+
 - (void)addLabelType:(NSInteger)type {
-    UILabel *tipsShowLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-220, 80, 200, 24)];
-    tipsShowLabel.textAlignment = NSTextAlignmentRight;
-    tipsShowLabel.font = [UIFont systemFontOfSize:14];
-    tipsShowLabel.textColor = UIColorFromRGB(0xA0A0A0);
     
     NSString *string;
     NSString *str;
@@ -242,8 +254,8 @@ typedef enum : NSUInteger {
     NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:str];
     [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(3,string.length)];
     [attriString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x4A90E2) range:NSMakeRange(3, string.length)];
-    tipsShowLabel.attributedText = attriString;
-    [self.topView addSubview:tipsShowLabel];
+    self.tipsShowLabel.attributedText = attriString;
+    [self.topView addSubview:self.tipsShowLabel];
 }
 
 - (void)addPlayerView {
@@ -316,7 +328,7 @@ typedef enum : NSUInteger {
                 [self addLabelType:0];
                 
                 break;
-            case 1:
+            case 1: {
                 if (self.video.activityType == kVideoTypeFree) {
                     [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
 
@@ -330,6 +342,18 @@ typedef enum : NSUInteger {
                 [self.tabBarView.rightButton addTarget:self action:@selector(buyClick:) forControlEvents:UIControlEventTouchUpInside];
                 [self addLabelType:1];
                 [self addPlayerView];
+                __weak __block typeof(self) weakSelf = self;
+                [NSTimer scheduledTimerWithTimeInterval:5.0 block:^(NSTimer * _Nonnull timer) {
+                    [WWRecordedDetailsServices postMemberList:self.video.aid resultBlock:^(NSArray *menberList, NSError *error) {
+                        NSString *string = [NSString stringWithFormat:@"%zd",menberList.count];
+                        NSString *str = [NSString stringWithFormat:@"在线 %@ 人",string];
+                        NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:str];
+                        [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(3,string.length)];
+                        [attriString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x4A90E2) range:NSMakeRange(3, string.length)];
+                        weakSelf.tipsShowLabel.attributedText = attriString;
+                    }];
+                } repeats:YES];
+            }
                 break;
             case 2:
                 [self addVideoImageViewType:1];

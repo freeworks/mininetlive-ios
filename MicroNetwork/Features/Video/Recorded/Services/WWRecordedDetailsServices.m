@@ -15,6 +15,9 @@
 #define GROUP_MEMBER_LIST_PATH      @"activity/group/member/list"
 #define GROUP_MEMBER_COUNT_PATH     @"activity/group/member/count"
 #define PLAY_HISTORY_PATH           @"activity/play"
+#define JOIN_PATH                   @"activity/join"
+#define LEAVE_PATH                  @"activity/leave"
+#define MEMBER_LIST_PATH           @"activity/member/list"
 
 
 @implementation WWRecordedDetailsServices
@@ -99,6 +102,49 @@
         } else {
             NSLog(@"error:%@",error);
             block(error);
+        }
+    }];
+}
+
++ (void)postJoin:(NSString *)aid resultBlock:(Response)block {
+    [self startDataTaskWithParameters:@{@"aid":aid} apiPath:JOIN_PATH completionBlock:^(id responseObject, NSError *error) {
+        if (!error) {
+            WWbaseModel *model = [WWbaseModel modelWithDictionary:responseObject];
+            if (block) {
+                block(model,nil);
+            }
+        } else {
+            NSLog(@"error:%@",error);
+            block(nil,error);
+        }
+    }];
+}
+
++ (void)postLeave:(NSString *)aid resultBlock:(Response)block {
+    [self startDataTaskWithParameters:@{@"aid":aid} apiPath:LEAVE_PATH completionBlock:^(id responseObject, NSError *error) {
+        if (!error) {
+            WWbaseModel *model = [WWbaseModel modelWithDictionary:responseObject];
+            if (block) {
+                block(model,nil);
+            }
+        } else {
+            NSLog(@"error:%@",error);
+            block(nil,error);
+        }
+    }];
+}
+
++ (void)postMemberList:(NSString *)aid resultBlock:(MenberListResponse)block {
+    [self startDataTaskWithParameters:@{@"aid":aid} apiPath:MEMBER_LIST_PATH completionBlock:^(id responseObject, NSError *error) {
+        if (!error) {
+            NSDictionary *dic = responseObject;
+            NSArray *array = dic[@"data"];
+            if (block) {
+                block(array,nil);
+            }
+        } else {
+            NSLog(@"error:%@",error);
+            block(nil,error);
         }
     }];
 }

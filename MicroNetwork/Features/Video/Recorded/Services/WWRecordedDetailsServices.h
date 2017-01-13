@@ -14,6 +14,8 @@ typedef void (^PayResponse)(WWbaseModel *baseModel, NSError *error);
 typedef void (^MenberListResponse)(NSArray *menberList, NSError *error);
 
 typedef void(^PlayHistoryResponse)(NSError *error);
+typedef void (^Response)(WWbaseModel *baseModel, NSError *error);
+
 
 
 @interface WWRecordedDetailsServices : WWServices
@@ -27,5 +29,11 @@ typedef void(^PlayHistoryResponse)(NSError *error);
 + (void)requestGroupMemberCount:(NSString *)groupId resultBlock:(PayResponse)block;
 
 + (void)requestPlayHistory:(NSString *)aid resultBlock:(PlayHistoryResponse)block;
+
++ (void)postJoin:(NSString *)aid resultBlock:(Response)block;
+
++ (void)postLeave:(NSString *)aid resultBlock:(Response)block;
+
++ (void)postMemberList:(NSString *)aid resultBlock:(MenberListResponse)block;
 
 @end
