@@ -35,11 +35,16 @@ typedef enum : NSUInteger {
     [super viewDidLoad];
     self.tableView.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0);
     self.tableView.emptyDataView = [WWEmptyDataView emptyDataViewWithDescription:@"暂无直播活动" type:WWEmptyDataViewTypeLive];
-    
-    [SVProgressHUD show];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self refreshNewListData];
+}
+
+- (void)refreshNewListData {
     __weak __block typeof(self) weakSelf = self;
     [WWVideoService requstLiveList:nil resultBlock:^(NSArray *liveArray, NSError *error) {
-        [SVProgressHUD dismiss];
         weakSelf.liveList = liveArray;
         [weakSelf.topView removeAllSubviews];
         [weakSelf.tableView reloadData];

@@ -73,10 +73,8 @@ typedef enum : NSUInteger {
 
     __weak __block typeof(self) weakSelf = self;
 
-    [SVProgressHUD show];
     [WWVideoService requestVideoList:nil resultBlock:^(WWbaseModel *baseModel, WWVideoListModel *videoList, NSError *error) {
         if (!error) {
-            [SVProgressHUD dismiss];
             if (baseModel.ret == KERN_SUCCESS) {
                 weakSelf.recommendList = videoList.recommend;
                 [weakSelf.generalList setArray:videoList.general];
