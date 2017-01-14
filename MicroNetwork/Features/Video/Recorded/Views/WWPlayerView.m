@@ -27,7 +27,6 @@ static const CGFloat kVideoControlAnimationTimeinterval = 0.3;
 @property (nonatomic, assign) BOOL isFullscreenMode;
 @property (nonatomic, assign) CGRect originFrame;
 @property (nonatomic, assign) BOOL isBarShowing;
-@property (nonatomic, assign) WWVideoModel *video;
 @property (assign, nonatomic) BOOL isPrepared;
 @property (nonatomic, strong) NSTimer *time;
 @end

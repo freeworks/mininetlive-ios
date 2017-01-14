@@ -18,6 +18,8 @@
 
 @interface WWPlayerView : UIView
 @property (weak, nonatomic) id <WWPlayerViewDelegate> delegate;
+@property (nonatomic, strong) WWVideoModel *video;
 - (instancetype)initWithFrame:(CGRect)frame VideoModel:(WWVideoModel *)video;
+
 - (void)shutdown;
 @end

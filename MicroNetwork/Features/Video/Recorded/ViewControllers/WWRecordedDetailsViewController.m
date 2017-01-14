@@ -160,6 +160,7 @@ typedef enum : NSUInteger {
                            [WWVideoService requestVideoDetail:self.video.aid resultBlock:^(WWVideoModel *videoDetail, NSError *error) {
                                if (!error) {
                                    weakSelf.video = videoDetail;
+                                   weakSelf.playerView.video = videoDetail;
                                    [weakSelf.view updateConstraintsIfNeeded];
                                }
                            }];
