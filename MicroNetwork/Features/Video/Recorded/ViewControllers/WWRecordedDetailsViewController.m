@@ -77,6 +77,12 @@ typedef enum : NSUInteger {
     [WWRecordedDetailsServices postJoin:self.video.aid resultBlock:^(WWbaseModel *baseModel, NSError *error) {
         
     }];
+    
+    __weak __block typeof(self) weakSelf = self;
+    [WWVideoService requestVideoDetail:self.video.aid resultBlock:^(WWVideoModel *videoDetail, NSError *error) {
+        weakSelf.video = videoDetail;
+        [weakSelf.view updateConstraintsIfNeeded];
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -85,6 +91,7 @@ typedef enum : NSUInteger {
     [WWRecordedDetailsServices postLeave:self.video.aid resultBlock:^(WWbaseModel *baseModel, NSError *error) {
         
     }];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -136,6 +143,10 @@ typedef enum : NSUInteger {
                      appURLScheme:@"test"
                    withCompletion:^(NSString *result, PingppError *error) {
                        if ([result isEqualToString:@"success"]) {
+                           //购买成功变更按钮为打赏
+                           [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
+                           [self.tabBarView.rightButton addTarget:self action:@selector(buyClick:) forControlEvents:UIControlEventTouchUpInside];
+                           //支付成功弹窗提示
                            WWPromptView *promptView = [WWPromptView loadFromNib];
                            if (method == kMethodATip) {
                                [promptView showPromptType:MyPromptATip];
@@ -144,13 +155,15 @@ typedef enum : NSUInteger {
                            }
                            [weakSelf.view addSubview:promptView];
                            [SVProgressHUD dismiss];
+                           //成功后刷新下视频详情
                            __weak __block typeof(self) weakSelf = self;
                            [WWVideoService requestVideoDetail:self.video.aid resultBlock:^(WWVideoModel *videoDetail, NSError *error) {
-                               weakSelf.video = videoDetail;
-                               [weakSelf setNeedsFocusUpdate];
+                               if (!error) {
+                                   weakSelf.video = videoDetail;
+                                   [weakSelf.view updateConstraintsIfNeeded];
+                               }
                            }];
-                           [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
-                           [self.tabBarView.rightButton addTarget:self action:@selector(buyClick:) forControlEvents:UIControlEventTouchUpInside];
+
                        } else {
                            // 支付失败或取消
                            NSLog(@"Error: code=%lu msg=%@", error.code, [error getMsg]);
@@ -342,17 +355,7 @@ typedef enum : NSUInteger {
                 [self.tabBarView.rightButton addTarget:self action:@selector(buyClick:) forControlEvents:UIControlEventTouchUpInside];
                 [self addLabelType:1];
                 [self addPlayerView];
-                __weak __block typeof(self) weakSelf = self;
-                [NSTimer scheduledTimerWithTimeInterval:5.0 block:^(NSTimer * _Nonnull timer) {
-                    [WWRecordedDetailsServices postMemberList:self.video.aid resultBlock:^(NSArray *menberList, NSError *error) {
-                        NSString *string = [NSString stringWithFormat:@"%zd",menberList.count];
-                        NSString *str = [NSString stringWithFormat:@"在线 %@ 人",string];
-                        NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:str];
-                        [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(3,string.length)];
-                        [attriString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x4A90E2) range:NSMakeRange(3, string.length)];
-                        weakSelf.tipsShowLabel.attributedText = attriString;
-                    }];
-                } repeats:YES];
+                [self performSelector:@selector(refreshMemberList) withObject:nil afterDelay:5.0];
             }
                 break;
             case 2:
@@ -367,6 +370,17 @@ typedef enum : NSUInteger {
     } else {//点播
         [self checkPayment];
     }
+}
+
+- (void)refreshMemberList {
+    [WWRecordedDetailsServices postMemberList:self.video.aid resultBlock:^(NSArray *menberList, NSError *error) {
+        NSString *string = [NSString stringWithFormat:@"%zd",menberList.count];
+        NSString *str = [NSString stringWithFormat:@"在线 %@ 人",string];
+        NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:str];
+        [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(3,string.length)];
+        [attriString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x4A90E2) range:NSMakeRange(3, string.length)];
+        self.tipsShowLabel.attributedText = attriString;
+    }];
 }
 
 - (void)checkPayment {

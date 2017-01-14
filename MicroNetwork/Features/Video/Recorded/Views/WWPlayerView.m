@@ -67,56 +67,55 @@ static const CGFloat kVideoControlAnimationTimeinterval = 0.3;
 - (void)noti:(NSNotification *)noti {
         NSLog(@"%@", noti.name);
     __block NSInteger i = 0;
-    if ([noti.name isEqualToString:UCloudPlayerLoadStateDidChangeNotification])
-    {
-        if ([self.mediaPlayer.player loadState] == MPMovieLoadStateStalled)
-        {
-            //网速不好，开始缓冲
-            [SVProgressHUD show];
-        }
-        else if ([self.mediaPlayer.player loadState] == (MPMovieLoadStatePlayable|MPMovieLoadStatePlaythroughOK))
-        {
-            //缓冲完毕
-            [SVProgressHUD dismiss];
-            [self.time invalidate];
-        }
-    }
-    else if ([noti.name isEqualToString:UCloudPlayerPlaybackStateDidChangeNotification])
-    {
-        NSLog(@"backState:%ld", (long)[self.mediaPlayer.player playbackState]);
-        if ([self.mediaPlayer.player playbackState] == MPMoviePlaybackStateStopped) {
-            __weak __block typeof(self) weakSelf = self;
-            self.time = [NSTimer scheduledTimerWithTimeInterval:5.0 block:^(NSTimer * _Nonnull timer) {
-                i++;
-                [weakSelf addPlayerWithPlayerURL:weakSelf.video.livePullPath];
-                if (i == 10) {
-                    [weakSelf.time invalidate];
-                    [SVProgressHUD showErrorWithStatus:@"播放异常，请退出当前页面后再进入直播"];
-                }
-            } repeats:YES];
-        }
-    }
-    else if ([noti.name isEqualToString:UCloudPlayerPlaybackDidFinishNotification])
-    {
-        MPMovieFinishReason reson = [[noti.userInfo objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] integerValue];
-        
-        SubErrorCode subErrorCode = [[noti.userInfo objectForKey:@"error"] integerValue];
-        
-        if (reson == MPMovieFinishReasonPlaybackEnded)
-        {
-//            [self.mediaPlayer.player stop];
-        }
-        else if (reson == MPMovieFinishReasonPlaybackError)
-        {
-            NSLog(@"player manager finish reason playback error! subErrorCode:%zd",subErrorCode);
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注意" message:@"视频播放错误" delegate:self cancelButtonTitle:@"知道了"   otherButtonTitles: nil, nil];
-            [alert show];
-        }
-        
-        self.backgroundColor = [UIColor whiteColor];
-    }
+//    if ([noti.name isEqualToString:UCloudPlayerLoadStateDidChangeNotification])
+//    {
+//        if ([self.mediaPlayer.player loadState] == MPMovieLoadStateStalled)
+//        {
+//            //网速不好，开始缓冲
+//            [SVProgressHUD show];
+//        }
+//        else if ([self.mediaPlayer.player loadState] == (MPMovieLoadStatePlayable|MPMovieLoadStatePlaythroughOK))
+//        {
+//            //缓冲完毕
+//            [SVProgressHUD dismiss];
+//            [self.time invalidate];
+//        }
+//    }
+//    if ([noti.name isEqualToString:UCloudPlayerPlaybackStateDidChangeNotification])
+//    {
+//        NSLog(@"backState:%ld", (long)[self.mediaPlayer.player playbackState]);
+//        if ([self.mediaPlayer.player playbackState] == MPMoviePlaybackStateStopped) {
+//            __weak __block typeof(self) weakSelf = self;
+//            self.time = [NSTimer scheduledTimerWithTimeInterval:5.0 block:^(NSTimer * _Nonnull timer) {
+//                i++;
+//                [weakSelf addPlayerWithPlayerURL:weakSelf.video.livePullPath];
+//                if (i == 10) {
+//                    [weakSelf.time invalidate];
+//                }
+//            } repeats:YES];
+//        }
+//    }
+//    else if ([noti.name isEqualToString:UCloudPlayerPlaybackDidFinishNotification])
+//    {
+//        MPMovieFinishReason reson = [[noti.userInfo objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] integerValue];
+//        
+//        SubErrorCode subErrorCode = [[noti.userInfo objectForKey:@"error"] integerValue];
+//        
+//        if (reson == MPMovieFinishReasonPlaybackEnded)
+//        {
+////            [self.mediaPlayer.player stop];
+//        }
+//        else if (reson == MPMovieFinishReasonPlaybackError)
+//        {
+//            NSLog(@"player manager finish reason playback error! subErrorCode:%zd",subErrorCode);
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注意" message:@"视频播放错误" delegate:self cancelButtonTitle:@"知道了"   otherButtonTitles: nil, nil];
+//            [alert show];
+//        }
+//        
+//        self.backgroundColor = [UIColor whiteColor];
+//    }
 
-        [self.mediaPlayer.player.view updateConstraintsIfNeeded];
+//        [self.mediaPlayer.player.view updateConstraintsIfNeeded];
     
 }
 

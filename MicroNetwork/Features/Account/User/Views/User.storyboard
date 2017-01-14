@@ -851,9 +851,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cM0-q9-dRH">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cM0-q9-dRH">
                                 <rect key="frame" x="152" y="344" width="70" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="9Mr-M0-fj7"/>
+                                    <constraint firstAttribute="height" constant="30" id="yLN-zU-ej9"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="提现明细"/>
                                 <connections>
@@ -864,6 +867,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="bmX-zy-ncI" firstAttribute="centerX" secondItem="EOY-bY-IIz" secondAttribute="centerX" id="06v-om-xa7"/>
+                            <constraint firstItem="cM0-q9-dRH" firstAttribute="centerX" secondItem="EOY-bY-IIz" secondAttribute="centerX" id="2gj-mn-FdX"/>
                             <constraint firstItem="Ita-Pc-ipU" firstAttribute="centerX" secondItem="EOY-bY-IIz" secondAttribute="centerX" id="3Qf-OX-cwm"/>
                             <constraint firstItem="Zvw-v8-OkR" firstAttribute="top" secondItem="Ita-Pc-ipU" secondAttribute="bottom" constant="12" id="53A-qx-6RB"/>
                             <constraint firstItem="PzR-qX-V4o" firstAttribute="top" secondItem="bey-aG-kdK" secondAttribute="bottom" constant="19" id="Dv1-ZI-h9l"/>
@@ -871,6 +875,7 @@
                             <constraint firstItem="4ye-qJ-uHl" firstAttribute="top" secondItem="2Cu-hD-v0G" secondAttribute="bottom" constant="23" id="ERg-ic-Uv4"/>
                             <constraint firstItem="iQB-EW-RNb" firstAttribute="top" secondItem="2Cu-hD-v0G" secondAttribute="bottom" constant="194" id="JTX-9q-rNt"/>
                             <constraint firstItem="Zvw-v8-OkR" firstAttribute="top" secondItem="bmX-zy-ncI" secondAttribute="bottom" constant="55" id="Kul-lx-2GU"/>
+                            <constraint firstItem="cM0-q9-dRH" firstAttribute="top" secondItem="Zvw-v8-OkR" secondAttribute="bottom" constant="23" id="M1f-ix-yRx"/>
                             <constraint firstItem="Ita-Pc-ipU" firstAttribute="top" secondItem="bmX-zy-ncI" secondAttribute="bottom" constant="13" id="N6a-Ls-miU"/>
                             <constraint firstItem="PzR-qX-V4o" firstAttribute="centerX" secondItem="EOY-bY-IIz" secondAttribute="centerX" id="O59-Mt-pAn"/>
                             <constraint firstItem="bmX-zy-ncI" firstAttribute="top" secondItem="NT9-bs-Fgw" secondAttribute="bottom" id="YWC-jw-6L6"/>

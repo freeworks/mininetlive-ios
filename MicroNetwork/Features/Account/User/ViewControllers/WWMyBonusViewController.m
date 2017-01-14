@@ -46,7 +46,7 @@
                 [self performSegueWithIdentifier:@"ValidationStep1" sender:nil];
             } else {
                 [SVProgressHUD show];
-                [WWUserServices requestTakeCash:self.textAmount.text.integerValue * 100 resultBlock:^(WWbaseModel *baseModel, NSError *error) {
+                [WWUserServices requestTakeCash:self.textAmount.text.doubleValue * 100 resultBlock:^(WWbaseModel *baseModel, NSError *error) {
                     [SVProgressHUD dismiss];
                     if (error == nil) {
                         if (baseModel.ret == 2007) {
@@ -70,7 +70,12 @@
 #pragma mark - TextField Delegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if ([textField.text containsString:@"."] && [string isEqualToString:@"."]) {
+    if ([string containsString:@"."]) {
+        [WWUtils showTipAlertWithMessage:@"禁止输入小数点，提现只支持提现整数"];
+        return NO;
+    }
+    if ([textField.text integerValue] > 2000) {
+        [WWUtils showTipAlertWithMessage:@"提现金额不能超于2万"];
         return NO;
     }
     NSMutableString * futureString = [NSMutableString stringWithString:textField.text];
