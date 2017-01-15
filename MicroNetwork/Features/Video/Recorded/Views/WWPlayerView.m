@@ -212,12 +212,21 @@ static const CGFloat kVideoControlAnimationTimeinterval = 0.3;
     
     if ([_delegate respondsToSelector:@selector(liveVideoFullScreenButtonClick)]) {
         
-        if (self.video.payState == 0 && self.video.streamType == 0) {
-            [WWUtils showTipAlertWithTitle:@"收费直播" message:@"直播视频需购买后才能放大观看"];
-            return;
+        if (self.video.streamType == 0) {
+            if (self.video.activityType == 0) {
+                [_delegate liveVideoFullScreenButtonClick];
+            } else {
+                if (self.video.payState == 0) {
+                    [WWUtils showTipAlertWithTitle:@"收费直播" message:@"直播视频需购买后才能放大观看"];
+                    return;
+                } else {
+                    [_delegate liveVideoFullScreenButtonClick];
+                }
+            }
         } else {
             [_delegate liveVideoFullScreenButtonClick];
         }
+
     }
 //    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"UCloudViewControllerWillRotate"
 //                                                                                         object:nil
