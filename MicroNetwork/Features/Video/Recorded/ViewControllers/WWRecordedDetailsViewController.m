@@ -161,7 +161,7 @@ typedef enum : NSUInteger {
                                if (!error) {
                                    weakSelf.video = videoDetail;
                                    weakSelf.playerView.video = videoDetail;
-                                   [weakSelf.view updateConstraintsIfNeeded];
+//                                   [weakSelf.view updateConstraintsIfNeeded];
                                }
                            }];
 
@@ -315,18 +315,6 @@ typedef enum : NSUInteger {
 //根据不同类型视频底部展示预约或者购买
 - (void)addTabBarView {
     
-    NSNumber *isRelease = [[NSUserDefaults standardUserDefaults] objectForKey:kIsRelase];
-    if ([isRelease boolValue]) {
-        return;
-    }
-    
-    CGRect frame = CGRectMake(0, SCREEN_HEIGHT-49, SCREEN_WIDTH, 49);
-    self.tabBarView = [WWTabBarView loadFromNib];
-    self.tabBarView.frame = frame;
-    [self.tabBarView.btnShare addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.view addSubview:self.tabBarView];
-    
     if (self.video.streamType == kPlayTypesLive) {
         
         switch (self.video.activityState) {
@@ -371,6 +359,18 @@ typedef enum : NSUInteger {
     } else {//点播
         [self checkPayment];
     }
+    
+    NSNumber *isRelease = [[NSUserDefaults standardUserDefaults] objectForKey:kIsRelase];
+    if ([isRelease boolValue]) {
+        return;
+    }
+    
+    CGRect frame = CGRectMake(0, SCREEN_HEIGHT-49, SCREEN_WIDTH, 49);
+    self.tabBarView = [WWTabBarView loadFromNib];
+    self.tabBarView.frame = frame;
+    [self.tabBarView.btnShare addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.tabBarView];
 }
 
 - (void)refreshMemberList {

@@ -65,7 +65,7 @@ static const CGFloat kVideoControlAnimationTimeinterval = 0.3;
 
 - (void)noti:(NSNotification *)noti {
         NSLog(@"%@", noti.name);
-    __block NSInteger i = 0;
+//    __block NSInteger i = 0;
 //    if ([noti.name isEqualToString:UCloudPlayerLoadStateDidChangeNotification])
 //    {
 //        if ([self.mediaPlayer.player loadState] == MPMovieLoadStateStalled)
