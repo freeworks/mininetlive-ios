@@ -30,6 +30,7 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) NSMutableArray *generalList;
 @property (strong, nonatomic) NSMutableArray *videos;
 @property (nonatomic) NSInteger partition;
+@property (nonatomic) BOOL isLoading;
 @end
 
 @implementation WWRecordedViewController
@@ -38,7 +39,9 @@ typedef enum : NSUInteger {
     [super viewDidLoad];
     self.generalList = [NSMutableArray array];
     self.videos = [NSMutableArray array];
-
+    if (self.isLoading == NO) {
+        [self refreshNewListData];
+    }
     [self addMJRefresh];
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
@@ -46,15 +49,11 @@ typedef enum : NSUInteger {
     [SVProgressHUD setBackgroundColor:RGBA(255, 255, 255, 0.7)];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self getNewListData];
+    if (self.isLoading) {
+        [self getNewListData];
+    }
 }
 
 #pragma mark - Private Method
@@ -75,6 +74,7 @@ typedef enum : NSUInteger {
     [SVProgressHUD show];
     [WWVideoService requestVideoList:nil resultBlock:^(WWbaseModel *baseModel, WWVideoListModel *videoList, NSError *error) {
         [SVProgressHUD dismiss];
+        self.isLoading = YES;
         if (!error) {
             if (baseModel.ret == KERN_SUCCESS) {
                 weakSelf.recommendList = videoList.recommend;
@@ -195,15 +195,7 @@ typedef enum : NSUInteger {
 
     WWRecordedDetailsViewController *recordedDetailsVC = (WWRecordedDetailsViewController *)[WWUtils getVCWithStoryboard:@"Recorded" viewControllerId:@"RecordedDetailsVC"];
     if (indexPath.section == 0) {
-        WWVideoModel *video = self.recommendList[indexPath.row];
-        recordedDetailsVC.video = video;
-        if (video.streamType == kPlayTypesLive) {
-            if ([NSUserDefaults standardUserDefaults].userToken.length == 0) {
-                [WWUtils showTipAlertWithMessage:@"直播需要登录后才能观看"];
-                [WWUtils showLoginVCWithTargetVC:self];
-                return;
-            }
-        }
+        recordedDetailsVC.video = self.recommendList[indexPath.row];
     } else {
         recordedDetailsVC.video = self.generalList[indexPath.row];
     }
