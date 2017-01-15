@@ -54,7 +54,7 @@ typedef enum : NSUInteger {
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self refreshNewListData];
+    [self getNewListData];
 }
 
 #pragma mark - Private Method
@@ -72,14 +72,42 @@ typedef enum : NSUInteger {
     [self.collectionView.mj_header  endRefreshing];
 
     __weak __block typeof(self) weakSelf = self;
-
+    [SVProgressHUD show];
     [WWVideoService requestVideoList:nil resultBlock:^(WWbaseModel *baseModel, WWVideoListModel *videoList, NSError *error) {
+        [SVProgressHUD dismiss];
         if (!error) {
             if (baseModel.ret == KERN_SUCCESS) {
                 weakSelf.recommendList = videoList.recommend;
                 [weakSelf.generalList setArray:videoList.general];
                 weakSelf.partition = weakSelf.recommendList.count == 0 ? 1: 2;
 
+                if (videoList.hasmore) {
+                    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreVideo)];
+                    footer.automaticallyRefresh = NO;
+                    self.collectionView.mj_footer = footer;
+                }
+            } else{
+                [WWUtils showTipAlertWithMessage:baseModel.msg];
+            }
+            [weakSelf.collectionView reloadData];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"连接服务器失败"];
+        }
+    }];
+}
+
+- (void)getNewListData {
+    
+    [self.collectionView.mj_header  endRefreshing];
+    
+    __weak __block typeof(self) weakSelf = self;
+    [WWVideoService requestVideoList:nil resultBlock:^(WWbaseModel *baseModel, WWVideoListModel *videoList, NSError *error) {
+        if (!error) {
+            if (baseModel.ret == KERN_SUCCESS) {
+                weakSelf.recommendList = videoList.recommend;
+                [weakSelf.generalList setArray:videoList.general];
+                weakSelf.partition = weakSelf.recommendList.count == 0 ? 1: 2;
+                
                 if (videoList.hasmore) {
                     MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreVideo)];
                     footer.automaticallyRefresh = NO;
