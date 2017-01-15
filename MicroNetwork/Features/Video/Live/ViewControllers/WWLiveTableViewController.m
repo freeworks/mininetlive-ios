@@ -68,13 +68,7 @@ static NSString *kIdentifier = @"Live Cell";
     WWRecordedDetailsViewController *recordedDetailsVC = (WWRecordedDetailsViewController *)[WWUtils getVCWithStoryboard:@"Recorded" viewControllerId:@"RecordedDetailsVC"];
     WWVideoModel *video = self.liveList[indexPath.row];
     recordedDetailsVC.video = video;
-    if (video.streamType == kPlayTypesLive) {
-        if ([NSUserDefaults standardUserDefaults].userToken.length == 0) {
-            [WWUtils showTipAlertWithMessage:@"直播需要登录后才能观看"];
-            [WWUtils showLoginVCWithTargetVC:self];
-            return;
-        }
-    }
+
     [self.navigationController pushViewController:recordedDetailsVC animated:YES];
 }
 

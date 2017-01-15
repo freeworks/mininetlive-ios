@@ -523,6 +523,10 @@ typedef enum : NSUInteger {
 }
 
 - (void)buyClick:(UIButton *)button {
+    if ([NSUserDefaults standardUserDefaults].userToken.length == 0) {
+        [WWUtils showLoginVCWithTargetVC:self];
+        return;
+    }
     if ([button.titleLabel.text isEqualToString:@"打赏红包"]) {
         [self showPayViewMethod:kMethodATip andPayAmount:nil];
     } else if ([button.titleLabel.text isEqualToString:@"购买观看"]) {

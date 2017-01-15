@@ -195,7 +195,7 @@ typedef enum : NSUInteger {
 
     WWRecordedDetailsViewController *recordedDetailsVC = (WWRecordedDetailsViewController *)[WWUtils getVCWithStoryboard:@"Recorded" viewControllerId:@"RecordedDetailsVC"];
     if (indexPath.section == 0) {
-        recordedDetailsVC.video = self.recommendList[indexPath.row];
+        recordedDetailsVC.video = self.recommendList[indexPath.row];;
     } else {
         recordedDetailsVC.video = self.generalList[indexPath.row];
     }
