@@ -76,9 +76,11 @@
     [self startDataTaskWithParameters:nil apiPath:path HTTPMethod:kHttpMethodGET completionBlock:^(id responseObject, NSError *error) {
         if (!error) {
             NSLog(@"视频详情:%@",responseObject);
-            WWVideoModel *model = [WWVideoModel modelWithJSON:responseObject[@"data"]];
-            if (block) {
-                block(model,nil);
+            if ([responseObject[@"ret"] integerValue] == 0) {
+                WWVideoModel *model = [WWVideoModel modelWithJSON:responseObject[@"data"]];
+                if (block) {
+                    block(model,nil);
+                }
             }
         } else {
             NSLog(@"error:%@",error);

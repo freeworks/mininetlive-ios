@@ -14,7 +14,7 @@
 
 typedef void (^VideoListResponse)(WWbaseModel *baseModel, WWVideoListModel *videoList, NSError *error);
 typedef void (^LiveListResponse)(NSArray *liveArray, NSError *error);
-typedef void (^VideoDetailResponse)(WWVideoModel *videoDetail, NSError *error);
+typedef void (^VideoDetailResponse)(WWVideoModel *videoModel, NSError *error);
 
 @interface WWVideoService : WWServices
 

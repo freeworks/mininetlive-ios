@@ -33,7 +33,7 @@
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:16];
     [button setBackgroundImage:[UIImage imageNamed:@"btn_buy"] forState:UIControlStateNormal];
-    button.layer.cornerRadius = 4;
+    button.layer.cornerRadius = 6;
     [button addTarget:self action:@selector(buyAction:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:button];
 }

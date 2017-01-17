@@ -65,22 +65,17 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self initialize];
-    [self addTabBarView];
-    [self initTipsView];
-    [self postPlayHistory];
-    [self.view addSubview:self.videoController.view];
-    
-    //最后加上避免挡住
-    [self addButtonBack];
-    
-    [WWRecordedDetailsServices postJoin:self.video.aid resultBlock:^(WWbaseModel *baseModel, NSError *error) {
-        
-    }];
-    
+    [SVProgressHUD show];
     __weak __block typeof(self) weakSelf = self;
-    [WWVideoService requestVideoDetail:self.video.aid resultBlock:^(WWVideoModel *videoDetail, NSError *error) {
-        weakSelf.video = videoDetail;
+    [WWVideoService requestVideoDetail:self.video.aid resultBlock:^(WWVideoModel *videoModel, NSError *error) {
+        [SVProgressHUD dismiss];
+        if (!error) {
+            weakSelf.video = videoModel;
+            [weakSelf initialize];
+            
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"获取视频详情失败"];
+        }
     }];
 }
 
@@ -90,7 +85,6 @@ typedef enum : NSUInteger {
     [WWRecordedDetailsServices postLeave:self.video.aid resultBlock:^(WWbaseModel *baseModel, NSError *error) {
         
     }];
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -169,7 +163,8 @@ typedef enum : NSUInteger {
                            } else {
                                [self playVideoWithURL:[NSURL URLWithString:self.video.videoPath]];
                            }
-                           [self.btnBack becomeFirstResponder];
+                           [self.recordedVideoImageView removeAllSubviews];
+                           [self.view addSubview:self.btnBack];
                        } else {
                            // 支付失败或取消
                            NSLog(@"Error: code=%zd msg=%@", error.code, [error getMsg]);
@@ -185,7 +180,9 @@ typedef enum : NSUInteger {
 #pragma mark - Private Method
 - (void)initialize {
     
-    self.tableView.contentInset = UIEdgeInsetsMake(SCREEN_WIDTH*(9.0/16.0), 0, 49, 0);
+    [UIView animateWithDuration:0.3 animations:^{
+        self.tableView.contentInset = UIEdgeInsetsMake(SCREEN_WIDTH*(9.0/16.0), 0, 49, 0);
+    }];
     self.labelTitle.text = self.video.title;
     self.labelTime.text = [NSString stringWithFormat:@"时间：%@",self.video.date];
     self.labelPlayCount.text = [NSString stringWithFormat:@"播放：%zd次",self.video.playCount];
@@ -193,6 +190,19 @@ typedef enum : NSUInteger {
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.labelVideoType.text = self.video.owner.nickname;
     [self.ownerImageView setImageURL:[NSURL URLWithString:self.video.owner.avatar]];
+    
+    [self addTabBarView];
+    [self initTipsView];
+    [self postPlayHistory];
+    [self.view addSubview:self.videoController.view];
+    
+    //最后加上避免挡住
+    [self addButtonBack];
+    
+    [WWRecordedDetailsServices postJoin:self.video.aid resultBlock:^(WWbaseModel *baseModel, NSError *error) {
+        
+    }];
+    [self.tableView reloadData];
 }
 
 - (void)showmenberList:(NSArray *)menberList menberCount:(NSNumber *)menberCount {
@@ -278,7 +288,7 @@ typedef enum : NSUInteger {
 
 - (void)addRecordedVideoImageView {
     __weak __block typeof(self) weakSelf = self;
-    WWRecordedVideoImageView *recordedVideoImageView = [[WWRecordedVideoImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) imageURL:weakSelf.video.frontCover isButton:YES clickBlock:^{
+    self.recordedVideoImageView = [[WWRecordedVideoImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) imageURL:weakSelf.video.frontCover isButton:YES clickBlock:^{
         if (weakSelf.video.payState == 0) {
             if ([NSUserDefaults standardUserDefaults].userToken.length == 0) {
                 [WWUtils showLoginVCWithTargetVC:self];
@@ -288,8 +298,8 @@ typedef enum : NSUInteger {
             [self showPayViewMethod:kMethodBuy andPayAmount:[NSString stringWithFormat:@"%.2lf",self.video.price / 100]];
         }
     }];
-    recordedVideoImageView.backgroundColor = [UIColor blackColor];
-    [self.view addSubview:recordedVideoImageView];
+    self.recordedVideoImageView.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:self.recordedVideoImageView];
 }
 
 - (void)addVideoImageViewType:(NSInteger)type {
@@ -435,6 +445,7 @@ typedef enum : NSUInteger {
     [self.playerView shutdown];
     [self.playerView removeAllSubviews];
     self.playerView = nil;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
