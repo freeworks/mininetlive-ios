@@ -177,12 +177,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
 {
     if ([_delegate respondsToSelector:@selector(videoFullScreenButtonClick)]) {
         
-        if (self.video.payState == 0 && self.video.streamType == 0) {
-            [WWUtils showTipAlertWithTitle:@"请购买视频" message:@"直播视频需购买后才能放大观看"];
-            return;
-        } else {
-            [_delegate videoFullScreenButtonClick];
-        }
+        [_delegate videoFullScreenButtonClick];
     }
     if (self.isFullscreenMode) {
         return;

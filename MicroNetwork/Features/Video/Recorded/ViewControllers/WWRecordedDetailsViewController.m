@@ -169,7 +169,7 @@ typedef enum : NSUInteger {
                            } else {
                                [self playVideoWithURL:[NSURL URLWithString:self.video.videoPath]];
                            }
-
+                           [self.btnBack becomeFirstResponder];
                        } else {
                            // 支付失败或取消
                            NSLog(@"Error: code=%zd msg=%@", error.code, [error getMsg]);
