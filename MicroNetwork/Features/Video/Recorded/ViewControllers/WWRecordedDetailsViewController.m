@@ -81,7 +81,6 @@ typedef enum : NSUInteger {
     __weak __block typeof(self) weakSelf = self;
     [WWVideoService requestVideoDetail:self.video.aid resultBlock:^(WWVideoModel *videoDetail, NSError *error) {
         weakSelf.video = videoDetail;
-        [weakSelf.view updateConstraintsIfNeeded];
     }];
 }
 
@@ -314,6 +313,9 @@ typedef enum : NSUInteger {
 
 //根据不同类型视频底部展示预约或者购买
 - (void)addTabBarView {
+    CGRect frame = CGRectMake(0, SCREEN_HEIGHT-49, SCREEN_WIDTH, 49);
+    self.tabBarView = [WWTabBarView loadFromNib];
+    self.tabBarView.frame = frame;
     
     if (self.video.streamType == kPlayTypesLive) {
         
@@ -333,7 +335,6 @@ typedef enum : NSUInteger {
             case 1: {
                 if (self.video.activityType == kVideoTypeFree) {
                     [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
-
                 } else {
                     if (self.video.payState == 0) {
                         [self.tabBarView setRightButtonTitle:@"购买观看" andBackgroundImageString:@"btn_buy"];
@@ -365,11 +366,7 @@ typedef enum : NSUInteger {
         return;
     }
     
-    CGRect frame = CGRectMake(0, SCREEN_HEIGHT-49, SCREEN_WIDTH, 49);
-    self.tabBarView = [WWTabBarView loadFromNib];
-    self.tabBarView.frame = frame;
     [self.tabBarView.btnShare addTarget:self action:@selector(shareClick) forControlEvents:UIControlEventTouchUpInside];
-    
     [self.view addSubview:self.tabBarView];
 }
 

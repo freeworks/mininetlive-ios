@@ -72,6 +72,17 @@ typedef enum : NSUInteger {
 
 #pragma mark - IBActions
 - (IBAction)btnLoginClick:(UIButton *)sender {
+    
+    if (self.textAccount.text.length == 0) {
+        [SVProgressHUD showErrorWithStatus:@"请输入手机号"];
+        return;
+    }
+    
+    if (self.textPassword.text.length == 0) {
+        [SVProgressHUD showErrorWithStatus:@"请输入密码"];
+        return;
+    }
+    
     __weak __block typeof(self) weakSelf = self;
     [SVProgressHUD show];
     [[NSUserDefaults standardUserDefaults] setUserName:self.textAccount.text];
@@ -147,12 +158,6 @@ typedef enum : NSUInteger {
     
     __weak __block typeof(self) weakSelf = self;
     NSString *expires = [NSString stringWithFormat:@"%zd",[user.credential.expired timeIntervalSinceNow]];
-    NSInteger gender;
-    if (user.gender == SSDKGenderMale) {
-        gender = SSDKGenderMale;
-    } else {
-        gender = SSDKGenderFemale;
-    }
     
     NSString *nickName;
     if (user.nickname.length > 16) {
@@ -175,7 +180,7 @@ typedef enum : NSUInteger {
                                @"access_token":user.credential.token,
                                @"expires_in":expires,
                                @"nickname":nickName,
-                               @"gender":@(gender),
+                               @"gender":@(user.gender),
                                @"avatar":user.icon};
 
     [WWLoginServices requestThirdPartyLogin:userInfo resultBlock:^(WWbaseModel *baseModel, NSError *error) {
