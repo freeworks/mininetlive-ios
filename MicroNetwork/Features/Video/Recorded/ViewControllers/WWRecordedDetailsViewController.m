@@ -163,6 +163,12 @@ typedef enum : NSUInteger {
 //                                   [weakSelf.view updateConstraintsIfNeeded];
                                }
                            }];
+                           
+                           if (self.video.streamType == kPlayTypesLive) {
+                               [self addPlayerView];
+                           } else {
+                               [self playVideoWithURL:[NSURL URLWithString:self.video.videoPath]];
+                           }
 
                        } else {
                            // 支付失败或取消
@@ -230,13 +236,6 @@ typedef enum : NSUInteger {
             tipsShowLabel.attributedText = attriString;
             [self.topView addSubview:tipsShowLabel];
             
-            if (self.video.payState == 0) {
-                [self addRecordedVideoImageView];
-            } else {
-                [self playVideoWithURL:[NSURL URLWithString:self.video.videoPath]];
-            }
-        } else {
-            [self playVideoWithURL:[NSURL URLWithString:self.video.videoPath]];
         }
     }
 }
@@ -279,12 +278,14 @@ typedef enum : NSUInteger {
 
 - (void)addRecordedVideoImageView {
     __weak __block typeof(self) weakSelf = self;
-    WWRecordedVideoImageView *recordedVideoImageView = [[WWRecordedVideoImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) imageURL:weakSelf.video.frontCover clickBlock:^{
+    WWRecordedVideoImageView *recordedVideoImageView = [[WWRecordedVideoImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) imageURL:weakSelf.video.frontCover isButton:YES clickBlock:^{
         if (weakSelf.video.payState == 0) {
-            [WWUtils showTipAlertWithTitle:@"收费视频" message:@"请购买后观看"];
-        } else {
-            [weakSelf playVideoWithURL:[NSURL URLWithString:self.video.videoPath]];
-            [recordedVideoImageView removeFromSuperview];
+            if ([NSUserDefaults standardUserDefaults].userToken.length == 0) {
+                [WWUtils showLoginVCWithTargetVC:self];
+                return;
+            }
+            
+            [self showPayViewMethod:kMethodBuy andPayAmount:[NSString stringWithFormat:@"%.2lf",self.video.price / 100]];
         }
     }];
     recordedVideoImageView.backgroundColor = [UIColor blackColor];
@@ -293,10 +294,10 @@ typedef enum : NSUInteger {
 
 - (void)addVideoImageViewType:(NSInteger)type {
     __weak __block typeof(self) weakSelf = self;
-    WWRecordedVideoImageView *recordedVideoImageView = [[WWRecordedVideoImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) imageURL:weakSelf.video.frontCover clickBlock:^{
+    WWRecordedVideoImageView *recordedVideoImageView = [[WWRecordedVideoImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * (9.0/16.0)) imageURL:weakSelf.video.frontCover isButton:NO clickBlock:^{
         if (type == 0) {
             [WWUtils showTipAlertWithTitle:@"敬请期待" message:@"直播尚未开始"];
-        } else {
+        } else if (type == 1) {
             [WWUtils showTipAlertWithTitle:@"直播结束" message:@""];
         }
     }];
@@ -335,16 +336,18 @@ typedef enum : NSUInteger {
             case 1: {
                 if (self.video.activityType == kVideoTypeFree) {
                     [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
+                    [self addPlayerView];
                 } else {
                     if (self.video.payState == 0) {
                         [self.tabBarView setRightButtonTitle:@"购买观看" andBackgroundImageString:@"btn_buy"];
+                        [self addRecordedVideoImageView];
                     } else {
                         [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
+                        [self addPlayerView];
                     }
                 }
                 [self.tabBarView.rightButton addTarget:self action:@selector(buyClick:) forControlEvents:UIControlEventTouchUpInside];
                 [self addLabelType:1];
-                [self addPlayerView];
                 [self performSelector:@selector(refreshMemberList) withObject:nil afterDelay:5.0];
             }
                 break;
@@ -372,12 +375,16 @@ typedef enum : NSUInteger {
 
 - (void)refreshMemberList {
     [WWRecordedDetailsServices postMemberList:self.video.aid resultBlock:^(NSArray *menberList, NSError *error) {
-        NSString *string = [NSString stringWithFormat:@"%zd",menberList.count];
-        NSString *str = [NSString stringWithFormat:@"在线 %@ 人",string];
-        NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:str];
-        [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(3,string.length)];
-        [attriString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x4A90E2) range:NSMakeRange(3, string.length)];
-        self.tipsShowLabel.attributedText = attriString;
+        if (!error) {
+            if (menberList.count > 0) {
+                NSString *string = [NSString stringWithFormat:@"%zd",menberList.count];
+                NSString *str = [NSString stringWithFormat:@"在线 %@ 人",string];
+                NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:str];
+                [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(3,string.length)];
+                [attriString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x4A90E2) range:NSMakeRange(3, string.length)];
+                self.tipsShowLabel.attributedText = attriString;
+            }
+        }
     }];
 }
 
@@ -386,11 +393,14 @@ typedef enum : NSUInteger {
     if (self.video.activityType == kVideoTypeFee) {
         if (self.video.payState == 0) {
             [self.tabBarView setRightButtonTitle:@"购买观看" andBackgroundImageString:@"btn_buy"];
+                [self addRecordedVideoImageView];
         } else {
             [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
+            [self playVideoWithURL:[NSURL URLWithString:self.video.videoPath]];
         }
     } else {
         [self.tabBarView setRightButtonTitle:@"打赏红包" andBackgroundImageString:@"btn_reward"];
+        [self playVideoWithURL:[NSURL URLWithString:self.video.videoPath]];
     }
     [self.tabBarView.rightButton addTarget:self action:@selector(buyClick:) forControlEvents:UIControlEventTouchUpInside];
 }
