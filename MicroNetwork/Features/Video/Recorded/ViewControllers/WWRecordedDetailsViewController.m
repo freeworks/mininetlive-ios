@@ -58,6 +58,7 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) WWPlayerView *playerView;
 @property (nonatomic, strong) WWRecordedVideoImageView *recordedVideoImageView;
 @property (nonatomic, strong) UILabel *tipsShowLabel;
+@property (nonatomic, strong) NSTimer *timer;
 @end
 
 @implementation WWRecordedDetailsViewController
@@ -341,7 +342,6 @@ typedef enum : NSUInteger {
                     self.tabBarView.rightButton.userInteractionEnabled = NO;
                 }
                 [self addLabelType:0];
-                
                 break;
             case 1: {
                 if (self.video.activityType == kVideoTypeFree) {
@@ -358,7 +358,10 @@ typedef enum : NSUInteger {
                 }
                 [self.tabBarView.rightButton addTarget:self action:@selector(buyClick:) forControlEvents:UIControlEventTouchUpInside];
                 [self addLabelType:1];
-                [self performSelector:@selector(refreshMemberList) withObject:nil afterDelay:5.0];
+                
+                self.timer = [NSTimer timerWithTimeInterval:5 target:self selector:@selector(refreshMemberList) userInfo:nil repeats:YES];
+                
+                [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
             }
                 break;
             case 2:
@@ -386,7 +389,7 @@ typedef enum : NSUInteger {
 - (void)refreshMemberList {
     [WWRecordedDetailsServices postMemberList:self.video.aid resultBlock:^(NSArray *menberList, NSError *error) {
         if (!error) {
-            if (menberList.count > 0) {
+            if (menberList != nil && ![menberList isKindOfClass:[NSNull class]] && menberList.count != 0) {
                 NSString *string = [NSString stringWithFormat:@"%zd",menberList.count];
                 NSString *str = [NSString stringWithFormat:@"在线 %@ 人",string];
                 NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:str];
@@ -445,7 +448,7 @@ typedef enum : NSUInteger {
     [self.playerView shutdown];
     [self.playerView removeAllSubviews];
     self.playerView = nil;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self.timer invalidate];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
