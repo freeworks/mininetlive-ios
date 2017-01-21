@@ -31,8 +31,8 @@
 #define APP_VERSION         @"1.0.0"
 
 //SmaugShareKit
-#define SHARE_ID_QQ         @"1105470868"
-#define SHARE_APP_KEY_QQ    @"p7UMo1wI05ubSFDm"
+#define SHARE_ID_QQ         @"1105366453"
+#define SHARE_APP_KEY_QQ    @"BmqLH1PK10PV3Bju"
 
 #define SHARE_ID_WECHAT     @"wx36d2981a085f6370"
 #define SHARE_WECHAT_SECRET @"abe459435306c55530e77b9e8adaef5b"

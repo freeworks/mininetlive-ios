@@ -85,13 +85,13 @@ typedef enum : NSUInteger {
     
     __weak __block typeof(self) weakSelf = self;
     [SVProgressHUD show];
-    [[NSUserDefaults standardUserDefaults] setUserName:self.textAccount.text];
     NSDictionary *dic = @{@"phone":self.textAccount.text,
                           @"password":self.textPassword.text.md5String};
     [WWLoginServices requestLogin:dic resultBlock:^(WWbaseModel *baseModel, NSError *error) {
         if (!error) {
             [SVProgressHUD dismiss];
             if (baseModel.ret == KERN_SUCCESS) {
+                [[NSUserDefaults standardUserDefaults] setUserName:self.textAccount.text];
                 [weakSelf storedAndWhetherTheJumpInviteCodeVC:baseModel.data];
             } else {
                 [WWUtils showTipAlertWithMessage:baseModel.msg];
@@ -216,8 +216,11 @@ typedef enum : NSUInteger {
     [sharedManager.requestSerializer setValue:[NSUserDefaults standardUserDefaults].uid forHTTPHeaderField:@"uid"];
     WWUserInfoModel *user = userToken.user;
     
-    [WWUserServices postDeviceToken:[NSUserDefaults standardUserDefaults].deviceToken resultBlock:^(NSError *error) {
-    }];
+    NSString *deviceToken = [NSUserDefaults standardUserDefaults].deviceToken;
+    if (deviceToken.length != 0 || deviceToken != nil) {
+        [WWUserServices postDeviceToken:[NSUserDefaults standardUserDefaults].deviceToken resultBlock:^(NSError *error) {
+        }];
+    }
     
     if (userToken.showInvited.integerValue == 0) {
         WWInviteCodeViewController *inviteCodeVC = (WWInviteCodeViewController *)[WWUtils getVCWithStoryboard:@"Account" viewControllerId:@"InviteCodeVC"];
