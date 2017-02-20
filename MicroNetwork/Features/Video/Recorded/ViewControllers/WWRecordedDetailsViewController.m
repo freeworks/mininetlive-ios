@@ -99,20 +99,22 @@ typedef enum : NSUInteger {
     self.btnBack.hidden = YES;
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
-
 - (void)videoShrinkScreenButtonClick {
     self.btnBack.hidden = NO;
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)liveVideoFullScreenButtonClick {
     self.btnBack.hidden = YES;
+    self.tabBarView.hidden = YES;
 }
 
 - (void)liveVideoShrinkScreenButtonClick {
     self.btnBack.hidden = NO;
+    self.tabBarView.hidden = NO;
 }
 
 #pragma mark - PayView Delegate
