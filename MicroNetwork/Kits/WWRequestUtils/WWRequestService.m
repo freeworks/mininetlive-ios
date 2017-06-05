@@ -55,7 +55,6 @@ NSString *const kRet = @"ret";
         [sharedManager.requestSerializer setValue:@"ios" forHTTPHeaderField:@"platform"];
         NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
         [sharedManager.requestSerializer setValue:[infoDictionary objectForKey:@"CFBundleVersion"] forHTTPHeaderField:@"verisonCode"];
-        NSLog(@"头:%@",[infoDictionary objectForKey:@"CFBundleVersion"]);
         [sharedManager.requestSerializer setValue:[infoDictionary objectForKey:@"CFBundleShortVersionString"] forHTTPHeaderField:@"CFBundleShortVersionString"];
         [sharedManager.requestSerializer setValue:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forHTTPHeaderField:@"deviceId"];
         [sharedManager.requestSerializer setValue:[[UIDevice currentDevice] systemVersion] forHTTPHeaderField:@"os"];
